@@ -21,19 +21,19 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.id.uuid.*;
 
 class BMRController {
-	
+
 	private OAuth2Credentials oAuth2Credentials;
 	private Credential credential;
 	private UberRidesSyncService uberRidesService;
 
-    def login() {
+	def login() {
 		uberRidesService = getActiveUberLoginSession();
 		if(uberRidesService != null){
 			// Fetch the user's profile.
 			UserProfile userProfile = uberRidesService.getUserProfile().getBody();
-			
+
 			User user = User.findByUuid(userProfile.getUuid());
-			
+
 			// If this is a new user then add it to the database
 			if(user == null)
 			{
@@ -48,33 +48,31 @@ class BMRController {
 				user.setRefreshToken(credential.getRefreshToken());
 				user.setTokenExpiry(credential.getExpiresInSeconds());
 				user.save();
-				System.out.println("user saved: " + user.getFirstName());
 			}
-			
+
 			// save the logged in user in the session
 			session.setAttribute("current_user", user);
-			
-			System.out.println("user found: " + user.getFirstName());
+
 			// check if user is already logged into uber and if yes then redirect him to the welcome page.
 			redirect(action: "request");
 		}
 		else{
 			response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
 		}
-		
-    }
-	
+
+	}
+
 	def logout() {
 		uberRidesService = null;
 		credential = null;
 		request.getSession(true).invalidate();
 		redirect(action: "index");
 	}
-	
-		
+
+
 	def request()
 	{
-		
+
 		uberRidesService = getActiveUberLoginSession();
 		if(uberRidesService != null){
 			// Fetch the user's profile.
@@ -86,181 +84,181 @@ class BMRController {
 				// we need to keep user details in the database..
 				redirect(action: "login");
 			}
-			
+
 			[userProfile:userProfile, credential:credential]
-			
+
 		} else {
 			response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
 		}
-		
+
 	}
-	
+
 	def index()
-	{	
+	{
 		uberRidesService = getActiveUberLoginSession();
 		if(uberRidesService != null){
-			
+
 			// check if user is already logged into uber and if yes then redirect him to the welcome page.
 			redirect(action: "login");
 		}
 		// else show the index page
-		
+
 	}
-	
+
 	def confirm()
 	{
 		uberRidesService = getActiveUberLoginSession();
 		if(uberRidesService != null){
 			// Fetch the user's profile.
 			UserProfile userProfile = uberRidesService.getUserProfile().getBody();
-			
+
 			[userProfile:userProfile, credential:credential]
-			
+
 		} else {
 			response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
 		}
 	}
-	
-	
+
+
 	def submitRequest()
-	{		
+	{
 		uberRidesService = getActiveUberLoginSession();
 		UserProfile userProfile;
 		if(uberRidesService != null){
 			// Fetch the user's profile.
 			userProfile = uberRidesService.getUserProfile().getBody();
 		}
-		
+
 		float startLatitude = Float.parseFloat(params['pickup_latitude']);
 		float startLongitude = Float.parseFloat(params['pickup_longitude']);
 		String startAddress = params['pickup_address'];
-		
-		
+
+
 		float endLatitude = Float.parseFloat(params['drop_latitude']);
 		float endLongitude = Float.parseFloat(params['drop_longitude']);
 		String endAddress = params['drop_address'];
-		
+
 		String productId = params['vehicle-select'];
-		
+
 		SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		isoFormat.setTimeZone(TimeZone.getTimeZone("IST"));
 		Date requestDate = isoFormat.parse(params['datetime']);
-		
-		
-			RideRequest rideRequest = new RideRequest();
-			rideRequest.setStartLatitude(startLatitude);
-			rideRequest.setStartLongitude(startLongitude);
-			rideRequest.setStartAddress(startAddress);
-			rideRequest.setEndLatitude(endLatitude);
-			rideRequest.setEndLongitude(endLongitude);
-			rideRequest.setEndAddress(endAddress);
-			rideRequest.setRequester(User.findByUuid(userProfile.getUuid()));
-			rideRequest.setProductId(productId);
-			rideRequest.setRequestDate(requestDate);
-			rideRequest.setRequestStatus(RequestStatus.RequestScheduled);
-			String requestId = VersionFourGenerator.getInstance().nextUUID().toString();
-			rideRequest.setRequestId(requestId);
-		
+
+
+		RideRequest rideRequest = new RideRequest();
+		rideRequest.setStartLatitude(startLatitude);
+		rideRequest.setStartLongitude(startLongitude);
+		rideRequest.setStartAddress(startAddress);
+		rideRequest.setEndLatitude(endLatitude);
+		rideRequest.setEndLongitude(endLongitude);
+		rideRequest.setEndAddress(endAddress);
+		rideRequest.setRequester(User.findByUuid(userProfile.getUuid()));
+		rideRequest.setProductId(productId);
+		rideRequest.setRequestDate(requestDate);
+		rideRequest.setRequestStatus(RequestStatus.RequestScheduled);
+		String requestId = VersionFourGenerator.getInstance().nextUUID().toString();
+		rideRequest.setRequestId(requestId);
+
 		rideRequest.save();
-		
+
 		redirect(action: "queue");
-		
+
 		return;
 	}
-	
+
 	def cancelRequest()
 	{
 		String request_id = params['request_id'];
 		RideRequest rideRequest = RideRequest.findById(request_id);
-		rideRequest.setRequestStatus(RequestStatus.RequestCancelled);	
+		rideRequest.setRequestStatus(RequestStatus.RequestCancelled);
 		rideRequest.save();
-		
+
 		redirect(action: "queue");
-		
+
 		return;
 	}
-	
+
 	def queue(){
-		
+
 		UserProfile userProfile;
-		
+
 		uberRidesService = getActiveUberLoginSession();
 		if(uberRidesService != null){
 			// Fetch the user's profile.
 			userProfile = uberRidesService.getUserProfile().getBody();
-			
+
 		}
-		
+
 		List<RideRequest> rideRequests = RideRequest.findAllByRequesterAndRequestStatus(User.findByUuid(userProfile?.getUuid()), RequestStatus.RequestScheduled);
-		
+
 		[userProfile:userProfile, requests: rideRequests]
-		
-		
+
+
 	}
-	
-	
+
+
 	def history(){
-		
+
 		UserProfile userProfile;
-		
+
 		uberRidesService = getActiveUberLoginSession();
 		if(uberRidesService != null){
 			// Fetch the user's profile.
 			userProfile = uberRidesService.getUserProfile().getBody();
-			
+
 		}
-		
+
 		List<RideRequest> rideRequests = RideRequest.findAllByRequester(User.findByUuid(userProfile?.getUuid()));
-		
+
 		[userProfile:userProfile, requests: rideRequests]
-		
-		
+
+
 	}
-	
+
 	def getProducts()
 	{
 		float latitude = Float.parseFloat(params['pickup_latitude']);
 		float longitude = Float.parseFloat(params['pickup_longitude']);
 		String pickup_address = params['pickup_address'];
-		
-		
+
+
 		uberRidesService = getActiveUberLoginSession();
-		
+
 		ProductsResponse productResponse = uberRidesService.getProducts(latitude, longitude).getBody();
 		List<Product> products = productResponse.getProducts();
-		
+
 		String vehicle_table = "Vehicles available at pickup location "+pickup_address+" are: <br/><table> <div class='row uniform 50%'><div class='4u 12u(narrower)'><th>Name(Capacity)</th> <th>Description</th> <th>Image</th>";
 		for(Product p in products)
 		{
 			vehicle_table = vehicle_table + "<tr><td><input type='radio' id='"+p.getProductId()+"' name='vehicle-select' value='"+p.getProductId()+"'><label for='"+p.getProductId()+"'>"+ p.getDisplayName() + " ("+p.getCapacity()+")</label></td>" + "<td>" + p.getDescription() + "</td>" + "<td><img src='" + p.getImage() + "' height='42' width='60'/></td></tr>";
 		}
-		
-	
+
+
 		vehicle_table = vehicle_table + "</div></div></table>"
-		
+
 		render vehicle_table;
 	}
-	
-	
+
+
 	def getProduct()
 	{
 		String product_id = params['product_id'];
-		
+
 		uberRidesService = getActiveUberLoginSession();
-		
+
 		Product product =  uberRidesService.getProduct(product_id).getBody();
-		
-		
+
+
 		String vehicle_table = "Selected vehicle: <br/><table> <th>Name(Capacity)</th> <th>Description</th> <th>Image</th>";
-		
+
 		vehicle_table = vehicle_table + "<tr><td>"+ product.getDisplayName() + " ("+product.getCapacity()+")</td>" + "<td>" + product.getDescription() + "</td>" + "<td><img src='" + product.getImage() + "' height='42' width='60'/></td></tr>";
-		
-	
+
+
 		vehicle_table = vehicle_table + "</table>"
-		
+
 		render vehicle_table;
 	}
-	
+
 	private UberRidesSyncService getActiveUberLoginSession()
 	{
 		if (oAuth2Credentials == null) {
@@ -286,13 +284,13 @@ class BMRController {
 				uberRidesService = UberRidesServices.createSync(session);
 			}
 			return uberRidesService;
-			
+
 		} else {
 			return null;
 		}
-		
+
 		return null;
 	}
 
-    
+
 }

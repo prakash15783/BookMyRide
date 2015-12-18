@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 class CallbackController {
-	
+
 	private OAuth2Credentials oAuth2Credentials;
-	
+
 	def callback(){
 		if (oAuth2Credentials == null) {
 			oAuth2Credentials = BMRAuthService.createOAuth2Credentials();
@@ -25,7 +25,7 @@ class CallbackController {
 		if (httpSession.getAttribute(BMRAuthService.USER_SESSION_ID) == null) {
 			httpSession.setAttribute(BMRAuthService.USER_SESSION_ID, new Random().nextLong());
 		}
-		
+
 		String requestUrl = request.getRequestURL().append('?').append(request.getQueryString()).toString();
 		AuthorizationCodeResponseUrl authorizationCodeResponseUrl =
 				new AuthorizationCodeResponseUrl(requestUrl);
@@ -42,7 +42,7 @@ class CallbackController {
 			oAuth2Credentials.authenticate(authorizationCode, httpSession.getAttribute(BMRAuthService.USER_SESSION_ID).toString());
 		}
 		response.sendRedirect("/BookMyRide/request");
-		
+
 	}
 
 }

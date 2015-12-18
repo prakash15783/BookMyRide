@@ -1,7 +1,7 @@
 package bookmyride
 
 class User {
-	
+
 	String firstName;
 	String lastName;
 	String email;
@@ -12,8 +12,8 @@ class User {
 	String refreshToken;
 	long tokenExpiry;
 
-    // Constraints of a user
-    static constraints = {
+	// Constraints of a user
+	static constraints = {
 		firstName(nullable:false, blank:false)
 		lastName(nullable:false, blank:false)
 		email(nullable:false, blank:false)
@@ -25,8 +25,8 @@ class User {
 		tokenExpiry(blank:false)
 		id()
 	}
-	
+
 	// A User can have many ride request
 	static hasMany = [riderequests : RideRequest]
-	
+
 }
