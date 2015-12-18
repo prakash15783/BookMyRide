@@ -10,7 +10,7 @@ class User {
 	String uuid;
 	String accessToken;
 	String refreshToken;
-	int tokenExpiry;
+	long tokenExpiry;
 
     // Constraints of a user
     static constraints = {
@@ -20,11 +20,13 @@ class User {
 		picture(nullable:true)
 		promoCode(nullable:true)
 		uuid(nullable:false, blank:false)
-		accessToken(nullable:false, blank:false)
-		refreshToken(nullable:false, blank:false)
-		tokenExpiry()
+		accessToken(nullable:false, blank:false, maxSize: 32760)
+		refreshToken(nullable:false, blank:false, maxSize: 32760)
+		tokenExpiry(blank:false)
+		id()
 	}
 	
-	// A User can have many ride requests
-	static hasMany = [rideRequests : RideRequest]
+	// A User can have many ride request
+	static hasMany = [riderequests : RideRequest]
+	
 }

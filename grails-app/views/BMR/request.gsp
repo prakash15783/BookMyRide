@@ -21,9 +21,9 @@
 							<li>
 								<a href="#" class="icon fa-angle-down">${userProfile.getFirstName()}</a>
 								<ul>
-									<li><a href="generic.html">New Ride</a></li>
-									<li><a href="contact.html">Queue</a></li>
-									<li><a href="elements.html">History</a></li>
+									<li><a href="/BookMyRide/request">New Ride</a></li>
+									<li><a href="/BookMyRide/queue">Queue</a></li>
+									<li><a href="/BookMyRide/history">History</a></li>
 									
 								</ul>
 							</li>
@@ -56,7 +56,7 @@
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
-												Pickup Map: <div id="pickup_map" style="width: 600px; height: 400px;"></div>
+												Pickup Map: <div id="pickup_map" style="width: 400px; height: 300px;"></div>
 											</div>
 										</div>
 														
@@ -71,7 +71,7 @@
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
-												Dropoff Map: <div id="drop_map" style="width: 600px; height: 400px;"></div>
+												Dropoff Map: <div id="drop_map" style="width: 400px; height: 300px;"></div>
 											</div>
 										</div>
 														
@@ -97,7 +97,7 @@
 										<div class="row uniform">
 											<div class="12u">
 												<ul class="actions">
-													<li><input type="submit" value="Submit Request" /></li>
+													<li><input type="submit" value="Continue" /></li>
 												</ul>
 											</div>
 										</div>

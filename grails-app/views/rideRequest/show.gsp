@@ -1,108 +1,171 @@
 
-<%@ page import="bookmyride.RideRequest" %>
-<!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'rideRequest.label', default: 'RideRequest')}" />
-		<title><g:message code="default.show.label" args="[entityName]" /></title>
+		<title>BookMyRide | RideRequest Details</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="../../js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../css/main.css" />
+		<link rel="stylesheet" href="../../css/jquery.datetimepicker.css"/ >
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../css/ie8.css" /><![endif]-->
 	</head>
-	<body>
-		<a href="#show-rideRequest" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
+	<body class="landing">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<h1><a href="/BookMyRide/">BookMyRide</a></h1>
+					<nav id="nav">
+						<ul>
+							<li><a href="/BookMyRide/">Home</a></li>
+							<li>
+								<a href="#" class="icon fa-angle-down">${loggedInUser.getFirstName()}</a>
+								<ul>
+									<li><a href="/BookMyRide/request">New Ride</a></li>
+									<li><a href="/BookMyRide/queue">Queue</a></li>
+									<li><a href="/BookMyRide/history">History</a></li>
+									
+								</ul>
+							</li>
+							<li><a href="/BookMyRide/logout" class="button">Sign Out</a></li>
+						</ul>
+					</nav>
+				</header>
+
+			<!-- Main -->
+				<section id="main" class="container">
+					<header>
+						<h2>RideRequest Details</h2>
+					</header>
+					<div class="row">
+					
+						 <div class="12u">
+
+							<!-- Form -->
+								<section class="box">
+									<br/>
+									<br/>
+									<h2>RideRequest Details</h2>
+									<form id="cancelRide" method="post" action="/BookMyRide/cancelrequest">
+										
+										<div class="row uniform 50%">
+											<div class="6u 12u(mobilep)">
+											Pickup Address: ${rideRequestInstance.getStartAddress()}	
+											</div>
+										</div>
+										
+										<div class="row uniform 50%">
+											<div class="6u 12u(mobilep)">
+												Pickup Map: <div id="pickup_map" style="width: 400px; height: 300px;"></div>
+											</div>
+										</div>
+														
+										<input type="hidden" name="pickup_latitude" id="pickup_latitude" value="${rideRequestInstance.getStartLatitude()}"/>
+										<input type="hidden" name="pickup_longitude" id="pickup_longitude" value="${rideRequestInstance.getStartLongitude()}"/>
+										<input type="hidden" name="pickup_address" id="pickup_address" value="${rideRequestInstance.getStartAddress()}"/>
+										<input type="hidden" name="request_id" id="request_id" value="${rideRequestInstance.getId()}"/>
+										
+										<div class="row uniform 50%">
+											<div class="6u 12u(mobilep)">
+												Dropoff Address: ${rideRequestInstance.getEndAddress()}
+											</div>
+										</div>
+										
+										<div class="row uniform 50%">
+											<div class="6u 12u(mobilep)">
+												Dropoff Map: <div id="drop_map" style="width: 400px; height: 300px;"></div>
+											</div>
+										</div>
+														
+										<input type="hidden" name="drop_latitude" id="drop_latitude" value="${rideRequestInstance.getEndLatitude()}"/>
+										<input type="hidden" name="drop_longitude" id="drop_longitude" value="${rideRequestInstance.getEndLongitude()}"/>
+										<input type="hidden" name="drop_address" id="drop_address" value="${rideRequestInstance.getEndAddress()}"/>
+										
+										<input type="hidden" name="vehicle-select" id="vehicle-select" value="${rideRequestInstance.getProductId()}">
+										<input type="hidden" name="datetime" id="datetime" value="${rideRequestInstance.getRequestDate()}">
+										<br/>
+										
+										
+										
+										<div id="vehicle"></div>
+										
+										
+										<div class="row uniform 50%">
+											<div class="6u 12u(mobilep)">
+												Request Time: ${rideRequestInstance.getRequestDate()}
+											</div>
+										</div>
+										
+													
+										<div class="row uniform">
+											<div class="12u">
+												<ul class="actions">
+													<li><input type="submit" value="Cancel Request" /></li>
+												</ul>
+											</div>
+										</div>
+										
+										
+									</form>
+								</section>
+						</div> 
+						</div>
+				</section>
 		</div>
-		<div id="show-rideRequest" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<ol class="property-list rideRequest">
+		
+		
+		
+
+		<!-- Scripts -->
+			<script src="../../js/jquery.min.js"></script>
+			<script src="../../js/jquery.dropotron.min.js"></script>
+			<script src="../../js/jquery.scrollgress.min.js"></script>
+			<script src="../../js/skel.min.js"></script>
+			<script src="../../js/util.js"></script>
+			<!--[if lte IE 8]><script src="../../js/ie/respond.min.js"></script><![endif]-->
+			<script src="../../js/main.js"></script>
+			<script src='https://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+			<script src="../../js/locationpicker.jquery.js"></script>
+			<script src="../../js/jquery.datetimepicker.full.min.js"></script>
+			<script>$('#pickup_map').locationpicker({
+			location: {latitude: $('#pickup_latitude').val(), longitude: $('#pickup_longitude').val()},	
+			radius: 30
+	});
+
+			$('#drop_map').locationpicker({
+				location: {latitude: $('#drop_latitude').val(), longitude: $('#drop_longitude').val()},	
+				radius: 30
+				});
+
+			$('#cancelRide').submit(function() {
+				var confirmation = confirm("Do you want to cancel this ride?");
+			        if(confirmation == false)
+				        {
+				        return false;
+				        }
+			});
+
 			
-				<g:if test="${rideRequestInstance?.requester}">
-				<li class="fieldcontain">
-					<span id="requester-label" class="property-label"><g:message code="rideRequest.requester.label" default="Requester" /></span>
-					
-						<span class="property-value" aria-labelledby="requester-label"><g:link controller="user" action="show" id="${rideRequestInstance?.requester?.id}">${rideRequestInstance?.requester?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
+	function populateVehicleDetail(){
+		
+				var product_id = $('#vehicle-select').val();
+					//Ajax call to send data to the server,
+					$.get("http://localhost:8080/BookMyRide/product",
+									{
+										product_id : product_id
+									},
+									function(data) {
+										document.getElementById("vehicle").innerHTML = data;
+									});
+				
+				}
+
+	populateVehicleDetail();
+
 			
-				<g:if test="${rideRequestInstance?.startLatitude}">
-				<li class="fieldcontain">
-					<span id="startLatitude-label" class="property-label"><g:message code="rideRequest.startLatitude.label" default="Start Latitude" /></span>
-					
-						<span class="property-value" aria-labelledby="startLatitude-label"><g:fieldValue bean="${rideRequestInstance}" field="startLatitude"/></span>
-					
-				</li>
-				</g:if>
+</script>
 			
-				<g:if test="${rideRequestInstance?.startLongitude}">
-				<li class="fieldcontain">
-					<span id="startLongitude-label" class="property-label"><g:message code="rideRequest.startLongitude.label" default="Start Longitude" /></span>
-					
-						<span class="property-value" aria-labelledby="startLongitude-label"><g:fieldValue bean="${rideRequestInstance}" field="startLongitude"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${rideRequestInstance?.endLatitude}">
-				<li class="fieldcontain">
-					<span id="endLatitude-label" class="property-label"><g:message code="rideRequest.endLatitude.label" default="End Latitude" /></span>
-					
-						<span class="property-value" aria-labelledby="endLatitude-label"><g:fieldValue bean="${rideRequestInstance}" field="endLatitude"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${rideRequestInstance?.surgeConfirmationId}">
-				<li class="fieldcontain">
-					<span id="surgeConfirmationId-label" class="property-label"><g:message code="rideRequest.surgeConfirmationId.label" default="Surge Confirmation Id" /></span>
-					
-						<span class="property-value" aria-labelledby="surgeConfirmationId-label"><g:fieldValue bean="${rideRequestInstance}" field="surgeConfirmationId"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${rideRequestInstance?.productId}">
-				<li class="fieldcontain">
-					<span id="productId-label" class="property-label"><g:message code="rideRequest.productId.label" default="Product Id" /></span>
-					
-						<span class="property-value" aria-labelledby="productId-label"><g:fieldValue bean="${rideRequestInstance}" field="productId"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${rideRequestInstance?.requestStatus}">
-				<li class="fieldcontain">
-					<span id="requestStatus-label" class="property-label"><g:message code="rideRequest.requestStatus.label" default="Request Status" /></span>
-					
-						<span class="property-value" aria-labelledby="requestStatus-label"><g:fieldValue bean="${rideRequestInstance}" field="requestStatus"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${rideRequestInstance?.endLongitude}">
-				<li class="fieldcontain">
-					<span id="endLongitude-label" class="property-label"><g:message code="rideRequest.endLongitude.label" default="End Longitude" /></span>
-					
-						<span class="property-value" aria-labelledby="endLongitude-label"><g:fieldValue bean="${rideRequestInstance}" field="endLongitude"/></span>
-					
-				</li>
-				</g:if>
-			
-			</ol>
-			<g:form>
-				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${rideRequestInstance?.id}" />
-					<g:link class="edit" action="edit" id="${rideRequestInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-			</g:form>
-		</div>
+		
+
 	</body>
 </html>
