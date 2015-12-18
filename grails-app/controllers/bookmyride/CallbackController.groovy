@@ -41,7 +41,7 @@ class CallbackController {
 			String authorizationCode = authorizationCodeResponseUrl.getCode();
 			oAuth2Credentials.authenticate(authorizationCode, httpSession.getAttribute(BMRAuthService.USER_SESSION_ID).toString());
 		}
-		response.sendRedirect("/BookMyRide/");
+		response.sendRedirect("/BookMyRide/request");
 		
 	}
 

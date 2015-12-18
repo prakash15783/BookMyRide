@@ -16,11 +16,11 @@ class BMRAuthService {
 	
 		// Set your server's port and callback URL.
 		//private static final int PORT = 8080;
-		private static final String CALLBACK_URL = "/Callback";
+		private static final String CALLBACK_URL = "/callback";
 	
 		// IMPORTANT: Before starting the server, make sure to add this redirect URI to your
 		// application at developers.uber.com.
-		private static final String REDIRECT_URI = "https://www.lifejour.com/BookMyRide" + CALLBACK_URL;
+		private static final String REDIRECT_URI = "http://localhost:8080/BookMyRide" + CALLBACK_URL;
 
 	/**
 	 * Creates an {@link OAuth2Credentials} object that can be used by any of the servlets.

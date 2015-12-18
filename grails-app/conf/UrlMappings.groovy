@@ -8,7 +8,12 @@ class UrlMappings {
 		}
 
 		"/"(controller:"BMR", action:"index")
-		"/Callback"(controller:"Callback", action:"callback")
+		"/login"(controller:"BMR", action:"login")
+		"/logout"(controller:"BMR", action:"logout")
+		"/request"(controller:"BMR", action:"request")
+		"/confirm"(controller:"BMR", action:"confirm")
+		"/products"(controller:"BMR", action:"getProducts")
+		"/callback"(controller:"Callback", action:"callback")
 		"500"(view:'/error')
 	}
 }
