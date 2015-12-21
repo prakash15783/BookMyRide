@@ -24,7 +24,7 @@
 									<li><a href="/BookMyRide/request">New Ride</a></li>
 									<li><a href="/BookMyRide/queue">Queue</a></li>
 									<li><a href="/BookMyRide/history">History</a></li>
-									
+									<li><a href="/BookMyRide/faq">FAQ</a></li>
 								</ul>
 							</li>
 							<li><a href="/BookMyRide/logout" class="button">Sign Out</a></li>

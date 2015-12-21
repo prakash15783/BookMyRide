@@ -258,6 +258,20 @@ class BMRController {
 
 		render vehicle_table;
 	}
+	
+	def faq()
+	{
+		UserProfile userProfile;
+		
+				uberRidesService = getActiveUberLoginSession();
+				if(uberRidesService != null){
+					// Fetch the user's profile.
+					userProfile = uberRidesService.getUserProfile().getBody();
+				}
+				
+				[userProfile:userProfile]
+		
+	}
 
 	private UberRidesSyncService getActiveUberLoginSession()
 	{
@@ -291,6 +305,7 @@ class BMRController {
 
 		return null;
 	}
+	
 
 
 }
