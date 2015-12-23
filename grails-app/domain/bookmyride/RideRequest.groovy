@@ -27,7 +27,9 @@ class RideRequest {
 	Date requestDate;
 	// Request status (Scheduled, Completed, Cancelled)
 	RequestStatus requestStatus;
-
+	
+	String uberRequestId; //Request Id generated in database
+	
 	static constraints = {
 		id()
 		requester(nullable: false)
@@ -42,8 +44,28 @@ class RideRequest {
 		requestStatus(type: IdentityEnumType)
 		requestDate(nullable:false)
 		requestId(nullable:false)
+		uberRequestId(nullable:true) 
 	}
 
 	// A RideRequest belongs to a User
 	static belongsTo = [requester:User]
+
+	static mapping = {
+		requester lazy: false
+	}
+
+	@Override
+	public String toString() {
+		return "RideRequest [requestId=" + requestId + ", requester="
+				+ requester + ", startLatitude=" + startLatitude
+				+ ", startLongitude=" + startLongitude + ", startAddress="
+				+ startAddress + ", endLatitude=" + endLatitude
+				+ ", endLongitude=" + endLongitude + ", endAddress="
+				+ endAddress + ", surgeConfirmationId=" + surgeConfirmationId
+				+ ", productId=" + productId + ", requestDate=" + requestDate
+				+ ", requestStatus=" + requestStatus + ", uberRequestId="
+				+ uberRequestId + "]";
+	}
+	
+	
 }

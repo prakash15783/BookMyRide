@@ -1,8 +1,14 @@
 package bookmyride
 
+import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.util.store.MemoryDataStoreFactory;
 import com.uber.sdk.rides.auth.OAuth2Credentials;
 
+
+import com.uber.sdk.rides.client.Session
+import com.uber.sdk.rides.client.UberRidesAsyncService
+import com.uber.sdk.rides.client.UberRidesSyncService;
+import com.uber.sdk.rides.client.UberRidesServices;
 
 import java.io.File;
 import java.io.FileReader;
@@ -22,6 +28,13 @@ class BMRAuthService {
 		// application at developers.uber.com.
 		private static final String REDIRECT_URI = "http://localhost:8080/BookMyRide" + CALLBACK_URL;
 
+		static {
+			System.setProperty("https.proxyHost", "www-proxy.us.oracle.com");
+			System.setProperty("https.proxyPort", "80");
+			
+			System.setProperty("http.proxyHost", "www-proxy.us.oracle.com");
+			System.setProperty("http.proxyPort", "80");
+		}
 	/**
 	 * Creates an {@link OAuth2Credentials} object that can be used by any of the servlets.
 	 *
@@ -38,5 +51,68 @@ class BMRAuthService {
 				.setClientSecrets(clientId, clientSecret)
 				.build();
 	}
+	 
+	 private OAuth2Credentials oAuth2Credentials;
+	 private Credential credential;
+	 private UberRidesSyncService uberRidesService;
+ 
+	 
+	 public UberRidesSyncService getActiveUberLoginSession(String userId)
+	 {
+		 if (oAuth2Credentials == null) {
+			 oAuth2Credentials = BMRAuthService.createOAuth2Credentials();
+		 }
+ 
+		 credential = oAuth2Credentials.loadCredential(userId);
+ 
+		 if (credential != null && credential.getAccessToken() != null) {
+			 if (uberRidesService == null) {
+				 // Create the session
+				 Session session = new Session.Builder()
+						 .setCredential(credential)
+						 .setEnvironment(Session.Environment.PRODUCTION)
+						 .build();
+ 
+				 // Set up the Uber API Service once the user is authenticated.
+				 uberRidesService = UberRidesServices.createSync(session);
+			 }
+			 return uberRidesService;
+			 
+			 
+		 } else {
+			 return null;
+		 }
+		 
+		 return null;
+	 }
+	 
+	 public UberRidesAsyncService getActiveUberAsynchService(String userId)
+	 {
+		 if (oAuth2Credentials == null) {
+			 oAuth2Credentials = BMRAuthService.createOAuth2Credentials();
+		 }
+ 
+		 credential = oAuth2Credentials.loadCredential(userId);
+ 
+		 if (credential != null && credential.getAccessToken() != null) {
+			 if (uberRidesService == null) {
+				 // Create the session
+				 Session session = new Session.Builder()
+						 .setCredential(credential)
+						 .setEnvironment(Session.Environment.PRODUCTION)
+						 .build();
+ 
+				 // Set up the Uber API Service once the user is authenticated.
+				 uberRidesService = UberRidesServices.createAsync(session);
+			 }
+			 return uberRidesService;
+			 
+			 
+		 } else {
+			 return null;
+		 }
+		 
+		 return null;
+	 }
 
 }

@@ -27,6 +27,16 @@ class User {
 	}
 
 	// A User can have many ride request
-	static hasMany = [riderequests : RideRequest]
+	static hasMany = [riderequests : RideRequest]
 
+	@Override
+	public String toString() {
+		return "User [firstName=" + firstName + ", lastName=" + lastName
+				+ ", email=" + email + ", picture=" + picture + ", promoCode="
+				+ promoCode + ", uuid=" + uuid + ", accessToken=" + accessToken
+				+ ", refreshToken=" + refreshToken + ", tokenExpiry="
+				+ tokenExpiry + "]";
+	}
+
+	
 }

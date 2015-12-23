@@ -49,6 +49,7 @@ grails.project.dependency.resolution = {
 		runtime 'com.google.http-client:google-http-client-jackson2:1.21.0'
 		runtime 'com.squareup.retrofit:retrofit:1.9.0'
 		runtime 'com.squareup.okhttp:okhttp:2.6.0'
+		compile group: 'javax.mail', name: 'mail', version: '1.4.1'
     }
 
     plugins {
