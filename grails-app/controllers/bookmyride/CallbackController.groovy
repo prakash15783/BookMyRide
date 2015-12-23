@@ -1,16 +1,11 @@
 package bookmyride
 
-import com.google.api.client.auth.oauth2.AuthorizationCodeResponseUrl;
-import com.uber.sdk.rides.auth.OAuth2Credentials;
+import javax.servlet.http.HttpSession
 
-import java.io.IOException;
-import java.util.Random;
+import org.apache.commons.id.uuid.VersionFourGenerator
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import com.google.api.client.auth.oauth2.AuthorizationCodeResponseUrl
+import com.uber.sdk.rides.auth.OAuth2Credentials
 
 class CallbackController {
 
@@ -23,7 +18,7 @@ class CallbackController {
 
 		HttpSession httpSession = request.getSession(true);
 		if (httpSession.getAttribute(BMRAuthService.USER_SESSION_ID) == null) {
-			httpSession.setAttribute(BMRAuthService.USER_SESSION_ID, new Random().nextLong());
+			httpSession.setAttribute(BMRAuthService.USER_SESSION_ID, VersionFourGenerator.getInstance().nextUUID().toString());
 		}
 
 		String requestUrl = request.getRequestURL().append('?').append(request.getQueryString()).toString();
@@ -36,7 +31,7 @@ class CallbackController {
 			// Authenticate the user and store their credential with their user ID (derived from
 			// the request).
 			if (httpSession.getAttribute(BMRAuthService.USER_SESSION_ID) == null) {
-				httpSession.setAttribute(BMRAuthService.USER_SESSION_ID, new Random().nextLong());
+				httpSession.setAttribute(BMRAuthService.USER_SESSION_ID, VersionFourGenerator.getInstance().nextUUID().toString());
 			}
 			String authorizationCode = authorizationCodeResponseUrl.getCode();
 			oAuth2Credentials.authenticate(authorizationCode, httpSession.getAttribute(BMRAuthService.USER_SESSION_ID).toString());

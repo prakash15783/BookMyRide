@@ -47,6 +47,7 @@ class BMRController {
 				user.setAccessToken(credential.getAccessToken());
 				user.setRefreshToken(credential.getRefreshToken());
 				user.setTokenExpiry(credential.getExpiresInSeconds());
+				user.setUserSessionId(session.getAttribute(BMRAuthService.USER_SESSION_ID));
 				user.save();
 			}
 
@@ -83,6 +84,11 @@ class BMRController {
 				// if it is the first time user has visited this site and the server just started...
 				// we need to keep user details in the database..
 				redirect(action: "login");
+			}
+			else
+			{
+				user.setUserSessionId(session.getAttribute(BMRAuthService.USER_SESSION_ID));
+				user.save();
 			}
 
 			[userProfile:userProfile, credential:credential]
@@ -282,7 +288,7 @@ class BMRController {
 		// Load the user from their user ID (derived from the request).
 		HttpSession httpSession = request.getSession(true);
 		if (httpSession.getAttribute(BMRAuthService.USER_SESSION_ID) == null) {
-			httpSession.setAttribute(BMRAuthService.USER_SESSION_ID, new Random().nextLong());
+			httpSession.setAttribute(BMRAuthService.USER_SESSION_ID, VersionFourGenerator.getInstance().nextUUID().toString());
 		}
 		credential = oAuth2Credentials.loadCredential(httpSession.getAttribute(BMRAuthService.USER_SESSION_ID).toString());
 

@@ -2,15 +2,15 @@ package bookmyride.scheduler.uber;
 
 import java.sql.Timestamp
 
+import bookmyride.BMRAuthService
 import bookmyride.BookMyRideConstants
 import bookmyride.CommonDataStore
 import bookmyride.MailQueue
 import bookmyride.RequestStatus
 import bookmyride.RideRequest
 import bookmyride.RideRequestLog
-import bookmyride.RideResponse
+import bookmyride.User
 import bookmyride.scheduler.AbstractRideRequestProcessor
-import bookmyride.scheduler.uber.mock.MockService
 
 import com.uber.sdk.rides.client.Callback
 import com.uber.sdk.rides.client.Response
@@ -37,7 +37,7 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 				System.out.println("Processing Request : " +rideRequest.getProductId());
 
 				//User uber sdk to process ride
-				UberRidesService uberRidesService = getUberRidesService("sync");
+				UberRidesService uberRidesService = getUberSyncService(rideRequest.getRequester());//getUberRidesService(rideRequest.getRequester(),"sync");
 				RideRequestParameters rideRequestParameters = getRideRequestParameters(rideRequest);
 				if(rideRequestParameters != null){
 					requestRide(uberRidesService,rideRequestParameters,rideRequest,rideReqLog)
@@ -63,22 +63,21 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 		}
 	}
 	
-	private UberRidesService getUberRidesService(String serviceMode){
+	private UberRidesService getUberRidesService(User user,String serviceMode){
 		//TODO: User serviceMode to determine sync or async service
-		return getUberRidesAsyncService();
+		return getUberRidesAsyncService(user);
 	}
-	private UberRidesAsyncService getUberRidesAsyncService(){
-		//            BMRAuthService bmrAuthService = new BMRAuthService();
-		//            UberRidesAsyncService uberRidesAsyncService = bmrAuthService.getActiveUberAsynchService(rideRequest.getRequester().getUuid());
-			
-		return new MockService();
+	private UberRidesAsyncService getUberRidesAsyncService(User user){
+		BMRAuthService bmrAuthService = new BMRAuthService();
+		UberRidesAsyncService uberRidesAsyncService = bmrAuthService.getActiveUberAsynchService(user.getUserSessionId());
+		return uberRidesAsyncService;
+		//		return new MockService();
 	}
 	
-	private UberRidesAsyncService getUberSyncService(){
-//		BMRAuthService bmrAuthService = new BMRAuthService();
-		//            UberRidesSyncService uberRidesSyncService = bmrAuthService.getActiveUberLoginSession(rideRequest.getRequester().getUuid());
-//			uberRidesSyncService.requestRide(rideRequestParameters)
-		return new MockService();
+	private UberRidesAsyncService getUberSyncService(User user){
+		BMRAuthService bmrAuthService = new BMRAuthService();
+		UberRidesSyncService uberRidesSyncService = bmrAuthService.getActiveUberLoginSession(user.getUserSessionId());
+		return uberRidesSyncService;//new MockService();
 	}
 	private RideRequestParameters getRideRequestParameters(RideRequest rideRequest) {
 		return new RideRequestParameters.Builder()
@@ -122,7 +121,7 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 //			mailQueue.enqueueMailMessage(new RideResponse(rideRequest,ride));
 			println"*************************************";
 			println "1-------++++++++++++------------"+rideRequest.getStartAddress() + rideRequest.getRequestStatus();
-			print "<<<"+rideRequest.toString()+">>>"
+			print "<<<Uber Request Id "+ride.getRideId()+">>>"
 			
 			System.out.println("RideRequest [requestId=" + rideRequest.getRequestId() + ", requester="
 				+ rideRequest.getRequester() + ", startLatitude=" + rideRequest.getStartLatitude()

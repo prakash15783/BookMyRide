@@ -11,6 +11,7 @@ class User {
 	String accessToken;
 	String refreshToken;
 	long tokenExpiry;
+	String userSessionId;
 
 	// Constraints of a user
 	static constraints = {
@@ -23,6 +24,7 @@ class User {
 		accessToken(nullable:false, blank:false, maxSize: 32760)
 		refreshToken(nullable:false, blank:false, maxSize: 32760)
 		tokenExpiry(blank:false)
+		userSessionId(nullable:false)
 		id()
 	}
 
