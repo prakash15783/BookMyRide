@@ -96,15 +96,15 @@
 											</div>
 										</div>
 										
-													
-										<div class="row uniform">
-											<div class="12u">
-												<ul class="actions">
-													<li><input type="submit" value="Cancel Request" /></li>
-												</ul>
+										<g:if test="${rideRequestInstance.getRequestStatus().getName().equals('Scheduled')}">		
+											<div class="row uniform">
+												<div class="12u">
+													<ul class="actions">
+														<li><input type="submit" value="Cancel Request" /></li>
+													</ul>
+												</div>
 											</div>
-										</div>
-										
+										</g:if>	
 										
 									</form>
 								</section>

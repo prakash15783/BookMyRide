@@ -46,7 +46,7 @@
 									<br/>
 									<br/>
 									<h2>Request A Ride</h2>
-									<form method="post" action="/BookMyRide/confirm">
+									<form method="post" action="/BookMyRide/confirm" id="requestForm">
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
@@ -94,8 +94,8 @@
 										</div>
 										
 													
-										<div class="row uniform">
-											<div class="12u">
+										<div class="row uniform 50%">
+											<div class="6u 12u(mobilep)">
 												<ul class="actions">
 													<li><input type="submit" value="Continue" /></li>
 												</ul>
@@ -154,7 +154,6 @@
 				var pickup_longitude = $('#pickup_longitude').val();
 				var pickup_address = $('#pickup_address').val();
 				
-				
 					//Ajax call to send data to the server,
 					$.get("http://localhost:8080/BookMyRide/products",
 									{
@@ -167,6 +166,30 @@
 									});
 				
 				}
+
+			$(document).ready(function(){
+			    $('#requestForm').on('submit', function(e){
+			        e.preventDefault();
+			        
+				    var vehicle_select = $("[name='vehicle-select']");
+				    var num = $( "input:checked" ).length;
+					    if(vehicle_select.length == 0 || num == 0)
+				        {
+					        alert("Please tell us the vehicle you want to use for your ride.");
+					        return;
+				        }
+
+					    
+					var datetime = $('#datetime').val();
+			        	if(datetime == '')
+				        {
+					        alert("Please tell us the pickup date and time.");
+					        return;
+				        } 
+
+				        this.submit();
+			    });
+			});
 
 </script>
 			

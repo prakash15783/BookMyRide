@@ -44,6 +44,7 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 				}
 			} catch (Throwable e) {
 			
+				System.out.println("Something went wrong: "+e.detailMessage);
 				e.printStackTrace()
 			}  		
     	}
@@ -59,6 +60,7 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 			//TODO: Use rideResponse for mailing logging.
 			RideCallback rideCallback = new RideCallback(rideRequest,rideReqLog);
 			Ride ride = rideResponse.getBody();
+			System.out.println("Ride ID: " + ride.getRideId());
 			rideCallback.success(ride, rideResponse);
 		}
 	}
@@ -67,17 +69,16 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 		//TODO: User serviceMode to determine sync or async service
 		return getUberRidesAsyncService(user);
 	}
-	private UberRidesAsyncService getUberRidesAsyncService(User user){
+	private UberRidesService getUberRidesAsyncService(User user){
 		BMRAuthService bmrAuthService = new BMRAuthService();
 		UberRidesAsyncService uberRidesAsyncService = bmrAuthService.getActiveUberAsynchService(user.getUserSessionId());
 		return uberRidesAsyncService;
-		//		return new MockService();
 	}
 	
-	private UberRidesAsyncService getUberSyncService(User user){
+	private UberRidesService getUberSyncService(User user){
 		BMRAuthService bmrAuthService = new BMRAuthService();
 		UberRidesSyncService uberRidesSyncService = bmrAuthService.getActiveUberLoginSession(user.getUserSessionId());
-		return uberRidesSyncService;//new MockService();
+		return uberRidesSyncService;
 	}
 	private RideRequestParameters getRideRequestParameters(RideRequest rideRequest) {
 		return new RideRequestParameters.Builder()

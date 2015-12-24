@@ -1,20 +1,13 @@
 package bookmyride
 
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.util.store.MemoryDataStoreFactory;
-import com.uber.sdk.rides.auth.OAuth2Credentials;
-
-
+import com.google.api.client.auth.oauth2.Credential
+import com.google.api.client.util.store.MemoryDataStoreFactory
+import com.uber.sdk.rides.auth.OAuth2Credentials
+import com.uber.sdk.rides.auth.OAuth2Credentials.Scope
 import com.uber.sdk.rides.client.Session
 import com.uber.sdk.rides.client.UberRidesAsyncService
-import com.uber.sdk.rides.client.UberRidesSyncService;
-import com.uber.sdk.rides.client.UberRidesServices;
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import com.uber.sdk.rides.client.UberRidesServices
+import com.uber.sdk.rides.client.UberRidesSyncService
 
 class BMRAuthService {
 	
@@ -44,11 +37,17 @@ class BMRAuthService {
 
 		String clientId = "HHkH0421N9dMtPp4Rd7Tx6tEdriNLBRE";
 		String clientSecret = "_diSmxvO3XAxzCvdSynp6k7h6Hp-yW0L_Cbr2rGu";
+		ArrayList<Scope> scopes = new ArrayList<Scope>();
+		scopes.add(Scope.HISTORY);
+		scopes.add(Scope.PROFILE);
+		scopes.add(Scope.REQUEST);
+		
 
 		return new OAuth2Credentials.Builder()
 				.setCredentialDataStoreFactory(MemoryDataStoreFactory.getDefaultInstance())
 				.setRedirectUri(REDIRECT_URI)
 				.setClientSecrets(clientId, clientSecret)
+				.setScopes(scopes)
 				.build();
 	}
 	 
@@ -101,7 +100,7 @@ class BMRAuthService {
 				 // Create the session
 				 Session session = new Session.Builder()
 						 .setCredential(credential)
-						 .setEnvironment(Session.Environment.PRODUCTION)
+						 .setEnvironment(Session.Environment.SANDBOX)
 						 .build();
  
 				 // Set up the Uber API Service once the user is authenticated.

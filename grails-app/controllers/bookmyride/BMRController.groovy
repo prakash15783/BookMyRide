@@ -233,7 +233,7 @@ class BMRController {
 		ProductsResponse productResponse = uberRidesService.getProducts(latitude, longitude).getBody();
 		List<Product> products = productResponse.getProducts();
 
-		String vehicle_table = "Vehicles available at pickup location "+pickup_address+" are: <br/><table> <div class='row uniform 50%'><div class='4u 12u(narrower)'><th>Name(Capacity)</th> <th>Description</th> <th>Image</th>";
+		String vehicle_table = "Vehicles available at pickup location <b>"+pickup_address+"</b> are: <br/><table> <div class='row uniform 50%'><div class='4u 12u(narrower)'><th>Name(Capacity)</th> <th>Description</th> <th>Image</th>";
 		for(Product p in products)
 		{
 			vehicle_table = vehicle_table + "<tr><td><input type='radio' id='"+p.getProductId()+"' name='vehicle-select' value='"+p.getProductId()+"'><label for='"+p.getProductId()+"'>"+ p.getDisplayName() + " ("+p.getCapacity()+")</label></td>" + "<td>" + p.getDescription() + "</td>" + "<td><img src='" + p.getImage() + "' height='42' width='60'/></td></tr>";
@@ -255,7 +255,7 @@ class BMRController {
 		Product product =  uberRidesService.getProduct(product_id).getBody();
 
 
-		String vehicle_table = "Selected vehicle: <br/><table> <th>Name(Capacity)</th> <th>Description</th> <th>Image</th>";
+		String vehicle_table = "<b>Selected vehicle: </b><br/><table> <th>Name(Capacity)</th> <th>Description</th> <th>Image</th>";
 
 		vehicle_table = vehicle_table + "<tr><td>"+ product.getDisplayName() + " ("+product.getCapacity()+")</td>" + "<td>" + product.getDescription() + "</td>" + "<td><img src='" + product.getImage() + "' height='42' width='60'/></td></tr>";
 
@@ -297,7 +297,7 @@ class BMRController {
 				// Create the session
 				Session session = new Session.Builder()
 						.setCredential(credential)
-						.setEnvironment(Session.Environment.PRODUCTION)
+						.setEnvironment(Session.Environment.SANDBOX)
 						.build();
 
 				// Set up the Uber API Service once the user is authenticated.

@@ -24,7 +24,7 @@
 									<li><a href="/BookMyRide/request">New Ride</a></li>
 									<li><a href="/BookMyRide/queue">Queue</a></li>
 									<li><a href="/BookMyRide/history">History</a></li>
-									
+									<li><a href="/BookMyRide/faq">FAQ</a></li>
 								</ul>
 							</li>
 							<li><a href="/BookMyRide/logout" class="button">Sign Out</a></li>
@@ -50,13 +50,13 @@
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
-											Pickup Address: ${params['pickup_address']}	
+											<b>Pickup Address:</b> ${params['pickup_address']}	
 											</div>
 										</div>
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
-												Pickup Map: <div id="pickup_map" style="width: 400px; height: 300px;"></div>
+												<b>Pickup Map:</b> <div id="pickup_map" style="width: 400px; height: 300px;"></div>
 											</div>
 										</div>
 														
@@ -66,13 +66,13 @@
 
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
-												Dropoff Address: ${params['drop_address']}
+												<b>Dropoff Address:</b> ${params['drop_address']}
 											</div>
 										</div>
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
-												Dropoff Map: <div id="drop_map" style="width: 400px; height: 300px;"></div>
+												<b>Dropoff Map:</b> <div id="drop_map" style="width: 400px; height: 300px;"></div>
 											</div>
 										</div>
 														
@@ -91,13 +91,13 @@
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
-												Request Time: ${params['datetime']}
+												<b>Request Time:</b> ${params['datetime']}
 											</div>
 										</div>
 										
 													
-										<div class="row uniform">
-											<div class="12u">
+										<div class="row uniform 50%">
+											<div class="6u 12u(mobilep)">
 												<ul class="actions">
 													<li><input type="submit" value="Submit Request" /></li>
 												</ul>
@@ -149,7 +149,7 @@
 				
 				}
 
-	populateVehicleDetail();
+				populateVehicleDetail();
 
 			
 </script>
