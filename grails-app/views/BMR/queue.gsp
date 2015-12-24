@@ -18,13 +18,13 @@
 					<nav id="nav">
 						<ul>
 							<li><a href="/BookMyRide/">Home</a></li>
+							<li><a href="/BookMyRide/faq">FAQ</a></li>
 							<li>
 								<a href="#" class="icon fa-angle-down">${userProfile.getFirstName()}</a>
 								<ul>
 									<li><a href="/BookMyRide/request">New Ride</a></li>
 									<li><a href="/BookMyRide/queue">Queue</a></li>
 									<li><a href="/BookMyRide/history">History</a></li>
-									<li><a href="/BookMyRide/faq">FAQ</a></li>
 								</ul>
 							</li>
 							<li><a href="/BookMyRide/logout" class="button">Sign Out</a></li>
@@ -48,13 +48,13 @@
 									<br/>
 									<br/>
 									<h2>Request Queue</h2>
-									<table><th>ID</th> <th>Pickup Address</th> <th>Dropoff Address</th> <th>Date Time</th>
+									<table><th>Detail</th> <th>Pickup Address</th> <th>Dropoff Address</th> <th>Date Time</th>
 									<g:each in="${requests}" var="request">
 										<tr>
 										<td>
 										
 											<g:link controller="RideRequest" action="show" params='[id:"${request.getId()}"]'>
-												${request.getId()}	
+												Details	
 											</g:link>
 											</td>
 											

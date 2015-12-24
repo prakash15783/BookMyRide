@@ -18,13 +18,13 @@
 					<nav id="nav">
 						<ul>
 							<li><a href="/BookMyRide/">Home</a></li>
+							<li><a href="/BookMyRide/faq">FAQ</a></li>
 							<li>
 								<a href="#" class="icon fa-angle-down">${loggedInUser.getFirstName()}</a>
 								<ul>
 									<li><a href="/BookMyRide/request">New Ride</a></li>
 									<li><a href="/BookMyRide/queue">Queue</a></li>
 									<li><a href="/BookMyRide/history">History</a></li>
-									<li><a href="/BookMyRide/faq">FAQ</a></li>
 								</ul>
 							</li>
 							<li><a href="/BookMyRide/logout" class="button">Sign Out</a></li>
