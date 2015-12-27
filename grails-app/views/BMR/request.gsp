@@ -145,7 +145,8 @@
 				});
 
 			jQuery('#datetime').datetimepicker({
-				minDate: 0
+				minDate: 0,
+				maxDate: '+1970/01/07'
 				});
 
 

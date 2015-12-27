@@ -116,6 +116,23 @@ class BMRController {
 			response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
 		}
 	}
+	
+	def pay()
+	{
+		uberRidesService = getActiveUberLoginSession();
+		if(uberRidesService != null){
+			// Fetch the user's profile.
+			UserProfile userProfile = uberRidesService.getUserProfile().getBody();
+			User user = User.findByUuid(userProfile.getUuid());
+			/*
+			 * TODO: Logic for payment goes here
+			 */
+			user.setPaymentDone(true);
+
+		}
+		
+		redirect(action: "request");
+	}
 
 	def index()
 	{

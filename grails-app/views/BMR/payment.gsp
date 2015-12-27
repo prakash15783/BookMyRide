@@ -46,7 +46,13 @@
 									<br/>
 									<br/>
 									<h2>Payment</h2>
+									One time payment of Rs 50 per year is needed to help in scheduling cabs..
+									<br/>
+									<br/> 
 									This is where the payment gateway UI will be shown..
+									<g:link controller="BMR" action="pay">
+												Pay	
+											</g:link>
 								</section>
 						</div> 
 						</div>

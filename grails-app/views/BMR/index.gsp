@@ -65,7 +65,7 @@
 							<section>
 								<span class="icon major fa-bed accent5"></span>
 								<h3>Just relax and let us book your cab</h3>
-								<p>We will add your request to a queue and it will be processed as per your requirement. Ride will be ready when you wake up.</p>
+								<p>We will add your request to a queue and it will be processed as per your requirement.</p>
 							</section>
 						</div>
 					</section>
