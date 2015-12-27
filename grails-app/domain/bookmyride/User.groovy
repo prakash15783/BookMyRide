@@ -12,6 +12,8 @@ class User {
 	String refreshToken;
 	long tokenExpiry;
 	String userSessionId;
+	int ridesInYear;
+	boolean paymentDone;
 
 	// Constraints of a user
 	static constraints = {
@@ -25,6 +27,8 @@ class User {
 		refreshToken(nullable:false, blank:false, maxSize: 32760)
 		tokenExpiry(blank:false)
 		userSessionId(nullable:false)
+		ridesInYear()
+		paymentDone()
 		id()
 	}
 

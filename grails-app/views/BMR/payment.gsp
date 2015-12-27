@@ -1,7 +1,7 @@
 
 <html>
 	<head>
-		<title>BookMyRide | Queue</title>
+		<title>BookMyRide | Payment</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="js/ie/html5shiv.js"></script><![endif]-->
@@ -31,63 +31,27 @@
 						</ul>
 					</nav>
 				</header>
-										
-										
-										
 
 			<!-- Main -->
 				<section id="main" class="container">
 					<header>
-						<h2>Request Queue</h2>
+						<h2>Book My Ride</h2>
 					</header>
 					<div class="row">
 					
 						 <div class="12u">
 
+							<!-- Form -->
 								<section class="box">
 									<br/>
 									<br/>
-									<g:if test="${requests.size()>0}">	
-									<h2>Request Queue</h2>
-									<table><th>Detail</th> <th>Pickup Address</th> <th>Dropoff Address</th> <th>Date Time</th>
-									<g:each in="${requests}" var="request">
-										<tr>
-										<td>
-										
-											<g:link controller="RideRequest" action="show" params='[id:"${request.getId()}"]'>
-												Details	
-											</g:link>
-											</td>
-											
-											<td>
-										
-												${request.getStartAddress()} 	
-											</td>
-											
-											<td>
-										
-												${request.getEndAddress()} 	
-											</td>
-			
-											<td>
-										
-												${request.getRequestDate()} 	
-											</td>
-											
-										</tr>
-									</g:each>
-									</table>
-									</g:if>
-									<g:else>
-										<h2>There are no requests in the queue.</h2>
-									</g:else>
+									<h2>Payment</h2>
+									This is where the payment gateway UI will be shown..
 								</section>
 						</div> 
 						</div>
 				</section>
 		</div>
-		
-		
 		
 		
 		
@@ -100,7 +64,7 @@
 			<script src="js/util.js"></script>
 			<!--[if lte IE 8]><script src="js/ie/respond.min.js"></script><![endif]-->
 			<script src="js/main.js"></script>
+			<script src='https://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>			
 
-	
 	</body>
 </html>

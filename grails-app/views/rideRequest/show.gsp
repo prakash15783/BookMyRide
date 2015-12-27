@@ -35,7 +35,7 @@
 			<!-- Main -->
 				<section id="main" class="container">
 					<header>
-						<h2>RideRequest Details</h2>
+						<h2>Book My Ride</h2>
 					</header>
 					<div class="row">
 					

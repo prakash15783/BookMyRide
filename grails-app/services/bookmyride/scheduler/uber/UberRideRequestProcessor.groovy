@@ -133,6 +133,8 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 				rideRequest.setUberRequestId(ride.getRideId())
 				rideRequest.setRequestStatus(RequestStatus.RequestCompleted);
 				rideRequest.save(failOnError:true,flush:true);
+				rideRequest.getRequester().setRidesInYear(rideRequest.getRequester().getRidesInYear() + 1);
+				rideRequest.getRequester().save(failOnError:true,flush:true);
 			}
 			
 			RideRequestLog.withTransaction { tx ->

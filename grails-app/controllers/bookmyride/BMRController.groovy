@@ -90,6 +90,10 @@ class BMRController {
 				user.setUserSessionId(session.getAttribute(BMRAuthService.USER_SESSION_ID));
 				user.save();
 			}
+			if(user.getRidesInYear() == 1 && !user.isPaymentDone())
+			{
+				redirect(action: "payment");
+			}
 
 			[userProfile:userProfile, credential:credential]
 
@@ -97,6 +101,20 @@ class BMRController {
 			response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
 		}
 
+	}
+	
+	def payment()
+	{
+		uberRidesService = getActiveUberLoginSession();
+		if(uberRidesService != null){
+			// Fetch the user's profile.
+			UserProfile userProfile = uberRidesService.getUserProfile().getBody();
+
+			[userProfile:userProfile, credential:credential]
+
+		} else {
+			response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
+		}
 	}
 
 	def index()
