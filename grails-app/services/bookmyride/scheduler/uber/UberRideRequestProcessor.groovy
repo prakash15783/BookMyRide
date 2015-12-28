@@ -9,6 +9,7 @@ import bookmyride.MailQueue
 import bookmyride.RequestStatus
 import bookmyride.RideRequest
 import bookmyride.RideRequestLog
+import bookmyride.RideResponse
 import bookmyride.User
 import bookmyride.scheduler.AbstractRideRequestProcessor
 
@@ -119,7 +120,7 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 		public void success(Ride ride, Response<Ride> response) {
 			//save returned id in RideRequest
 			//Send mail about the ride status
-//			mailQueue.enqueueMailMessage(new RideResponse(rideRequest,ride));
+			mailQueue.enqueueMailMessage(new RideResponse(rideRequest,ride));
 			println"*************************************";
 			println "1-------++++++++++++------------"+rideRequest.getStartAddress() + rideRequest.getRequestStatus();
 			print "<<<Uber Request Id "+ride.getRideId()+">>>"

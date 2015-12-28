@@ -3,6 +3,7 @@ package bookmyride.scheduler;
 import bookmyride.RequestQueue
 import bookmyride.RequestStatus
 import bookmyride.RideRequest
+import java.text.SimpleDateFormat
 
 class PollerTask implements IPollerTask{
 	protected RequestQueue requestQueue;
@@ -38,6 +39,30 @@ class PollerTask implements IPollerTask{
 	}
 	private List<RideRequest> getRideRequestList() {
 		List<RideRequest> rideRequstList = RideRequest.findAllByRequestStatus(RequestStatus.RequestScheduled);
+		Date current = new Date();
+		Calendar c1 = Calendar.getInstance();
+		c1.setTime(current);
+		
+		Calendar c2 = Calendar.getInstance();
+		
+		for(RideRequest r in rideRequstList)
+		{
+			c2.setTime(r.getRequestDate())
+			if( (c1.get(Calendar.YEAR))==(c2.get(Calendar.YEAR)) && 
+				(c1.get(Calendar.MONTH))==(c2.get(Calendar.MONTH)) &&
+				(c1.get(Calendar.DAY_OF_MONTH))==(c2.get(Calendar.DAY_OF_MONTH)) &&
+				(c1.get(Calendar.HOUR_OF_DAY))==(c2.get(Calendar.HOUR_OF_DAY)) &&
+				(c1.get(Calendar.MINUTE))==(c2.get(Calendar.MINUTE))
+				) {
+				continue;
+			}
+			else
+			{
+				rideRequstList.remove(r);
+			}
+			
+		}
+		
 		return rideRequstList;
 	}
 }

@@ -73,7 +73,6 @@ class BMRController {
 
 	def request()
 	{
-
 		uberRidesService = getActiveUberLoginSession();
 		if(uberRidesService != null){
 			// Fetch the user's profile.
@@ -90,7 +89,7 @@ class BMRController {
 				user.setUserSessionId(session.getAttribute(BMRAuthService.USER_SESSION_ID));
 				user.save();
 			}
-			if(user.getRidesInYear() == 1 && !user.isPaymentDone())
+			if(user?.getRidesInYear() == 1 && !user?.isPaymentDone())
 			{
 				redirect(action: "payment");
 			}

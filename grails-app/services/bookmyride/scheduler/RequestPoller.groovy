@@ -44,7 +44,7 @@ public class RequestPoller {
 			throw new IllegalStateException("PollerTask cant be null");
 		}
 		pollerTask.setRequestQueue(requestQueue);
-        executorService.scheduleAtFixedRate(pollerTask,0, 2, TimeUnit.MINUTES);
+        executorService.scheduleAtFixedRate(pollerTask,0, 1, TimeUnit.MINUTES);
     }
 	
 }
