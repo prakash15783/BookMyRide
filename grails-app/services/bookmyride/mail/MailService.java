@@ -1,5 +1,7 @@
 package bookmyride.mail;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -7,15 +9,16 @@ import java.util.concurrent.TimeUnit;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.velocity.app.VelocityEngine;
 import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.ui.velocity.VelocityEngineUtils;
 
 import bookmyride.BookMyRideConstants;
-import bookmyride.BookMyRideUtils;
 import bookmyride.CommonDataStore;
 import bookmyride.MailQueue;
-import bookmyride.RideRequest;
 import bookmyride.RideResponse;
 import bookmyride.User;
 
@@ -25,13 +28,15 @@ public class MailService implements IMailService {
     private volatile boolean isRunning = false;
     private MailQueue mailQueue = (MailQueue)(CommonDataStore.getDataStore(BookMyRideConstants.MAIL_QUEUE));
     private MailSender mailSender;
+    private VelocityEngine velocityEngine;
 
-    public MailSender getMailSender() {
-		return mailSender;
+
+	public VelocityEngine getVelocityEngine() {
+		return velocityEngine;
 	}
 
-	public void setMailSender(MailSender mailSender) {
-		this.mailSender = mailSender;
+	public void setVelocityEngine(VelocityEngine velocityEngine) {
+		this.velocityEngine = velocityEngine;
 	}
 
 	private ScheduledExecutorService executorService;
@@ -76,55 +81,77 @@ public class MailService implements IMailService {
     
     private boolean processRideResponse(RideResponse rideResponse){
 		User user = rideResponse.getRideRequest().getRequester();
-		String mailMessage = getMailMessage(rideResponse);
-		sendMail("noreply@bookmyride.com",user.getEmail(),"Booking Confirmation",mailMessage);
-				
+		if(sendRideResponseMail(rideResponse)){//Save mailSent field to 1 
+			
+		}
+    	
 		return true;
     }
  
-    private String getMailMessage(RideResponse rideResponse) {
-    	Ride responseObject = (Ride)rideResponse.getResponseObject();
-    	RideRequest rideReq = rideResponse.getRideRequest();
-    	User user = rideResponse.getRideRequest().getRequester();
-    	BookMyRideUtils utils = new BookMyRideUtils();
-    	String mailMsg = utils.getMailFormat();
-    	mailMsg = mailMsg.replace("${user}", "userName");//TODO: Complete all the details
-    	mailMsg = mailMsg.replace("${pickUp}", "pickupaddress");
-    	
-    	System.out.println(mailMsg);
-    	return mailMsg;
-	}
-
-	public void sendMail(String from, String to, String subject, String msg) {
-		/*SimpleMailMessage message = new SimpleMailMessage();
-		
+    public void sendSimpleMail(String from, String to, String subject, String msg) {
+		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom(from);
 		message.setTo(to);
 		message.setSubject(subject);
 		message.setText(msg);
-		mailSender.send(message);*/
-		try {
+		message.setBcc("raju.bhucs@gmail.com");
+		mailSender.send(message);
+	}
+	
+	public boolean sendMimeMail(String from, String to, String subject, String msg) throws MessagingException {
 		JavaMailSenderImpl mimeMailSender =((JavaMailSenderImpl)(mailSender)); 
 		
 		MimeMessage mimeMsg = mimeMailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMsg);
 		helper.setTo(to);
-		
-			helper.setFrom(from);
+		helper.setBcc("raju.bhucs@gmail.com");
+		helper.setFrom(from);
 		helper.setSubject(subject);
-		helper.setText(msg);
+		helper.setText(msg,true);
 		mimeMailSender.send(mimeMsg);
+		return true;
+	}
+
+	@SuppressWarnings("unchecked")
+	public boolean sendRideResponseMail(RideResponse rideResponse) {
+		Map model = new HashMap();	          
+		Ride ride = (Ride)rideResponse.getResponseObject();
+		model.put("rideRequest", rideResponse.getRideRequest());
+		model.put("rideResponse", ride);
+		String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "resources/mailTemplate.vm", "UTF-8", model);
+		User user = rideResponse.getRideRequest().getRequester();
+		boolean status = Boolean.FALSE;
+		String subject = getSubject(ride);
+		try {
+			status = sendMimeMail("noreply@bookmyride.com",user.getEmail(),subject,text);
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		return status;
 	}
+   
     
-    @Override
+    private String getSubject(Ride ride) {
+    	String subject= "Ride Scheduled";
+		if(ride.getStatus().equals("processing")){
+			subject = "Ride Processing";
+		}
+		return subject;
+	}
+
+	@Override
     protected void finalize() throws Throwable {
     	super.finalize();
     	stop();
     }
-    
+
+	public MailSender getMailSender() {
+		return mailSender;
+	}
+
+	public void setMailSender(MailSender mailSender) {
+		this.mailSender = mailSender;
+	}
+
 }
