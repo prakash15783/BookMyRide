@@ -38,14 +38,15 @@ class PollerTask implements IPollerTask{
 		}
 	}
 	private List<RideRequest> getRideRequestList() {
-		List<RideRequest> rideRequstList = RideRequest.findAllByRequestStatus(RequestStatus.RequestScheduled);
+		List<RideRequest> rideRequestList = RideRequest.findAllByRequestStatus(RequestStatus.RequestScheduled);
+		List<RideRequest> validRequestList = new ArrayList<RideRequest>();
 		Date current = new Date();
 		Calendar c1 = Calendar.getInstance();
 		c1.setTime(current);
 		
 		Calendar c2 = Calendar.getInstance();
 		
-		for(RideRequest r in rideRequstList)
+		for(RideRequest r in rideRequestList)
 		{
 			c2.setTime(r.getRequestDate())
 			if( (c1.get(Calendar.YEAR))==(c2.get(Calendar.YEAR)) && 
@@ -54,15 +55,15 @@ class PollerTask implements IPollerTask{
 				(c1.get(Calendar.HOUR_OF_DAY))==(c2.get(Calendar.HOUR_OF_DAY)) &&
 				(c1.get(Calendar.MINUTE))==(c2.get(Calendar.MINUTE))
 				) {
-				continue;
+				validRequestList.add(r);
 			}
 			else
 			{
-				rideRequstList.remove(r);
+				continue;
 			}
 			
 		}
 		
-		return rideRequstList;
+		return validRequestList;
 	}
 }
