@@ -1,0 +1,71 @@
+
+<html>
+<head>
+<style>
+	table {
+	    border-collapse: collapse;
+	    width: 100%;
+	}
+	
+	th, td {
+	    text-align: left;
+	    padding: 8px;
+	}
+	
+	tr:nth-child(even){background-color: #f2f2f2}
+	
+	th {
+	    background-color: #4CAF50;
+	    color: white;
+	}
+	</style>
+</head>
+	<body>
+		<p>Hi ${rideRequest.requester.firstName}, </p>
+		<p>
+			Congratulation!!! We have processed your ride request. 
+		</p>
+		
+		<p><b>Ride Details</b>
+			<table style="border: 1px solid black;width: 50%;">
+				<tr style="border: 1px solid black;"><td >Pick up</td><td>${rideRequest.startAddress}</td></tr>
+				<tr style="border: 1px solid black;"><td >Drop Off</td><td>${rideRequest.endAddress}</td></tr>
+				<tr style="border: 1px solid black;"><td>Travel Date</td><td>${rideRequest.requestDate}</td></tr>
+			</table>
+		<p>
+		#if( ${rideResponse.vehicle} )
+   
+
+		<p><b>Vehicle Details</b>
+			<table style="border: 1px solid black;width: 50%;">
+				<tr style="border: 1px solid black;"><td>Model</td><td>${rideResponse.vehicle.model}</td></tr>
+				<tr style="border: 1px solid black;"><td>License</td><td>${rideResponse.vehicle.license_plate}</td></tr>
+				<tr style="border: 1px solid black;"><td>Picture</td><td><img src="${rideResponse.vehicle.picture_url}" alt="Vehicle picture"/></td></tr>
+			</table>
+		<p>
+		<p><b>Driver Details</b>
+			<table>
+				<tr><td>Driver Name</td><td>${rideResponse.driver.Name}</td></tr>
+				<tr><td>Driver PhoneNo. </td><td>${rideResponse.driver.driverPhoneNo}</td></tr>
+				<tr><td>Driver Pic</td><td><img src="${rideResponse.driver.driverPicture}" alt="Driver picture"/></td></tr>
+				<tr><td>Driver Rating</td><td>${rideResponse.driver.driverRating}</td></tr>
+			</table>
+		<p>
+		
+		#else
+			Your ride status is <strong>$rideResponse.status</strong>. We will inform you as the status changes 
+		#end	
+				
+		
+		<br/>
+		<br/>
+		Happy Riding!!!
+		<br/>
+		<br/>
+		<p>
+			Thanks & Regards, <br/><br/>
+			BookMyRide Team
+		</p>
+	</body>
+ 
+</html>

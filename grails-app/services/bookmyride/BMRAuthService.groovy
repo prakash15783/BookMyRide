@@ -71,7 +71,7 @@ class BMRAuthService {
 				 // Create the session
 				 Session session = new Session.Builder()
 						 .setCredential(credential)
-						 .setEnvironment(Session.Environment.SANDBOX)
+						 .setEnvironment(BookMyRideConstants.ENVIRONMENT)
 						 .build();
  
 				 // Set up the Uber API Service once the user is authenticated.
@@ -100,7 +100,7 @@ class BMRAuthService {
 				 // Create the session
 				 Session session = new Session.Builder()
 						 .setCredential(credential)
-						 .setEnvironment(Session.Environment.SANDBOX)
+						 .setEnvironment(BookMyRideConstants.ENVIRONMENT)
 						 .build();
  
 				 // Set up the Uber API Service once the user is authenticated.

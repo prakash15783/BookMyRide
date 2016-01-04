@@ -20,8 +20,5 @@ class ServiceLauncher {
 		RequestPoller requestPoller = new RequestPoller(new PollerTask());
 		RideScheduler rideScheduler = new RideScheduler(requestPoller);
 		rideScheduler.start();
-
-		System.setProperty("https.proxyHost", "www-proxy.us.oracle.com");
-		System.setProperty("https.proxyPort", "80");
 	}
 }
