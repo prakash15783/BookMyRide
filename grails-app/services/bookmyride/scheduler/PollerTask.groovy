@@ -63,8 +63,6 @@ class PollerTask implements IPollerTask{
 			}
 			
 		}
-		println "Time "+ c2.getTime() +"rideRequestList size : "+rideRequstList.size();
-		
 		return validRequestList;
 	}
 }
