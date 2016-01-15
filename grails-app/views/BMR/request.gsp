@@ -1,7 +1,7 @@
 
 <html>
 	<head>
-		<title>BookMyRide | Request</title>
+		<title>jiffgo | Request</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="js/ie/html5shiv.js"></script><![endif]-->
@@ -14,20 +14,20 @@
 
 			<!-- Header -->
 				<header id="header">
-					<h1><a href="/BookMyRide/">BookMyRide</a></h1>
+					<h1><a href="/">jiffgo</a></h1>
 					<nav id="nav">
 						<ul>
-							<li><a href="/BookMyRide/">Home</a></li>
-							<li><a href="/BookMyRide/faq">FAQ</a></li>
+							<li><a href="/">Home</a></li>
+							<li><a href="/faq">FAQ</a></li>
 							<li>
 								<a href="#" class="icon fa-angle-down">${userProfile.getFirstName()}</a>
 								<ul>
-									<li><a href="/BookMyRide/request">New Ride</a></li>
-									<li><a href="/BookMyRide/queue">Queue</a></li>
-									<li><a href="/BookMyRide/history">History</a></li>
+									<li><a href="/request">New Ride</a></li>
+									<li><a href="/queue">Queue</a></li>
+									<li><a href="/history">History</a></li>
 								</ul>
 							</li>
-							<li><a href="/BookMyRide/logout" class="button">Sign Out</a></li>
+							<li><a href="/logout" class="button">Sign Out</a></li>
 						</ul>
 					</nav>
 				</header>
@@ -35,7 +35,7 @@
 			<!-- Main -->
 				<section id="main" class="container">
 					<header>
-						<h2>Book My Ride</h2>
+						<h2>jiffgo</h2>
 					</header>
 					<div class="row">
 					
@@ -46,7 +46,7 @@
 									<br/>
 									<br/>
 									<h2>Request A Ride</h2>
-									<form method="post" action="/BookMyRide/confirm" id="requestForm">
+									<form method="post" action="/confirm" id="requestForm">
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
@@ -158,7 +158,7 @@
 				var pickup_address = $('#pickup_address').val();
 				
 					//Ajax call to send data to the server,
-					$.get("http://localhost:8080/BookMyRide/products",
+					$.get("https://www.jiffgo.com/products",
 									{
 										pickup_latitude : pickup_latitude,
 										pickup_longitude : pickup_longitude,

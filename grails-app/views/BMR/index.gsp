@@ -1,7 +1,7 @@
 
 <html>
 	<head>
-		<title>Schedule Uber Rides | BookMyRide</title>
+		<title>Schedule Uber Rides | jiffgo</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="js/ie/html5shiv.js"></script><![endif]-->
@@ -13,20 +13,20 @@
 
 			<!-- Header -->
 				<header id="header" class="alt">
-					<h1><a href="/BookMyRide/">BookMyRide</a></h1>
+					<h1><a href="/">jiffgo</a></h1>
 					<nav id="nav">
 						<ul>
-							<li><a href="/BookMyRide/request" class="button">Sign In</a></li>
+							<li><a href="/request" class="button">Sign In</a></li>
 						</ul>
 					</nav>
 				</header>
 
 			<!-- Banner -->
 				<section id="banner">
-					<h2>BookMyRide</h2>
+					<h2>jiffgo</h2>
 					<p>Schedule Uber cab in advance. Never worry about booking an Uber cab at odd times. </p>
 					<ul class="actions">
-						<li><a href="/BookMyRide/request" class="button special">Sign In</a></li>
+						<li><a href="/request" class="button special">Sign In</a></li>
 					</ul>
 				</section>
 

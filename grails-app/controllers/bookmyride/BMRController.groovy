@@ -88,6 +88,9 @@ class BMRController {
 			{
 				user.setUserSessionId(session.getAttribute(BMRAuthService.USER_SESSION_ID));
 				user.save();
+				
+				// save the logged in user in the session
+				session.setAttribute("current_user", user);
 			}
 			if(user?.getRidesInYear() == 1 && !user?.isPaymentDone())
 			{

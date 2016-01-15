@@ -11,23 +11,22 @@
 	</head>
 	<body class="landing">
 		<div id="page-wrapper">
-
 			<!-- Header -->
 				<header id="header">
-					<h1><a href="/BookMyRide/">BookMyRide</a></h1>
+					<h1><a href="/">jiffgo</a></h1>
 					<nav id="nav">
 						<ul>
-							<li><a href="/BookMyRide/">Home</a></li>
-							<li><a href="/BookMyRide/faq">FAQ</a></li>
+							<li><a href="/">Home</a></li>
+							<li><a href="/faq">FAQ</a></li>
 							<li>
 								<a href="#" class="icon fa-angle-down">${loggedInUser.getFirstName()}</a>
 								<ul>
-									<li><a href="/BookMyRide/request">New Ride</a></li>
-									<li><a href="/BookMyRide/queue">Queue</a></li>
-									<li><a href="/BookMyRide/history">History</a></li>
+									<li><a href="/request">New Ride</a></li>
+									<li><a href="/queue">Queue</a></li>
+									<li><a href="/history">History</a></li>
 								</ul>
 							</li>
-							<li><a href="/BookMyRide/logout" class="button">Sign Out</a></li>
+							<li><a href="/logout" class="button">Sign Out</a></li>
 						</ul>
 					</nav>
 				</header>
@@ -35,7 +34,7 @@
 			<!-- Main -->
 				<section id="main" class="container">
 					<header>
-						<h2>Book My Ride</h2>
+						<h2>jiffgo</h2>
 					</header>
 					<div class="row">
 					
@@ -46,7 +45,7 @@
 									<br/>
 									<br/>
 									<h2>RideRequest Details</h2>
-									<form id="cancelRide" method="post" action="/BookMyRide/cancelrequest">
+									<form id="cancelRide" method="post" action="/cancelrequest">
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
@@ -150,7 +149,7 @@
 		
 				var product_id = $('#vehicle-select').val();
 					//Ajax call to send data to the server,
-					$.get("http://localhost:8080/BookMyRide/product",
+					$.get("https://www.jiffgo.comproduct",
 									{
 										product_id : product_id
 									},

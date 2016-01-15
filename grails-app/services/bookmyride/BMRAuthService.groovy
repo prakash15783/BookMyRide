@@ -19,7 +19,7 @@ class BMRAuthService {
 	
 		// IMPORTANT: Before starting the server, make sure to add this redirect URI to your
 		// application at developers.uber.com.
-		private static final String REDIRECT_URI = "http://localhost:8080/BookMyRide" + CALLBACK_URL;
+		private static final String REDIRECT_URI = "https://www.jiffgo.com" + CALLBACK_URL;
 
 		static {
 			System.setProperty("https.proxyHost", "www-proxy.us.oracle.com");

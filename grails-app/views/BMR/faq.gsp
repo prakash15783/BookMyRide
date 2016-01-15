@@ -1,7 +1,7 @@
 
 <html>
 <head>
-<title>BookMyRide | FAQ</title>
+<title>jiffgo | FAQ</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!--[if lte IE 8]><script src="js/ie/html5shiv.js"></script><![endif]-->
@@ -15,22 +15,22 @@
 		<!-- Header -->
 		<header id="header">
 			<h1>
-				<a href="/BookMyRide/">BookMyRide</a>
+				<a href="/">jiffgo</a>
 			</h1>
 			<nav id="nav">
 				<ul>
-					<li><a href="/BookMyRide/">Home</a></li>
-					<li><a href="/BookMyRide/faq">FAQ</a></li>
+					<li><a href="/">Home</a></li>
+					<li><a href="/faq">FAQ</a></li>
 					<li><a href="#" class="icon fa-angle-down">
 							${userProfile.getFirstName()}
 					</a>
 						<ul>
-							<li><a href="/BookMyRide/request">New Ride</a></li>
-							<li><a href="/BookMyRide/queue">Queue</a></li>
-							<li><a href="/BookMyRide/history">History</a></li>
+							<li><a href="/request">New Ride</a></li>
+							<li><a href="/queue">Queue</a></li>
+							<li><a href="/history">History</a></li>
 
 						</ul></li>
-					<li><a href="/BookMyRide/logout" class="button">Sign Out</a></li>
+					<li><a href="/logout" class="button">Sign Out</a></li>
 				</ul>
 			</nav>
 		</header>
@@ -41,7 +41,7 @@
 		<!-- Main -->
 		<section id="main" class="container">
 			<header>
-				<h2>Frequently Asked Questions</h2>
+				<h2>jiffgo</h2>
 			</header>
 			<div class="row">
 
@@ -53,12 +53,12 @@
 						<table>
 							<tr>
 
-								<td>What does BookMyRide do?</td>
+								<td>What does jiffgo do?</td>
 
 							</tr>
 							<tr>
 
-								<td>BookMyRide is a great tool that helps you schedule your Uber rides. No more being late for your meetings or flights just because you didn't request your ride at the right time.
+								<td>jiffgo is a great tool that helps you schedule your Uber rides. No more being late for your meetings or flights just because you didn't request your ride at the right time.
 
 To get started, simply login using your Uber account.</td>
 
@@ -67,12 +67,12 @@ To get started, simply login using your Uber account.</td>
 							
 							<tr>
 
-								<td>Where is BookMyRide available?</td>
+								<td>Where is jiffgo available?</td>
 
 							</tr>
 							<tr>
 
-								<td>Currently, BookMyRide is only available in the INDIA during the preview release.</td>
+								<td>Currently, jiffgo is only available in the INDIA during the preview release.</td>
 
 							</tr>
 							
