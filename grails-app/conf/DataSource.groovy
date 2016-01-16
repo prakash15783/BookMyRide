@@ -24,20 +24,26 @@ environments {
         }
     }
     production {
-        dataSource {
-            dbCreate = "update"
-            url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
-            pooled = true
-            properties {
-               maxActive = -1
-               minEvictableIdleTimeMillis=1800000
-               timeBetweenEvictionRunsMillis=1800000
-               numTestsPerEvictionRun=3
-               testOnBorrow=true
-               testWhileIdle=true
-               testOnReturn=true
-               validationQuery="SELECT 1"
-            }
-        }
+		dataSource {
+			//            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+			//            url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+						pooled = true
+						driverClassName = "com.mysql.jdbc.Driver"
+						dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+						dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+						url = "jdbc:mysql://localhost/jiffgo?useUnicode=yes&characterEncoding=UTF-8"
+						username = "root"
+						password = "Bullseye@2015"
+						properties {
+							maxActive = -1
+							minEvictableIdleTimeMillis=1800000
+							timeBetweenEvictionRunsMillis=1800000
+							numTestsPerEvictionRun=3
+							testOnBorrow=true
+							testWhileIdle=true
+							testOnReturn=true
+							validationQuery="SELECT 1"
+						 }
+					}
     }
 }

@@ -64,8 +64,6 @@ class BMRAuthService {
  
 		 credential = oAuth2Credentials.loadCredential(userId);
 		 
-		 print "User Id " + userId +" Credential : "+credential.getAccessToken();
- 
 		 if (credential != null && credential.getAccessToken() != null) {
 			 if (uberRidesService == null) {
 				 // Create the session

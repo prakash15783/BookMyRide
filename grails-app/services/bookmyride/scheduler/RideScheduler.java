@@ -45,6 +45,7 @@ public class RideScheduler {
 			while(true){
 				try {
 					rideRequest = requestQueue.takeRideRequest();
+					/*
 					System.out.println("Ride Request Picked : "+rideRequest.getStartAddress() + " Status : "+rideRequest.getRequestStatus());
 					System.out.println("Ride Request Picked : "+rideRequest);
 					
@@ -52,6 +53,7 @@ public class RideScheduler {
 					+ rideRequest.getRequester() + ", startLatitude=" + rideRequest.getStartLatitude()
 					+ ", startLongitude=" + rideRequest.getStartLongitude() + ", startAddress="
 					);
+					*/
 					
 					System.out.println("SchedulerTask Queue Size : "+requestQueue.getSize());
 					requestProcessor.processRideRequest(rideRequest);

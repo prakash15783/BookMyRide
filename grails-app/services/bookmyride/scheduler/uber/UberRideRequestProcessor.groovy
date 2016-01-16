@@ -35,7 +35,7 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 			try {
 				//create log object
 				RideRequestLog rideReqLog = createRequestLog(rideRequest);
-				System.out.println("Processing Request : " +rideRequest.getProductId());
+				//System.out.println("Processing Request : " +rideRequest.getProductId());
 
 				//User uber sdk to process ride
 				UberRidesService uberRidesService = getUberSyncService(rideRequest.getRequester());//getUberRidesService(rideRequest.getRequester(),"sync");
@@ -61,7 +61,7 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 			//TODO: Use rideResponse for mailing logging.
 			RideCallback rideCallback = new RideCallback(rideRequest,rideReqLog);
 			Ride ride = rideResponse.getBody();
-			System.out.println("Ride ID: " + ride.getRideId());
+			//System.out.println("Ride ID: " + ride.getRideId());
 			rideCallback.success(ride, rideResponse);
 		}
 	}
@@ -121,14 +121,15 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 			//save returned id in RideRequest
 			//Send mail about the ride status
 			mailQueue.enqueueMailMessage(new RideResponse(rideRequest,ride));
-			println"*************************************";
-			println "1-------++++++++++++------------"+rideRequest.getStartAddress() + rideRequest.getRequestStatus();
-			print "<<<Uber Request Id "+ride.getRideId()+">>>"
+			//println"*************************************";
+			//println "1-------++++++++++++------------"+rideRequest.getStartAddress() + rideRequest.getRequestStatus();
+			//print "<<<Uber Request Id "+ride.getRideId()+">>>"
 			
-			System.out.println("RideRequest [requestId=" + rideRequest.getRequestId() + ", requester="
+			/*System.out.println("RideRequest [requestId=" + rideRequest.getRequestId() + ", requester="
 				+ rideRequest.getRequester() + ", startLatitude=" + rideRequest.getStartLatitude()
 				+ ", startLongitude=" + rideRequest.getStartLongitude() + ", startAddress="
 				);
+				*/
 			
 			RideRequest.withTransaction { tx ->
 				rideRequest.setUberRequestId(ride.getRideId())
@@ -140,18 +141,19 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 			
 			RideRequestLog.withTransaction { tx ->
 				rideReqLog.setDetails("Success");//TODO: save Details
+				rideRequest.setRequestStatus(RequestStatus.RequestCompleted);
+				rideReqLog.setRequestStatus(RequestStatus.RequestCompleted);
 				rideReqLog.save(failOnError:true,flush:true);
 			}
-			println "3-------++++++++++++------------"+rideRequest.getStartAddress() + rideRequest.getRequestStatus();
+			//println "3-------++++++++++++------------"+rideRequest.getStartAddress() + rideRequest.getRequestStatus();
 			
 		}
 		
 		private void saveFailedRideRequest(String details){
 			rideReqLog.setDetails(details);
-			rideReqLog.save();
-			
 			rideRequest.setRequestStatus(RequestStatus.RequestCancelled);
-			rideRequest.save();
+			rideReqLog.setRequestStatus(RequestStatus.RequestCancelled);
+			rideReqLog.save(failOnError:true,flush:true);
 		}
 	}
 }
