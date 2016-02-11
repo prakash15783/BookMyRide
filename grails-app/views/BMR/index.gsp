@@ -24,7 +24,7 @@
 			<!-- Banner -->
 				<section id="banner">
 					<h2>jiffgo</h2>
-					<p>Schedule Uber cab in advance. Never worry about booking an Uber cab at odd times. </p>
+					<p>Schedule Uber rides in advance. Never worry about booking an Uber ride at odd times. </p>
 					<ul class="actions">
 						<li><a href="/request" class="button special">Sign In</a></li>
 					</ul>
@@ -35,10 +35,10 @@
 
 					<section class="box special">
 						<header class="major">
-							<h2>Schedule Uber cab and
+							<h2>Schedule Uber rides and
 							<br />
-							never worry about booking a cab at the last moment.</h2>
-							<p>Schedule a cab upto a week in advance and relax. We will queue up your request and arrange a cab as per your requirements.</p>
+							never worry about booking a ride at the last moment.</h2>
+							<p>Schedule a ride upto a week in advance and relax. We will queue up your request and arrange a ride as per your requirements.</p>
 						</header>
 						
 					</section>
@@ -48,7 +48,7 @@
 							<section>
 								<span class="icon major fa-map-pin accent2"></span>
 								<h3>Choose Pickup and Drop Location</h3>
-								<p>Select location details of your travel. This information will be sent to Uber while booking your cab. </p>
+								<p>Select location details of your travel. This information will be sent to Uber while booking your ride. </p>
 							</section>
 							<section>
 								<span class="icon major fa-cab accent3"></span>
@@ -64,7 +64,7 @@
 							</section>
 							<section>
 								<span class="icon major fa-bed accent5"></span>
-								<h3>Just relax and let us book your cab</h3>
+								<h3>Just relax and let us book your ride</h3>
 								<p>We will add your request to a queue and it will be processed as per your requirement.</p>
 							</section>
 						</div>
