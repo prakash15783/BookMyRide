@@ -126,12 +126,16 @@
 			<script src="js/jquery.datetimepicker.full.min.js"></script>
 			<script>$('#pickup_map').locationpicker({
 			location: {latitude: $('#pickup_latitude').val(), longitude: $('#pickup_longitude').val()},	
-			radius: 30
+			radius: 30,
+			scrollwheel: false,
+			draggable: false
 	});
 
 			$('#drop_map').locationpicker({
 				location: {latitude: $('#drop_latitude').val(), longitude: $('#drop_longitude').val()},	
-				radius: 30
+				radius: 30,
+				scrollwheel: false,
+				draggable: false
 				});
 
 			
