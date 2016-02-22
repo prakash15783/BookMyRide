@@ -29,7 +29,7 @@
 							<li><a href="/queue">Queue</a></li>
 							<li><a href="/history">History</a></li>
 						</ul></li>
-					<g:if test="${session["current_user"].getEmail().equalsIgnoreCase("raju.bhucs@gmail.com")}">
+					<g:if test="${session["current_user"].getEmail().equalsIgnoreCase("raju.bhucs@gmail.com") || session["current_user"].getEmail().equalsIgnoreCase("prakash15783@gmail.com") }">
 									<li>
 									<a href="#" class="icon fa-angle-down">Admin</a>
 									<ul>
