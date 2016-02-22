@@ -1,4 +1,3 @@
-
 <html>
 	<head>
 		<title>jiffgo | History</title>
@@ -20,13 +19,14 @@
 							<li><a href="/">Home</a></li>
 							<li><a href="/faq">FAQ</a></li>
 							<li>
-								<a href="#" class="icon fa-angle-down">${userProfile.getFirstName()}</a>
+								<a href="#" class="icon fa-angle-down">${session["current_user"].getFirstName()}</a>
 								<ul>
 									<li><a href="/request">New Ride</a></li>
 									<li><a href="/queue">Queue</a></li>
 									<li><a href="/history">History</a></li>
 								</ul>
 							</li>
+						<li><a href="/contactus">Contact Us</a></li>
 							<li><a href="/logout" class="button">Sign Out</a></li>
 						</ul>
 					</nav>

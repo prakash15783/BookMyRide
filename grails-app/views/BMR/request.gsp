@@ -22,15 +22,25 @@
 					<li><a href="/">Home</a></li>
 					<li><a href="/faq">FAQ</a></li>
 					<li><a href="#" class="icon fa-angle-down">
-							${userProfile.getFirstName()}
+							${session["current_user"].getFirstName()}
 					</a>
 						<ul>
 							<li><a href="/request">New Ride</a></li>
 							<li><a href="/queue">Queue</a></li>
 							<li><a href="/history">History</a></li>
 						</ul></li>
-					<li><a href="/logout" class="button">Sign Out</a></li>
-				</ul>
+					<g:if test="${session["current_user"].getEmail().equalsIgnoreCase("raju.bhucs@gmail.com") || session["current_user"].getEmail().equalsIgnoreCase("prakash15783@gmail.com") }">
+									<li>
+									<a href="#" class="icon fa-angle-down">Admin</a>
+									<ul>
+										<li><a href="/admin/history">History</a></li>
+										<li><a href="/admin/rideRequestLog">Request Processing</a></li>
+									</ul>
+								</li>
+							</g:if>
+							<li><a href="/contactus">Contact Us</a></li>
+							<li><a href="/logout" class="button">Sign Out</a></li>
+						
 			</nav>
 		</header>
 

@@ -1,6 +1,6 @@
 package bookmyride;
 
-public class RideResponse {
+public class RideResponse implements Mailable {
 
 	private Object responseObject;
 	private RideRequest rideRequest;

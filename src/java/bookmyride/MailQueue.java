@@ -4,13 +4,13 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class MailQueue{
-    private LinkedBlockingQueue<RideResponse> queue = new LinkedBlockingQueue<RideResponse>();
+    private LinkedBlockingQueue<Mailable> queue = new LinkedBlockingQueue<Mailable>();
 
-    public void enqueueMailMessage(RideResponse msg){
+    public void enqueueMailMessage(Mailable msg){
         queue.add(msg);
     }
 
-    public RideResponse takeMailMessage() throws InterruptedException {
+    public Mailable takeMailMessage() throws InterruptedException {
         return queue.take();
     }
 }

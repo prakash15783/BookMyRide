@@ -18,7 +18,9 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 
 import bookmyride.BookMyRideConstants;
 import bookmyride.CommonDataStore;
+import bookmyride.ContactUs;
 import bookmyride.MailQueue;
+import bookmyride.Mailable;
 import bookmyride.RideResponse;
 import bookmyride.User;
 
@@ -64,9 +66,15 @@ public class MailService implements IMailService {
 					public void run() {
 						try {
 							if (mailQueue != null) {
-								RideResponse rideResponse = mailQueue.takeMailMessage();
+								Mailable rideResponse = mailQueue.takeMailMessage();
 								System.out.println("Mailing message :"+rideResponse);
-								processRideResponse(rideResponse);
+								if(rideResponse instanceof RideResponse){
+									processRideResponse((RideResponse)rideResponse);
+								}
+								else if(rideResponse instanceof ContactUs){
+									processContactUs((ContactUs)rideResponse);
+								}
+								
 							}else{ //Try to get the mailQueue from store.
 								mailQueue = (MailQueue)(CommonDataStore.getDataStore(BookMyRideConstants.MAIL_QUEUE));
 							}
@@ -75,10 +83,25 @@ public class MailService implements IMailService {
 							e.printStackTrace();
 						}
 					}
+
+					
 					
 				},0, 5, TimeUnit.SECONDS);
 	}
     
+	private void processContactUs(ContactUs contactUs) {
+		Map model = new HashMap();	          
+		model.put("contactUs", contactUs);
+		String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "resources/contactUsTemplate.vm", "UTF-8", model);
+		
+		String subject = "Thank you";
+		try {
+			boolean status = sendMimeMail("noreply@bookmyride.com",contactUs.getEmail(),subject,text);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
     private boolean processRideResponse(RideResponse rideResponse){
 		User user = rideResponse.getRideRequest().getRequester();
 		if(sendRideResponseMail(rideResponse)){//Save mailSent field to 1 

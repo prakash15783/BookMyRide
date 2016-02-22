@@ -27,6 +27,7 @@
 									<li><a href="/history">History</a></li>
 								</ul>
 							</li>
+							<li><a href="/contactus">Contact Us</a></li>
 							<li><a href="/logout" class="button">Sign Out</a></li>
 						</ul>
 					</nav>
