@@ -19,6 +19,7 @@ class UrlMappings {
 		"/queue"(controller:"BMR", action:"queue")
 		"/history"(controller:"BMR", action:"history")
 		"/faq"(controller:"BMR", action:"faq")
+		"/notice"(controller:"BMR", action:"notice")
 		"/payment"(controller:"BMR", action:"payment")
 		"/callback"(controller:"Callback", action:"callback")
 		"500"(view:'/error')

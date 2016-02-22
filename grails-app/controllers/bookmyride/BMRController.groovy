@@ -105,6 +105,20 @@ class BMRController {
 
 	}
 	
+	def notice()
+	{
+		uberRidesService = getActiveUberLoginSession();
+		if(uberRidesService != null){
+			// Fetch the user's profile.
+			UserProfile userProfile = uberRidesService.getUserProfile().getBody();
+
+			[userProfile:userProfile, credential:credential]
+
+		} else {
+			response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
+		}
+	}
+	
 	def payment()
 	{
 		uberRidesService = getActiveUberLoginSession();
@@ -150,6 +164,14 @@ class BMRController {
 
 	def confirm()
 	{
+		String startAddress = params['pickup_address'];
+		String endAddress = params['drop_address'];
+		
+		if((!startAddress.endsWith("India")) || (!endAddress.endsWith("India")))
+		{
+			redirect(action: "notice");
+		}
+		
 		uberRidesService = getActiveUberLoginSession();
 		if(uberRidesService != null){
 			// Fetch the user's profile.

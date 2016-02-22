@@ -46,7 +46,7 @@
 									<br/>
 									<br/>
 									<h2>Payment</h2>
-									One time payment of Rs 50 per year is needed to help in scheduling cabs..
+									One time payment of Rs 50 per year is needed to help in scheduling Uber rides..
 									<br/>
 									<br/> 
 									This is where the payment gateway UI will be shown..

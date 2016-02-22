@@ -1,7 +1,7 @@
 
 <html>
 	<head>
-		<title>jiffgo | Queue</title>
+		<title>jiffgo | Notice</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="js/ie/html5shiv.js"></script><![endif]-->
@@ -31,9 +31,6 @@
 						</ul>
 					</nav>
 				</header>
-										
-										
-										
 
 			<!-- Main -->
 				<section id="main" class="container">
@@ -44,51 +41,23 @@
 					
 						 <div class="12u">
 
+							<!-- Form -->
 								<section class="box">
 									<br/>
 									<br/>
-									<g:if test="${requests.size()>0}">	
-									<h2>Request Queue</h2>
-									<table><th>Detail</th> <th>Pickup Address</th> <th>Dropoff Address</th> <th>Date Time</th>
-									<g:each in="${requests}" var="request">
-										<tr>
-										<td>
-										
-											<g:link controller="RideRequest" action="show" params='[id:"${request.getId()}"]'>
-												Details	
-											</g:link>
-											</td>
-											
-											<td>
-										
-												${request.getStartAddress()} 	
-											</td>
-											
-											<td>
-										
-												${request.getEndAddress()} 	
-											</td>
-			
-											<td>
-											
-											<g:formatDate format="yyyy-MM-dd HH:mm" date="${request.getRequestDate()}" timeZone="${TimeZone.getTimeZone("IST")}"/>
-										
-											</td>
-											
-										</tr>
-									</g:each>
-									</table>
-									</g:if>
-									<g:else>
-										<h2>There are no requests in the queue.</h2>
-									</g:else>
+									<h2>Sorry</h2>
+									Currently we process ride requests only for India.
+									<br/>
+									<br/> 
+									We are working on adding other countries..
+									<br/>
+									<br/>
+									<a href="/request">New Ride</a>
 								</section>
 						</div> 
 						</div>
 				</section>
 		</div>
-		
-		
 		
 		
 		
@@ -101,7 +70,7 @@
 			<script src="js/util.js"></script>
 			<!--[if lte IE 8]><script src="js/ie/respond.min.js"></script><![endif]-->
 			<script src="js/main.js"></script>
+			<script src='https://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>			
 
-	
 	</body>
 </html>
