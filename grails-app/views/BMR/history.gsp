@@ -81,6 +81,7 @@
 												<g:if test="${request.getRequestStatus().getName().equals('Completed')}">
 													<font color="green">${request.getRequestStatus()}</font>
 												</g:if>
+												
 												<g:if test="${request.getRequestStatus().getName().equals('Cancelled')}">
 													<font color="red">${request.getRequestStatus()}</font>
 												</g:if>
