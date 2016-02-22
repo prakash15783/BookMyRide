@@ -20,14 +20,15 @@ class BMRAuthService {
 		// IMPORTANT: Before starting the server, make sure to add this redirect URI to your
 		// application at developers.uber.com.
 		private static final String REDIRECT_URI = "https://www.jiffgo.com" + CALLBACK_URL;
+//		private static final String REDIRECT_URI = "http://localhost" + CALLBACK_URL;
 
-		static {
+		/*static {
 			System.setProperty("https.proxyHost", "www-proxy.us.oracle.com");
 			System.setProperty("https.proxyPort", "80");
 			
 			System.setProperty("http.proxyHost", "www-proxy.us.oracle.com");
 			System.setProperty("http.proxyPort", "80");
-		}
+		}*/
 	/**
 	 * Creates an {@link OAuth2Credentials} object that can be used by any of the servlets.
 	 *
@@ -37,6 +38,9 @@ class BMRAuthService {
 
 		String clientId = "HHkH0421N9dMtPp4Rd7Tx6tEdriNLBRE";
 		String clientSecret = "_diSmxvO3XAxzCvdSynp6k7h6Hp-yW0L_Cbr2rGu";
+//		String clientId = "BoeUGsHWB3t5zFB_CEuUwMiad_Nawise";
+//		String clientSecret = "lCZFAlaPUJnD1hbx4Qm1yyyGgO0biLMte8UuwSsd";
+		
 		ArrayList<Scope> scopes = new ArrayList<Scope>();
 		scopes.add(Scope.HISTORY);
 		scopes.add(Scope.PROFILE);

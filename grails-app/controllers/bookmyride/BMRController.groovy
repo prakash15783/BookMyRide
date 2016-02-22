@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.id.uuid.*;
 
 class BMRController {
@@ -162,6 +163,42 @@ class BMRController {
 
 	}
 
+	def contactus()
+	{
+		//do nothing
+
+	}
+	
+	def thankyou()
+	{
+		//do nothing
+
+	}
+	def submitcontactus()
+	{
+		
+		String name = params['name'];
+		String email = params['email'];
+
+		String message = params['message'];
+		String category = params['category'];
+
+		ContactUs contactUs = new ContactUs();
+		contactUs.setName(name);
+		contactUs.setEmail(email);
+		contactUs.setMessage(message)
+
+		contactUs.save();
+		//Enqueue for mailing
+		MailQueue mailQueue = (MailQueue)CommonDataStore.getDataStore(BookMyRideConstants.MAIL_QUEUE);
+		mailQueue.enqueueMailMessage(contactUs);
+		
+		redirect(action: "thankyou");
+
+		return;
+
+	}
+	
 	def confirm()
 	{
 		String startAddress = params['pickup_address'];
@@ -279,7 +316,9 @@ class BMRController {
 
 
 	}
-
+	
+	
+	
 	def getProducts()
 	{
 		float latitude = Float.parseFloat(params['pickup_latitude']);

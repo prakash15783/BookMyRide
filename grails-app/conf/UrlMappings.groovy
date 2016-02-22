@@ -23,5 +23,11 @@ class UrlMappings {
 		"/payment"(controller:"BMR", action:"payment")
 		"/callback"(controller:"Callback", action:"callback")
 		"500"(view:'/error')
+		"/contactus"(controller:"BMR", action:"contactus")
+		"/submitcontactus"(controller:"BMR", action:"submitcontactus")
+		"/thankyou"(controller:"BMR",action:"thankyou")
+		
+		"/admin/history"(controller:"Admin", action:"history")
+		"/admin/rideRequestLog"(controller:"Admin", action:"rideRequestLog")
 	}
 }
