@@ -69,7 +69,7 @@
 											</td>
 			
 											<td>
-												${request.getRequestDate()} 	
+												<g:formatDate format="yyyy-MM-dd HH:mm" date="${request.getRequestDate()}" timeZone="${TimeZone.getTimeZone("IST")}"/>	
 											</td>
 											
 											<td>
