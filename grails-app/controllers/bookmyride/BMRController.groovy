@@ -93,10 +93,14 @@ class BMRController {
 				// save the logged in user in the session
 				session.setAttribute("current_user", user);
 			}
+			/*
+			 * Disabling this for now.. Will enable this when payment gateway is setup
+			 * 
 			if(user?.getRidesInYear() == 1 && !user?.isPaymentDone())
 			{
 				redirect(action: "payment");
 			}
+			*/
 
 			[userProfile:userProfile, credential:credential]
 
