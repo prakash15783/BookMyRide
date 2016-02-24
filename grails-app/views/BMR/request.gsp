@@ -63,9 +63,7 @@
 								<div class="6u 12u(mobilep)">
 									Pickup Address: <input type="text" name="pickup_address"
 										id="pickup_address" value="${params['pickup_address']}"
-										placeholder="Pickup Address" /> <a
-										class="button special icon fa-location-arrow"
-										onclick="location.reload();">Current Location</a>
+										placeholder="Pickup Address" /> 
 								</div>
 							</div>
 
@@ -235,6 +233,7 @@
 					    },
 					    enableAutocomplete: true
 						});
+			    
 				  };
 
 				  function geoRejection(msg) {
