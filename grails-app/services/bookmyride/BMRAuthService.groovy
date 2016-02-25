@@ -12,6 +12,13 @@ import com.uber.sdk.rides.client.UberRidesSyncService
 class BMRAuthService {
 	
 	public static final String USER_SESSION_ID = "userSessionId";
+	private static final String clientSecret = "_diSmxvO3XAxzCvdSynp6k7h6Hp-yW0L_Cbr2rGu";
+	private static final String clientId = "HHkH0421N9dMtPp4Rd7Tx6tEdriNLBRE";
+	
+//	private static final String clientSecret = "lCZFAlaPUJnD1hbx4Qm1yyyGgO0biLMte8UuwSsd";
+//	private static final String clientId = "BoeUGsHWB3t5zFB_CEuUwMiad_Nawise";
+	
+	
 	
 		// Set your server's port and callback URL.
 		//private static final int PORT = 8080;
@@ -29,18 +36,15 @@ class BMRAuthService {
 			System.setProperty("http.proxyHost", "www-proxy.us.oracle.com");
 			System.setProperty("http.proxyPort", "80");
 		}*/
+	public static String getClientSecret(){
+		return clientSecret;
+	}
 	/**
 	 * Creates an {@link OAuth2Credentials} object that can be used by any of the servlets.
 	 *
 	 * Throws an {@throws IOException} when no client ID or secret provided
 	 */
-	 static OAuth2Credentials createOAuth2Credentials() throws IOException {
-
-		String clientId = "HHkH0421N9dMtPp4Rd7Tx6tEdriNLBRE";
-		String clientSecret = "_diSmxvO3XAxzCvdSynp6k7h6Hp-yW0L_Cbr2rGu";
-//		String clientId = "BoeUGsHWB3t5zFB_CEuUwMiad_Nawise";
-//		String clientSecret = "lCZFAlaPUJnD1hbx4Qm1yyyGgO0biLMte8UuwSsd";
-		
+	 static OAuth2Credentials createOAuth2Credentials() throws IOException {		
 		ArrayList<Scope> scopes = new ArrayList<Scope>();
 		scopes.add(Scope.HISTORY);
 		scopes.add(Scope.PROFILE);

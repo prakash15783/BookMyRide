@@ -96,7 +96,7 @@ public class MailService implements IMailService {
 		
 		String subject = "Thank you";
 		try {
-			boolean status = sendMimeMail("noreply@bookmyride.com",contactUs.getEmail(),subject,text);
+			boolean status = sendMimeMail("contact@jiffgo.com",contactUs.getEmail(),subject,text);
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -146,7 +146,7 @@ public class MailService implements IMailService {
 		boolean status = Boolean.FALSE;
 		String subject = getSubject(ride);
 		try {
-			status = sendMimeMail("noreply@bookmyride.com",user.getEmail(),subject,text);
+			status = sendMimeMail("jiffgo<contact@jiffgo.com>",user.getEmail(),subject,text);
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
