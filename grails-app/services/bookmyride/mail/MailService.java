@@ -27,7 +27,7 @@ import bookmyride.User;
 import com.uber.sdk.rides.client.model.Ride;
 
 public class MailService implements IMailService {
-    private static final String JIFFGO_FROM = "jiffgo<contact@jiffgo.com>";
+    private static final String JIFFGO_FROM = "jiffGo<contact@jiffgo.com>";
 	private volatile boolean isRunning = false;
     private MailQueue mailQueue = (MailQueue)(CommonDataStore.getDataStore(BookMyRideConstants.MAIL_QUEUE));
     private MailSender mailSender;

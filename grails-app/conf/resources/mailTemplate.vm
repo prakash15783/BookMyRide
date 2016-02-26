@@ -20,7 +20,7 @@
 	
 	</style>
 </head>
-	<body>
+	<body bgcolor="#fafafa">
 		<p>Hi ${rideRequest.requester.firstName}, </p>
 		<p>
 			Congratulation!!! We have processed your ride request. 
@@ -29,8 +29,8 @@
 		<p><b>Ride Details</b>
 			<table style="border: 1px solid black;width: 80%;">
 				<tr ><td style="background-color: #f2f2f2;">Pick up</td><td>${rideRequest.startAddress}</td></tr>
-				<tr ><td class="background-color: #f2f2f2;">Drop Off</td><td>${rideRequest.endAddress}</td></tr>
-				<tr ><td class="background-color: #f2f2f2;">Travel Date</td><td>${rideRequest.requestDate}</td></tr>
+				<tr ><td style="background-color: #f2f2f2;">Drop Off</td><td>${rideRequest.endAddress}</td></tr>
+				<tr ><td style="background-color: #f2f2f2;">Travel Date</td><td>${rideRequest.requestDate}</td></tr>
 			</table>
 		<p>
 		#if( ${rideResponse.vehicle} )
