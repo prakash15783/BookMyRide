@@ -179,7 +179,7 @@
 				var pickup_address = $('#pickup_address').val();
 				
 					//Ajax call to send data to the server,
-					$.get("http://localhost/products",
+					$.get("https://www.jiffgo.com/products",
 									{
 										pickup_latitude : pickup_latitude,
 										pickup_longitude : pickup_longitude,
