@@ -27,7 +27,7 @@
 									<li><a href="/history">History</a></li>
 								</ul>
 							</li>
-							<g:if test="${userProfile.getEmail().equalsIgnoreCase("raju.bhucs@gmail.com")}">
+							<g:if test="${session["current_user"].getAdmin() == true}">
 									<li>
 									<a href="#" class="icon fa-angle-down">Admin</a>
 									<ul>

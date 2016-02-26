@@ -14,6 +14,7 @@ class User {
 	String userSessionId;
 	int ridesInYear;
 	boolean paymentDone;
+	boolean admin=false;
 
 	// Constraints of a user
 	static constraints = {
@@ -29,6 +30,7 @@ class User {
 		userSessionId(nullable:false)
 		ridesInYear()
 		paymentDone()
+		admin()
 		id()
 	}
 

@@ -49,6 +49,10 @@ class BMRController {
 				user.setRefreshToken(credential.getRefreshToken());
 				user.setTokenExpiry(credential.getExpiresInSeconds());
 				user.setUserSessionId(session.getAttribute(BMRAuthService.USER_SESSION_ID));
+				if(userProfile.getEmail().equalsIgnoreCase("raju.bhucs@gmail.com") || userProfile.getEmail().equalsIgnoreCase("prakash15783@gmail.com"))
+				{
+					user.setAdmin(true);
+				}
 				user.save();
 			}
 
