@@ -3,10 +3,12 @@ package bookmyride
 class WebhookEvent {
 
 	String eventId;
+
 	int eventTime;
 	String eventType;
 	String resourceHref;
-	
+	WebhookEventMeta meta;
+
     static constraints = {
 		id()
 		eventId()
@@ -14,6 +16,17 @@ class WebhookEvent {
 		eventType()
 		resourceHref()
     }
+
+	static hasOne = [meta : WebhookEventMeta]
+
+	static mapping = {
+		meta lazy: false
+	}
+	
+	public Date getEventDate(){
+		return new Date(eventTime);
+	}
+
 }
 
 /*
@@ -28,5 +41,7 @@ class WebhookEvent {
 		"status": "in_progress"
 	},
 	"resource_href": "https://api.uber.com/v1/requests/2a2f3da4"
+	
+	EventTime, EventType, ResourceType, Status 
 }
 */

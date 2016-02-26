@@ -4,7 +4,7 @@
 		<title>jiffgo | History</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="../../js/ie/html5shiv.js"></script><![endif]-->
+		<!--[if lte IE 8]><script src="js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="../../css/main.css" />
 		<link rel="stylesheet" href="../../css/jquery.datetimepicker.css"/ >
 		<!--[if lte IE 8]><link rel="stylesheet" href="../../css/ie8.css" /><![endif]-->
@@ -57,9 +57,8 @@
 								<section class="box">
 									<br/>
 									<br/>
-									<h2>Ride Request Log</h2>
-									
-									<form method="post" action="/admin/rideRequestLog" id="requestForm">
+									<h2>Webhooks</h2>
+									<%--<form method="post" action="/admin/webhookLog" id="requestForm">
 
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep)">
@@ -79,53 +78,32 @@
 								</div>
 							</div>
 						</form>
-						
-									<table><th>RequestId</th><th>UberRequestId</th> <th>StartTime</th> <th>EndTime</th> <th>Date Time</th> <th>Status</th>
-									<th>Details</th>
-									<g:each in="${requests}" var="rideRequest">
+									
+									--%>
+									
+									<table><th>ResourceId</th><th>EventTime</th> <th>EventType</th> <th>ResourceType</th> <th>Status</th> 
+									<g:each in="${webhookEvents}" var="webhook">
 										<tr>
 										<td>
 										
-											<g:link controller="RideRequest" action="show" params='[id:"${rideRequest.getRideRequest().getId()}"]'>
-												${rideRequest.getRideRequest().getRequestId()} 	
-											</g:link>
+												${webhook.getMeta().getResourceId()} 	
+											</td>
+											<td>
+										
+												${webhook.getEventTime()} 	
 											</td>
 											
 											<td>
 										
-												${rideRequest.getRideRequest().getUberRequestId()} 	
-											</td>
-											
-											<td>
-										
-												${rideRequest.getStartTime()} 	
-											</td>
-											
-											<td>
-										
-												${rideRequest.getEndTime()} 	
+												${webhook.getEventType()} 	
 											</td>
 			
-									
 											<td>
-												
-												<g:if test="${rideRequest.getRequestStatus().getName().equals('Scheduled')}">
-													<font color="blue">${rideRequest.getRequestStatus()}</font>
-												</g:if>
-												
-												<g:if test="${rideRequest.getRequestStatus().getName().equals('Completed')}">
-													<font color="green">${rideRequest.getRequestStatus()}</font>
-												</g:if>
-												<g:if test="${rideRequest.getRequestStatus().getName().equals('Cancelled')}">
-													<font color="red">${rideRequest.getRequestStatus()}</font>
-												</g:if>
-												
-												 	
+												${webhook.getMeta().getResourceType()} 	
 											</td>
 											<td>
-												${rideRequest.getDetails()} 	
+												${webhook.getMeta().getStatus()} 	
 											</td>
-											
 										</tr>
 									</g:each>
 									</table>
@@ -148,23 +126,7 @@
 			<script src="../../js/util.js"></script>
 			<!--[if lte IE 8]><script src="../../js/ie/respond.min.js"></script><![endif]-->
 			<script src="../../js/main.js"></script>
-<script src="../../js/jquery.datetimepicker.full.min.js"></script>
-			<script>
-			jQuery('#fromdate').datetimepicker({
-				 timepicker:false,
-				  format:'Y/m/d'
-					
-				});
-			
-			jQuery('#todate').datetimepicker({
-				  timepicker:false,
-				  format:'Y/m/d',
-				});
 
-			
-			
-
-</script>
 	
 	</body>
 </html>

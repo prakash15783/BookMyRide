@@ -35,6 +35,7 @@
 									<ul>
 										<li><a href="/admin/history">History</a></li>
 										<li><a href="/admin/rideRequestLog">Request Processing</a></li>
+										<li><a href="/admin/webhookLog">Webhooks</a></li>
 									</ul>
 								</li>
 							</g:if>
@@ -178,7 +179,7 @@
 				var pickup_address = $('#pickup_address').val();
 				
 					//Ajax call to send data to the server,
-					$.get("https://www.jiffgo.com/products",
+					$.get("http://localhost/products",
 									{
 										pickup_latitude : pickup_latitude,
 										pickup_longitude : pickup_longitude,

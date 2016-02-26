@@ -1,5 +1,7 @@
 package bookmyride
 
+import java.text.SimpleDateFormat
+
 import javax.servlet.http.HttpSession
 
 import org.apache.commons.id.uuid.VersionFourGenerator
@@ -26,14 +28,44 @@ class AdminController {
 		if(uberRidesService != null){
 			// Fetch the user's profile.
 			userProfile = uberRidesService.getUserProfile().getBody();
-
+			if(userProfile == null){
+				response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
+			}
+			
+			
+			SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy/MM/dd");
+			Date fromDate = null;
+			
+			if(params != null && params['fromdate'] != null && params['fromdate'] != ""){
+				fromDate = isoFormat.parse(params['fromdate']);
+			}
+			
+			Date toDate = null;
+			
+			if(params != null && params['todate'] != null && params['todate'] != ""){
+				toDate = isoFormat.parse(params['todate']);
+			}
+			
+			List<RideRequest> rideRequests = RideRequest.findAll("from RideRequest order by requestDate desc",[max:100]);
+						
+			if(fromDate != null && toDate != null){
+				rideRequests = RideRequest.withCriteria {
+					ge('requestDate',fromDate)
+					le('requestDate',toDate)
+				}
+			}
+			
+			if(fromDate != null && toDate == null){
+				rideRequests = RideRequest.withCriteria {
+					ge('requestDate',fromDate)
+				}
+			}
+			
+			[userProfile:userProfile, requests: rideRequests]
 		}
-
-		List<RideRequest> rideRequests = RideRequest.findAll();
-
-		[userProfile:userProfile, requests: rideRequests]
-
-
+		else{
+			response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
+		}
 	}
 	
 	def rideRequestLog(){
@@ -44,15 +76,102 @@ class AdminController {
 				if(uberRidesService != null){
 					// Fetch the user's profile.
 					userProfile = uberRidesService.getUserProfile().getBody();
-		
+					if(userProfile == null){
+						response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
+					}
+					
+					SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy/MM/dd");
+					Date fromDate = null;
+					
+					if(params != null && params['fromdate'] != null && params['fromdate'] != ""){
+						fromDate = isoFormat.parse(params['fromdate']);
+					}
+					
+					Date toDate = null;
+					
+					if(params != null && params['todate'] != null && params['todate'] != ""){
+						toDate = isoFormat.parse(params['todate']);
+					}
+					
+					List<RideRequestLog> rideRequests = RideRequestLog.findAll("from RideRequestLog order by endTime desc",[max:100]);
+					
+					
+					if(fromDate != null && toDate != null){
+						rideRequests = RideRequestLog.withCriteria {
+							ge('startTime',fromDate)
+							le('endTime',toDate)
+						}
+					}
+					
+					if(fromDate != null && toDate == null){
+						rideRequests = RideRequestLog.withCriteria {
+							ge('startTime',fromDate)
+						}
+					}
+					
+					
+							[userProfile:userProfile, requests: rideRequests]
 				}
 		
-				List<RideRequestLog> rideRequests = RideRequestLog.findAll();
-		
-				[userProfile:userProfile, requests: rideRequests]
+				else{
+					response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
+				}
 		
 		
 	}
+	
+	def webhookLog(){
+		
+				UserProfile userProfile;
+		
+				uberRidesService = getActiveUberLoginSession();
+				if(uberRidesService != null){
+					// Fetch the user's profile.
+					userProfile = uberRidesService.getUserProfile().getBody();
+					if(userProfile == null){
+						response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
+					}
+					
+					
+				/*	SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy/MM/dd");
+					Date fromDate = null;
+					
+					if(params != null && params['fromdate'] != null && params['fromdate'] != ""){
+						fromDate = isoFormat.parse(params['fromdate']);
+					}
+					
+					Date toDate = null;
+					
+					if(params != null && params['todate'] != null && params['todate'] != ""){
+						toDate = isoFormat.parse(params['todate']);
+					}
+					*/
+					List<WebhookEvent> webhookEvents = WebhookEvent.findAll([sort:'eventTime',order:'desc',max:100]);
+					
+					
+					/*if(fromDate != null && toDate != null){
+						webhookEvents = RideRequest.withCriteria {
+							ge('requestDate',fromDate)
+							le('requestDate',toDate)
+						}
+					}
+					
+					if(fromDate != null && toDate == null){
+						webhookEvents = RideRequest.withCriteria {
+							ge('requestDate',fromDate)
+						}
+					}*/
+					
+					[userProfile:userProfile, webhookEvents: webhookEvents]
+				}
+				else{
+					response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
+				}
+				
+				
+		
+		
+			}
 
 	private UberRidesSyncService getActiveUberLoginSession()
 	{

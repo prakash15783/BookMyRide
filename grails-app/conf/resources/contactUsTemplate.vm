@@ -12,8 +12,6 @@
 	    padding: 8px;
 	}
 	
-	tr:nth-child(even){background-color: #f2f2f2}
-	
 	th {
 	    background-color: #4CAF50;
 	    color: white;
@@ -23,18 +21,16 @@
 	<body>
 		<p>Hi ${contactUs.name}, </p>
 		<p>
-			You have received below query from you.
+			We have received below query from you.
 		</p>
 		
 		<p>
 			${contactUs.message}
 		<p>
 		<br/>
-		<br/>
 		<p>
 			We will get back to you shortly.
 		<p>
-		<br/>
 		<br/>
 		Happy Riding!!!
 		<br/>
@@ -42,6 +38,8 @@
 		<p>
 			Thanks & Regards, <br/><br/>
 			jiffGo Team
+			<br/>
+			<a href="https://www.jiffgo.com">jiffGo</a>
 		</p>
 	</body>
  

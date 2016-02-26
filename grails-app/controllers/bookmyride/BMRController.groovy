@@ -295,7 +295,8 @@ class BMRController {
 
 		}
 
-		List<RideRequest> rideRequests = RideRequest.findAllByRequesterAndRequestStatus(User.findByUuid(userProfile?.getUuid()), RequestStatus.RequestScheduled);
+		List<RideRequest> rideRequests = RideRequest.findAllByRequesterAndRequestStatus(User.findByUuid(userProfile?.getUuid())
+			, RequestStatus.RequestScheduled,[sort:'requestDate',order:'desc']);
 
 		[userProfile:userProfile, requests: rideRequests]
 
@@ -314,7 +315,7 @@ class BMRController {
 
 		}
 
-		List<RideRequest> rideRequests = RideRequest.findAllByRequester(User.findByUuid(userProfile?.getUuid()));
+		List<RideRequest> rideRequests = RideRequest.findAllByRequester(User.findByUuid(userProfile?.getUuid()),[sort:'requestDate',order:'desc']);
 
 		[userProfile:userProfile, requests: rideRequests]
 

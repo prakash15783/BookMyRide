@@ -27,7 +27,8 @@ import bookmyride.User;
 import com.uber.sdk.rides.client.model.Ride;
 
 public class MailService implements IMailService {
-    private volatile boolean isRunning = false;
+    private static final String JIFFGO_FROM = "jiffgo<contact@jiffgo.com>";
+	private volatile boolean isRunning = false;
     private MailQueue mailQueue = (MailQueue)(CommonDataStore.getDataStore(BookMyRideConstants.MAIL_QUEUE));
     private MailSender mailSender;
     private VelocityEngine velocityEngine;
@@ -96,7 +97,7 @@ public class MailService implements IMailService {
 		
 		String subject = "Thank you";
 		try {
-			boolean status = sendMimeMail("contact@jiffgo.com",contactUs.getEmail(),subject,text);
+			boolean status = sendMimeMail(JIFFGO_FROM,contactUs.getEmail(),subject,text);
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -146,7 +147,7 @@ public class MailService implements IMailService {
 		boolean status = Boolean.FALSE;
 		String subject = getSubject(ride);
 		try {
-			status = sendMimeMail("jiffgo<contact@jiffgo.com>",user.getEmail(),subject,text);
+			status = sendMimeMail(JIFFGO_FROM,user.getEmail(),subject,text);
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

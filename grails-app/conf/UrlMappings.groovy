@@ -29,6 +29,7 @@ class UrlMappings {
 		
 		"/admin/history"(controller:"Admin", action:"history")
 		"/admin/rideRequestLog"(controller:"Admin", action:"rideRequestLog")
+		"/admin/webhookLog"(controller:"Admin", action:"webhookLog")
 		"/webhook"(controller:"Callback", action:"webhook")
 	}
 }
