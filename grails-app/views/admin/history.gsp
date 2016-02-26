@@ -33,6 +33,7 @@
 									<ul>
 										<li><a href="/admin/history">History</a></li>
 										<li><a href="/admin/rideRequestLog">Request Processing</a></li>
+										<li><a href="/admin/webhookLog">Webhooks</a></li>
 									</ul>
 								</li>
 							</g:if>
@@ -57,14 +58,39 @@
 									<br/>
 									<br/>
 									<h2>Request History</h2>
-									<table><th>Detail</th> <th>Pickup Address</th> <th>Dropoff Address</th> <th>Date Time</th> <th>Status</th>
+									<form method="post" action="/admin/history" id="requestForm">
+
+							<div class="row uniform 50%">
+								<div class="6u 12u(mobilep)">
+									From Date: <input name="fromdate" id="fromdate"
+										type="text" value="${params['fromdate']}">
+								</div>
+								<div class="6u 12u(mobilep)">
+									To Date: <input name="todate" id="todate"
+										type="text" value="${params['todate']}">
+								</div>
+							</div>
+							<div class="row uniform 50%">
+								<div class="6u 12u(mobilep)">
+									<ul class="actions">
+										<li><input type="submit" value="Filter" /></li>
+									</ul>
+								</div>
+							</div>
+						</form>
+									
+									<table><th>RequestId</th><th>UberRequestId</th> <th>Pickup Address</th> <th>Dropoff Address</th> <th>Date Time</th> <th>Status</th>
 									<g:each in="${requests}" var="request">
 										<tr>
 										<td>
 										
 											<g:link controller="RideRequest" action="show" params='[id:"${request.getId()}"]'>
-												Details
+												${request.getRequestId()}
 											</g:link>
+											</td>
+											<td>
+										
+												${request.getUberRequestId()} 	
 											</td>
 											
 											<td>
@@ -119,6 +145,23 @@
 			<script src="../../js/util.js"></script>
 			<!--[if lte IE 8]><script src="../../js/ie/respond.min.js"></script><![endif]-->
 			<script src="../../js/main.js"></script>
+			<script src="../../js/jquery.datetimepicker.full.min.js"></script>
+			<script>
+			jQuery('#fromdate').datetimepicker({
+				 timepicker:false,
+				  format:'Y/m/d'
+					
+				});
+			
+			jQuery('#todate').datetimepicker({
+				  timepicker:false,
+				  format:'Y/m/d',
+				});
+
+			
+			
+
+</script>
 
 	
 	</body>

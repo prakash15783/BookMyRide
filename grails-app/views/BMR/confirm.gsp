@@ -144,7 +144,7 @@
 		
 				var product_id = $('#vehicle-select').val();
 					//Ajax call to send data to the server,
-					$.get("https://www.jiffgo.com/product",
+					$.get("http://localhost/product",
 									{
 										product_id : product_id
 									},
