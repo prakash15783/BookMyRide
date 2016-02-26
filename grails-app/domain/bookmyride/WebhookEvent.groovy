@@ -3,15 +3,17 @@ package bookmyride
 class WebhookEvent {
 
 	String eventId;
-	String eventTime;
+	int eventTime;
 	String eventType;
 	String resourceHref;
-    static constraints = {
-		id();
-		
-    }
 	
-	static hasOne = [meta : WebhookEventMeta]
+    static constraints = {
+		id()
+		eventId()
+		eventTime()
+		eventType()
+		resourceHref()
+    }
 }
 
 /*

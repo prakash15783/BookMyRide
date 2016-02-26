@@ -5,9 +5,14 @@ class WebhookEventMeta {
 	String resourceId;
 	String resourceType;
 	String status;
+	WebhookEvent webhookEvent;
 	
     static constraints = {
-		id();
+		id()
+		resourceId()
+		resourceType(nullable:true)
+		status()
+		webhookEvent(nullable: false)
     }
 	static belongsTo = [webhookEvent:WebhookEvent]
 }

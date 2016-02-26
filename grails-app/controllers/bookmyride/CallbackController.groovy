@@ -49,12 +49,21 @@ class CallbackController {
 	}
 
 	def webhook(){
+		
 		String env = request.getHeader("X-Environment");
 		String hashedSignature = request.getHeader("X-Uber-Signature");
-
 		String body = request.reader.text;
+		
+		System.out.println("#########  Recieved webhook call from UBER ##############");
+		System.out.println("#########  Webhook message body ##############");
+		System.out.println(body);
+		System.out.println("##############################################");
+		
 		if(hashedSignature.equals(hmac_sha256(BMRAuthService.getClientSecret(),body))){
 			//persist it in database, send notification
+			System.out.println("##############################################");
+			System.out.println("           Updating Webhook Table           ");
+			System.out.println("##############################################");
 			
 			def jsonSlurper = new JsonSlurper()
 			def parsedData = jsonSlurper.parseText(body);
@@ -63,14 +72,16 @@ class CallbackController {
 			event.setEventTime(parsedData.event_time);
 			event.setEventType(parsedData.event_type);
 			event.setResourceHref(parsedData.resource_href);
+			event.save(failOnError:true);
 			
 			WebhookEventMeta meta = new WebhookEventMeta();
 			meta.setResourceId(parsedData.meta.resource_id);
 			meta.setResourceType(parsedData.meta.resource_type);
 			meta.setStatus(parsedData.meta.status);
-			event.setMeta(meta)
+			meta.setWebhookEvent(event);
+			meta.save(failOnError:true);
 			
-			event.save();
+			
 			//If status of an event changes then send notification.
 			
 			/*
@@ -88,6 +99,10 @@ class CallbackController {
 			 }
 			 */
 			
+		} else{
+		System.out.println("##############################################");
+		System.out.println("          Webhook Hash is not same !!         ");
+		System.out.println("##############################################");
 		}
 
 	}
