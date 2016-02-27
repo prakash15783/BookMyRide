@@ -161,6 +161,18 @@ When the request is made, you will receive notification from Uber and the Uber a
 
 							</tr>
 							
+							<tr>
+
+								<td>How do I get notifications about my ride request?</td>
+
+							</tr>
+							<tr>
+
+								<td>To get notified, you need to have Uber app installed and running on your smartphone. 
+								<br/>Notifications about your ride will be sent by Uber. </td>
+
+							</tr>
+							
 							
 							
 						</table>
