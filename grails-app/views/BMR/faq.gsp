@@ -72,7 +72,7 @@ To get started, simply login using your Uber account.</td>
 							</tr>
 							<tr>
 
-								<td>Currently, jiffgo is only available in the INDIA during the preview release.</td>
+								<td>Currently, jiffgo is only available in INDIA during the preview release.</td>
 
 							</tr>
 							
@@ -119,9 +119,7 @@ To get started, simply login using your Uber account.</td>
 							</tr>
 							<tr>
 
-								<td>The request can be made for a few weeks in advance.
-
-The earliest request can be made for 70 minutes (from current time) in advance.</td>
+								<td>The request can be made for up to a week in advance.</td>
 
 							</tr>
 							

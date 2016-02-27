@@ -156,7 +156,7 @@
 				location: {latitude: 13.2044921, longitude: 77.70769070000006},	
 				radius: 30,
 				scrollwheel: false,
-				draggable: false,
+				draggable: true,
 				inputBinding: {
 			        latitudeInput: $('#drop_latitude'),
 			        longitudeInput: $('#drop_longitude'),
@@ -226,7 +226,7 @@
 						location: {latitude: startPos.coords.latitude, longitude: startPos.coords.longitude},	
 						radius: 30,
 						scrollwheel: false,
-						draggable: false,
+						draggable: true,
 						inputBinding: {
 					        latitudeInput: $('#pickup_latitude'),
 					        longitudeInput: $('#pickup_longitude'),
@@ -244,7 +244,7 @@
 					    			location: {latitude: 12.9128449, longitude: 77.63792250000006},	
 					    			radius: 30,
 					    			scrollwheel: false,
-									draggable: false,
+									draggable: true,
 					    			inputBinding: {
 					    		        latitudeInput: $('#pickup_latitude'),
 					    		        longitudeInput: $('#pickup_longitude'),
@@ -265,7 +265,7 @@
 			    			location: {latitude: 12.9128449, longitude: 77.63792250000006},	
 			    			radius: 30,
 			    			scrollwheel: false,
-							draggable: false,
+							draggable: true,
 			    			inputBinding: {
 			    		        latitudeInput: $('#pickup_latitude'),
 			    		        longitudeInput: $('#pickup_longitude'),
