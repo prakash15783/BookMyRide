@@ -27,6 +27,19 @@
 									<li><a href="/history">History</a></li>
 								</ul>
 							</li>
+							
+							<g:if test="${session["current_user"].getAdmin() == true}">
+									<li>
+									<a href="#" class="icon fa-angle-down">Admin</a>
+									<ul>
+										<li><a href="/admin/history">History</a></li>
+										<li><a href="/admin/rideRequestLog">Request Processing</a></li>
+										<li><a href="/admin/webhookLog">Webhooks</a></li>
+										<li><a href="/admin/messages">Messages</a></li>
+									</ul>
+								</li>
+							</g:if>
+							
 							<li><a href="/contactus">Contact Us</a></li>
 							<li><a href="/logout" class="button">Sign Out</a></li>
 						</ul>
@@ -57,7 +70,7 @@
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
-												<b>Pickup Map:</b> <div id="pickup_map" style="width: 400px; height: 300px;"></div>
+												<b>Pickup Map:</b> <div id="pickup_map" style="width: 99%; height: 300px;"></div>
 											</div>
 										</div>
 														
@@ -73,7 +86,7 @@
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
-												<b>Dropoff Map:</b> <div id="drop_map" style="width: 400px; height: 300px;"></div>
+												<b>Dropoff Map:</b> <div id="drop_map" style="width: 99%; height: 300px;"></div>
 											</div>
 										</div>
 														

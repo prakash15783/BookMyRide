@@ -172,6 +172,29 @@ class AdminController {
 		
 		
 			}
+	
+	
+	def messages(){
+		
+				UserProfile userProfile;
+		
+				uberRidesService = getActiveUberLoginSession();
+				if(uberRidesService != null){
+					// Fetch the user's profile.
+					userProfile = uberRidesService.getUserProfile().getBody();
+					if(userProfile == null){
+						response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
+					}
+				
+					List<ContactUs> userMessages = ContactUs.findAll();
+					
+					[userProfile:userProfile, messages: userMessages]
+				}
+				else{
+					response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
+				}
+		
+			}
 
 	private UberRidesSyncService getActiveUberLoginSession()
 	{

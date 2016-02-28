@@ -36,6 +36,7 @@
 										<li><a href="/admin/history">History</a></li>
 										<li><a href="/admin/rideRequestLog">Request Processing</a></li>
 										<li><a href="/admin/webhookLog">Webhooks</a></li>
+										<li><a href="/admin/messages">Messages</a></li>
 									</ul>
 								</li>
 							</g:if>
@@ -72,7 +73,7 @@
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep)">
 									Pickup Map:
-									<div id="pickup_map" style="width: 375px; height: 300px;"></div>
+									<div id="pickup_map" style="width: 99%; height: 300px;"></div>
 								</div>
 							</div>
 
@@ -92,7 +93,7 @@
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep)">
 									Dropoff Map:
-									<div id="drop_map" style="width: 375px; height: 300px;"></div>
+									<div id="drop_map" style="width: 99%; height: 300px;"></div>
 								</div>
 							</div>
 

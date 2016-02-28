@@ -31,7 +31,18 @@
 												
 											</ul>
 										</li>
-											<li><a href="/contactus">Contact Us</a></li>
+
+						<g:if test="${session["current_user"].getAdmin() == true}">
+							<li><a href="#" class="icon fa-angle-down">Admin</a>
+								<ul>
+									<li><a href="/admin/history">History</a></li>
+									<li><a href="/admin/rideRequestLog">Request Processing</a></li>
+									<li><a href="/admin/webhookLog">Webhooks</a></li>
+									<li><a href="/admin/messages">Messages</a></li>
+								</ul></li>
+						</g:if>
+
+						<li><a href="/contactus">Contact Us</a></li>
 										<li><a href="/logout" class="button">Sign Out</a></li>
 								</ul>
 							</g:if>

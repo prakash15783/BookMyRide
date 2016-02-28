@@ -26,6 +26,17 @@
 									<li><a href="/history">History</a></li>
 								</ul>
 							</li>
+							<g:if test="${session["current_user"].getAdmin() == true}">
+									<li>
+									<a href="#" class="icon fa-angle-down">Admin</a>
+									<ul>
+										<li><a href="/admin/history">History</a></li>
+										<li><a href="/admin/rideRequestLog">Request Processing</a></li>
+										<li><a href="/admin/webhookLog">Webhooks</a></li>
+										<li><a href="/admin/messages">Messages</a></li>
+									</ul>
+								</li>
+							</g:if>
 						<li><a href="/contactus">Contact Us</a></li>
 							<li><a href="/logout" class="button">Sign Out</a></li>
 						</ul>
@@ -48,6 +59,7 @@
 									<br/>
 									<br/>
 									<h2>Request History</h2>
+									<div style="overflow-x:scroll">
 									<table><th>Detail</th> <th>Pickup Address</th> <th>Dropoff Address</th> <th>Date Time</th> <th>Status</th>
 									<g:each in="${requests}" var="request">
 										<tr>
@@ -92,6 +104,7 @@
 										</tr>
 									</g:each>
 									</table>
+									</div>
 								</section>
 						</div> 
 						</div>

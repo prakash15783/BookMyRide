@@ -1,7 +1,7 @@
 
 <html>
 	<head>
-		<title>jiffgo | History</title>
+		<title>jiffgo | Webhook Log</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="js/ie/html5shiv.js"></script><![endif]-->
@@ -34,6 +34,7 @@
 										<li><a href="/admin/history">History</a></li>
 										<li><a href="/admin/rideRequestLog">Request Processing</a></li>
 										<li><a href="/admin/webhookLog">Webhooks</a></li>
+										<li><a href="/admin/messages">Messages</a></li>
 									</ul>
 								</li>
 							</g:if>
@@ -80,7 +81,7 @@
 						</form>
 									
 									--%>
-									
+									<div style="overflow-x:scroll">
 									<table><th>ResourceId</th><th>EventTime</th> <th>EventType</th> <th>ResourceType</th> <th>Status</th> 
 									<g:each in="${webhookEvents}" var="webhook">
 										<tr>
@@ -107,6 +108,7 @@
 										</tr>
 									</g:each>
 									</table>
+									</div>
 								</section>
 						</div> 
 						</div>
