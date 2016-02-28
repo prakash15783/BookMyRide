@@ -84,28 +84,24 @@
 									<g:each in="${requests}" var="request">
 										<tr>
 										<td>
-										
 											<g:link controller="RideRequest" action="show" params='[id:"${request.getId()}"]'>
 												${request.getRequestId()}
 											</g:link>
 											</td>
 											<td>
-										
 												${request.getUberRequestId()} 	
 											</td>
 											
 											<td>
-										
 												${request.getStartAddress()} 	
 											</td>
 											
 											<td>
-										
 												${request.getEndAddress()} 	
 											</td>
 			
 											<td>
-												${request.getRequestDate()} 	
+												<g:formatDate format="dd-MM-yyyy HH:mm" date="${request.getRequestDate()}" timeZone="${TimeZone.getTimeZone("IST")}"/>	
 											</td>
 											
 											<td>
@@ -120,10 +116,7 @@
 												<g:if test="${request.getRequestStatus().getName().equals('Cancelled')}">
 													<font color="red">${request.getRequestStatus()}</font>
 												</g:if>
-												
-												 	
-											</td>
-											
+												</td>			
 										</tr>
 									</g:each>
 									</table>

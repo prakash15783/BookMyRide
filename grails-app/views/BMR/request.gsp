@@ -174,8 +174,6 @@
 
 
 			function populateVehicles(){
-				
-
 				var pickup_latitude = $('#pickup_latitude').val();
 				var pickup_longitude = $('#pickup_longitude').val();
 				var pickup_address = $('#pickup_address').val();
