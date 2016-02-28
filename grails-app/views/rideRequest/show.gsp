@@ -56,7 +56,7 @@
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
-												Pickup Map: <div id="pickup_map" style="width: 400px; height: 300px;"></div>
+												Pickup Map: <div id="pickup_map" style="width: 99%; height: 300px;"></div>
 											</div>
 										</div>
 														
@@ -73,7 +73,7 @@
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
-												Dropoff Map: <div id="drop_map" style="width: 400px; height: 300px;"></div>
+												Dropoff Map: <div id="drop_map" style="width: 99%; height: 300px;"></div>
 											</div>
 										</div>
 														
