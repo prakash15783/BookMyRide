@@ -114,7 +114,7 @@
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep)">
 									Pickup Date and Time: <input name=datetime id="datetime"
-										type="text" value="${params['datetime']}">
+										type="text" value="${params['datetime']}" readonly>
 								</div>
 							</div>
 
@@ -167,7 +167,8 @@
 
 			jQuery('#datetime').datetimepicker({
 				minDate: 0,
-				maxDate: '+1970/01/07'
+				maxDate: '+1970/01/07',
+				step: 5
 				});
 
 
