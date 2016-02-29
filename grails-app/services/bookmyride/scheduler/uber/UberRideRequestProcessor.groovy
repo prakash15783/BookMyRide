@@ -11,6 +11,7 @@ import bookmyride.RideRequest
 import bookmyride.RideRequestLog
 import bookmyride.RideResponse
 import bookmyride.User
+import bookmyride.retry.BackOffUtil;
 import bookmyride.scheduler.AbstractRideRequestProcessor
 
 import com.uber.sdk.rides.client.Callback
@@ -151,9 +152,13 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 		
 		private void saveFailedRideRequest(String details){
 			rideReqLog.setDetails(details);
-			rideRequest.setRequestStatus(RequestStatus.RequestCancelled);
-			rideReqLog.setRequestStatus(RequestStatus.RequestCancelled);
+			rideRequest.setRequestStatus(RequestStatus.RequestFailed);//TODO : put in queue for reprocessing?
+			rideReqLog.setRequestStatus(RequestStatus.RequestFailed);
 			rideReqLog.save(failOnError:true,flush:true);
+			
+			if(BookMyRideConstants.reprocessedFailedRequest){
+				BackOffUtil.reProcessRideRequest(rideRequest);
+			}
 		}
 	}
 }

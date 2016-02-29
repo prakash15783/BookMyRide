@@ -37,6 +37,10 @@ class User {
 	// A User can have many ride request
 	static hasMany = [riderequests : RideRequest]
 
+	public String getName(){
+		return this.firstName +" "+this.lastName;
+	}
+	
 	@Override
 	public String toString() {
 		return "User [firstName=" + firstName + ", lastName=" + lastName

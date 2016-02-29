@@ -21,8 +21,8 @@ class WebhookEvent {
 	}
 	
 	public WebhookEventMeta getMeta(){
-		WebhookEventMeta meta = WebhookEventMeta.findByWebhookEvent(this);
-		return meta;
+				WebhookEventMeta meta = WebhookEventMeta.findByWebhookEvent(this);
+				return meta;
 	}
 
 }

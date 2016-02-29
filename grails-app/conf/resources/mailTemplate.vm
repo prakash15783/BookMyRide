@@ -23,7 +23,7 @@
 	<body bgcolor="#fafafa">
 		<p>Hi ${rideRequest.requester.firstName}, </p>
 		<p>
-			Congratulation!!! We have processed your ride request. 
+			Thanks for using jiffgo.com. We have processed your ride request. 
 		</p>
 		
 		<p><b>Ride Details</b>
@@ -33,29 +33,30 @@
 				<tr ><td style="background-color: #f2f2f2;">Travel Date</td><td>${rideRequest.requestDate}</td></tr>
 			</table>
 		<p>
-		#if( ${rideResponse.vehicle} )
-   
-
-		<p><b>Vehicle Details</b>
-			<table style="border: 1px solid black;width: 80%;">
-				<tr ><td class="tdcolor">Model</td><td>${rideResponse.vehicle.model}</td></tr>
-				<tr ><td class="tdcolor">License</td><td>${rideResponse.vehicle.license_plate}</td></tr>
-				<tr ><td class="tdcolor">Picture</td><td><img src="${rideResponse.vehicle.picture_url}" alt="Vehicle picture"/></td></tr>
-			</table>
-		<p>
-		<p><b>Driver Details</b>
-			<table style="border: 1px solid black;width: 80%;">
-				<tr><td class="tdcolor">Driver Name</td><td>${rideResponse.driver.Name}</td></tr>
-				<tr><td class="tdcolor">Driver PhoneNo. </td><td>${rideResponse.driver.driverPhoneNo}</td></tr>
-				<tr><td class="tdcolor">Driver Pic</td><td><img src="${rideResponse.driver.driverPicture}" alt="Driver picture"/></td></tr>
-				<tr><td class="tdcolor">Driver Rating</td><td>${rideResponse.driver.driverRating}</td></tr>
-			</table>
-		<p>
-		
+		#if(${rideResponse})
+			#if(${rideResponse.vehicle} )
+				<p><b>Vehicle Details</b>
+					<table style="border: 1px solid black;width: 80%;">
+						<tr ><td class="tdcolor">Model</td><td>${rideResponse.vehicle.model}</td></tr>
+						<tr ><td class="tdcolor">License</td><td>${rideResponse.vehicle.license_plate}</td></tr>
+						<tr ><td class="tdcolor">Picture</td><td><img src="${rideResponse.vehicle.picture_url}" alt="Vehicle picture"/></td></tr>
+					</table>
+				<p>
+				<p><b>Driver Details</b>
+					<table style="border: 1px solid black;width: 80%;">
+						<tr><td class="tdcolor">Driver Name</td><td>${rideResponse.driver.Name}</td></tr>
+						<tr><td class="tdcolor">Driver PhoneNo. </td><td>${rideResponse.driver.driverPhoneNo}</td></tr>
+						<tr><td class="tdcolor">Driver Pic</td><td><img src="${rideResponse.driver.driverPicture}" alt="Driver picture"/></td></tr>
+						<tr><td class="tdcolor">Driver Rating</td><td>${rideResponse.driver.driverRating}</td></tr>
+					</table>
+				<p>
+			#else
+				Your ride status is <strong>${rideResponse.status}</strong>. We will inform you as the status changes.
+			#end
 		#else
-			Your ride status is <strong>$rideResponse.status</strong>. We will inform you as the status changes.
+			Your ride is <strong>scheduled</strong>. You will receive Uber notification when it is processed.
 		#end	
-			
+		<br/>	
 		<br/>
 		Happy Riding!!!
 		<br/>

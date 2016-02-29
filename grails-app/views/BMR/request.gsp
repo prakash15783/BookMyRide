@@ -181,6 +181,7 @@
 				
 					//Ajax call to send data to the server,
 					$.get("https://www.jiffgo.com/products",
+					//		$.get("http://localhost/products",
 									{
 										pickup_latitude : pickup_latitude,
 										pickup_longitude : pickup_longitude,

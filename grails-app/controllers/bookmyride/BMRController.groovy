@@ -10,6 +10,7 @@ import com.uber.sdk.rides.client.model.ProductsResponse
 import com.uber.sdk.rides.client.model.UserProfile;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat
 import java.util.Random;
 
@@ -271,9 +272,16 @@ class BMRController {
 		rideRequest.setRequestStatus(RequestStatus.RequestScheduled);
 		String requestId = VersionFourGenerator.getInstance().nextUUID().toString();
 		rideRequest.setRequestId(requestId);
-
+		rideRequest.setCreatedTimestamp(new Timestamp(System.currentTimeMillis()));
+		rideRequest.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+		
 		rideRequest.save();
 
+		//Enqueue for mailing
+		MailQueue mailQueue = (MailQueue)CommonDataStore.getDataStore(BookMyRideConstants.MAIL_QUEUE);
+		mailQueue.enqueueMailMessage(new RideResponse(rideRequest, null));
+		
+		
 		redirect(action: "queue");
 
 		return;
@@ -283,7 +291,8 @@ class BMRController {
 	{
 		String request_id = params['request_id'];
 		RideRequest rideRequest = RideRequest.findById(request_id);
-		rideRequest.setRequestStatus(RequestStatus.RequestCancelled);
+		rideRequest.setRequestStatus(RequestStatus.RequestUserCancelled);
+		rideRequest.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
 		rideRequest.save();
 
 		redirect(action: "queue");

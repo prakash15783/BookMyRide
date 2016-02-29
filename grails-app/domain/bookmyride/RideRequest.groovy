@@ -1,5 +1,7 @@
 package bookmyride
 
+import java.sql.Timestamp
+
 import org.codehaus.groovy.grails.orm.hibernate.cfg.IdentityEnumType
 
 class RideRequest {
@@ -30,6 +32,9 @@ class RideRequest {
 	
 	String uberRequestId; //Request Id generated in database
 	
+	Timestamp createdTimestamp;
+	Timestamp updatedTimestamp;
+	
 	static constraints = {
 		id()
 		requester(nullable: false)
@@ -45,6 +50,8 @@ class RideRequest {
 		requestDate(nullable:false)
 		requestId(nullable:false)
 		uberRequestId(nullable:true) 
+		createdTimestamp(nullable:true)
+		updatedTimestamp(nullable:true) 
 	}
 
 	// A RideRequest belongs to a User
@@ -66,6 +73,4 @@ class RideRequest {
 				+ ", requestStatus=" + requestStatus + ", uberRequestId="
 				+ uberRequestId + "]";
 	}
-	
-	
 }

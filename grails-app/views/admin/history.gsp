@@ -83,6 +83,7 @@
 						</form>
 									<div style="overflow-x:scroll">
 									<table><th>RequestId</th><th>UberRequestId</th> <th>Pickup Address</th> <th>Dropoff Address</th> <th>Date Time</th> <th>Status</th>
+									<th>Requester</th>
 									<g:each in="${requests}" var="request">
 										<tr>
 										<td>
@@ -112,12 +113,21 @@
 													<font color="blue">${request.getRequestStatus()}</font>
 												</g:if>
 												
-												<g:if test="${request.getRequestStatus().getName().equals('Completed')}">
+												<g:elseif test="${request.getRequestStatus().getName().equals('Completed')}">
 													<font color="green">${request.getRequestStatus()}</font>
-												</g:if>
-												<g:if test="${request.getRequestStatus().getName().equals('Cancelled')}">
+												</g:elseif>
+												
+												<g:elseif test="${request.getRequestStatus().getName().equals('Cancelled')}">
 													<font color="red">${request.getRequestStatus()}</font>
-												</g:if>
+												</g:elseif>
+												<g:else>
+													${request.getRequestStatus()}
+												</g:else>
+											 	
+												</td>
+												
+												<td>
+													${request.getRequester().getName()} 
 												</td>			
 										</tr>
 									</g:each>

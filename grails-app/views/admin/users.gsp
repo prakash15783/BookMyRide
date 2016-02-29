@@ -62,7 +62,7 @@
 									<br/>
 									<h2>Users</h2>
 									<div style="overflow-x:scroll">									
-									<table><th>UUID</th><th>First Name</th> <th>Last Name</th> <th>Email</th> <th>Rides</th>  
+									<table><th>UUID</th><th>Name</th> <th>Email</th> <th>Photo</th> <th>Rides</th>  
 									<g:each in="${users}" var="user">
 										<tr>
 											<td>
@@ -71,17 +71,17 @@
 											</td>
 											<td>
 										
-												${user.getFirstName()} 	
+												${user.getFirstName()} &nbsp;	${user.getLastName()}
 											</td>
-											<td>
-										
-												${user.getLastName()} 	
-											</td>
+									
 											<td>
 										
 												${user.getEmail()} 	
 											</td>
-											
+											<td>
+												<img src="${user.getPicture()}" width="100px" height="100px"/>
+												 	
+											</td>
 											<td>
 												${user.getRidesInYear()} 	
 											</td>
