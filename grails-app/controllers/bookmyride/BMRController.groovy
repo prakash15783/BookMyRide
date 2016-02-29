@@ -93,6 +93,7 @@ class BMRController {
 			else
 			{
 				user.setUserSessionId(session.getAttribute(BMRAuthService.USER_SESSION_ID));
+				user.setPicture(userProfile.getPicture());
 				user.save();
 				
 				// save the logged in user in the session
