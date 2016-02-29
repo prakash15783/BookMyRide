@@ -238,6 +238,9 @@ class BMRController {
 			// Fetch the user's profile.
 			userProfile = uberRidesService.getUserProfile().getBody();
 		}
+		else {
+			response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
+		}
 
 		float startLatitude = Float.parseFloat(params['pickup_latitude']);
 		float startLongitude = Float.parseFloat(params['pickup_longitude']);
@@ -297,6 +300,8 @@ class BMRController {
 			// Fetch the user's profile.
 			userProfile = uberRidesService.getUserProfile().getBody();
 
+		}else {
+			response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
 		}
 
 		List<RideRequest> rideRequests = RideRequest.findAllByRequesterAndRequestStatus(User.findByUuid(userProfile?.getUuid())
@@ -317,6 +322,8 @@ class BMRController {
 			// Fetch the user's profile.
 			userProfile = uberRidesService.getUserProfile().getBody();
 
+		}else {
+			response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
 		}
 
 		List<RideRequest> rideRequests = RideRequest.findAllByRequester(User.findByUuid(userProfile?.getUuid()),[sort:'requestDate',order:'desc']);
@@ -380,6 +387,8 @@ class BMRController {
 				if(uberRidesService != null){
 					// Fetch the user's profile.
 					userProfile = uberRidesService.getUserProfile().getBody();
+				}else {
+					response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
 				}
 				
 				[userProfile:userProfile]
