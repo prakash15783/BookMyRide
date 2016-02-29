@@ -89,12 +89,12 @@
 									<g:each in="${webhookEvents}" var="webhook">
 										<tr>
 										<td>
-											<g:link controller="Admin" action="history" params='[id:"${webhook.getEventId()}"]'>
 													${webhook.getEventId()}
-											</g:link>
 										</td>
 										<td>
+										<g:link controller="Admin" action="history" params='[id:"${webhook.getMeta().getResourceId()}"]'>
 												${webhook.getMeta().getResourceId()} 	
+												</g:link>
 											</td>
 											<td>
 										
