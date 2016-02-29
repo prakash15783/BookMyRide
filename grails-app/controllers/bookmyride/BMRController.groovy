@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat
 import java.util.Random;
 
+import javax.net.ssl.HttpsURLConnection
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -223,7 +224,10 @@ class BMRController {
 		if(captcha?.empty)
 		{
 			redirect(action: "request")
+		}else if(!validateCaptcha(captcha)){
+			redirect(action: "request")
 		}
+		
 		
 		uberRidesService = getActiveUberLoginSession();
 		if(uberRidesService != null){
@@ -442,6 +446,43 @@ class BMRController {
 		}
 
 		return null;
+	}
+	
+	
+	private boolean validateCaptcha(String captcha) throws Exception {
+
+		String url = "https://www.google.com/recaptcha/api/siteverify?secret=6LehlxkTAAAAAEIvKkHpftXLn_EC3-8B4tp4X41M&response="+captcha;
+		
+		URL obj = new URL(url);
+		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+
+		// optional default is GET
+		con.setRequestMethod("GET");
+
+		//add request header
+		con.setRequestProperty("User-Agent", "Mozilla/5.0");
+
+		int responseCode = con.getResponseCode();
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		StringBuffer res = new StringBuffer();
+
+		while ((inputLine = br.readLine()) != null) {
+			res.append(inputLine);
+		}
+		br.close();
+		
+		if(res.toString().contains("\"success\": true"))
+		{
+			return true
+		}
+		if(res.toString().contains("\"success\":true"))
+		{
+			return true
+		}
+		
+		return false;
 	}
 	
 

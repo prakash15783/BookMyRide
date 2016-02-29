@@ -17,7 +17,7 @@ class WebhookEvent {
     }
 
 	public Date getEventDate(){
-		return new Date(eventTime);
+		return new Date(eventTime*1000L);
 	}
 	
 	public WebhookEventMeta getMeta(){

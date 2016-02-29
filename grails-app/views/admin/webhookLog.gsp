@@ -97,8 +97,8 @@
 												</g:link>
 											</td>
 											<td>
+											<g:formatDate format="yyyy/MM/dd HH:mm" date="${webhook.getEventDate()}" timeZone="${TimeZone.getTimeZone("IST")}"/>
 										
-												${webhook.getEventDate()} 	
 											</td>
 											
 											<td>
