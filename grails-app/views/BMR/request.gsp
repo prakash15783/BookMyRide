@@ -119,6 +119,8 @@
 										type="text" value="${params['datetime']}" readonly>
 								</div>
 							</div>
+							
+							<div class="g-recaptcha" data-sitekey="6LehlxkTAAAAAMNvSg7QAku56S3RsmtGBe22BbKO"></div>
 
 
 							<div class="row uniform 50%">
@@ -139,6 +141,7 @@
 
 
 	<!-- Scripts -->
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.dropotron.min.js"></script>
 	<script src="js/jquery.scrollgress.min.js"></script>

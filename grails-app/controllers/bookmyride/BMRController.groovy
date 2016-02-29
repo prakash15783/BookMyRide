@@ -217,6 +217,11 @@ class BMRController {
 			redirect(action: "notice");
 		}
 		
+		if(params['g-recaptcha-response'] == null)
+		{
+			redirect(action: "request")
+		}
+		
 		uberRidesService = getActiveUberLoginSession();
 		if(uberRidesService != null){
 			// Fetch the user's profile.
