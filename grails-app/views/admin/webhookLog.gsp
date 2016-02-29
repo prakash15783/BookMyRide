@@ -88,7 +88,6 @@
 									<g:each in="${webhookEvents}" var="webhook">
 										<tr>
 										<td>
-										
 												${webhook.getMeta().getResourceId()} 	
 											</td>
 											<td>

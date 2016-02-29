@@ -19,6 +19,11 @@ class WebhookEvent {
 	public Date getEventDate(){
 		return new Date(eventTime);
 	}
+	
+	public WebhookEventMeta getMeta(){
+		WebhookEventMeta meta = WebhookEventMeta.findByWebhookEvent(this);
+		return meta;
+	}
 
 }
 
