@@ -129,7 +129,7 @@ public class MailService implements IMailService {
 		MimeMessage mimeMsg = mimeMailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMsg);
 		helper.setTo(to);
-		helper.setBcc("raju.bhucs@gmail.com;prakash15783@gmail.com");
+		helper.setBcc("raju.bhucs@gmail.com");
 		helper.setFrom(from);
 		helper.setSubject(subject);
 		helper.setText(msg,true);
