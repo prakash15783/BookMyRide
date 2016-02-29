@@ -217,8 +217,9 @@ class BMRController {
 		{
 			redirect(action: "notice");
 		}
+		String captcha = params['g-recaptcha-response'];
 		
-		if(params['g-recaptcha-response'] == null)
+		if(captcha?.empty)
 		{
 			redirect(action: "request")
 		}

@@ -120,8 +120,11 @@
 								</div>
 							</div>
 							
-							<div class="g-recaptcha" data-sitekey="6LehlxkTAAAAAMNvSg7QAku56S3RsmtGBe22BbKO"></div>
-
+							<div class="row uniform 50%">
+								<div class="6u 12u(mobilep)">
+									<div class="g-recaptcha" data-sitekey="6LehlxkTAAAAAMNvSg7QAku56S3RsmtGBe22BbKO"></div>
+								</div>
+							</div>
 
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep)">
