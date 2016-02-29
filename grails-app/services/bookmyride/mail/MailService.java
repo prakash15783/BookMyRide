@@ -97,7 +97,8 @@ public class MailService implements IMailService {
 		
 		String subject = "Thank you";
 		try {
-			boolean status = sendMimeMail(JIFFGO_FROM,contactUs.getEmail(),subject,text);
+			boolean status = sendMimeMail(JIFFGO_FROM,JIFFGO_FROM,subject,text);//mail to contact@jiffgo.com
+			status = sendMimeMail(JIFFGO_FROM,contactUs.getEmail(),subject,text);//mail to user.
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -128,7 +129,7 @@ public class MailService implements IMailService {
 		MimeMessage mimeMsg = mimeMailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMsg);
 		helper.setTo(to);
-		helper.setBcc("raju.bhucs@gmail.com");
+		helper.setBcc("raju.bhucs@gmail.com;prakash15783@gmail.com");
 		helper.setFrom(from);
 		helper.setSubject(subject);
 		helper.setText(msg,true);
@@ -139,7 +140,11 @@ public class MailService implements IMailService {
 	@SuppressWarnings("unchecked")
 	public boolean sendRideResponseMail(RideResponse rideResponse) {
 		Map model = new HashMap();	          
-		Ride ride = (Ride)rideResponse.getResponseObject();
+		Ride ride = null;
+		if(rideResponse.getResponseObject() != null){
+			ride = (Ride)rideResponse.getResponseObject();
+		}
+		
 		model.put("rideRequest", rideResponse.getRideRequest());
 		model.put("rideResponse", ride);
 		String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "resources/mailTemplate.vm", "UTF-8", model);
@@ -158,7 +163,7 @@ public class MailService implements IMailService {
     
     private String getSubject(Ride ride) {
     	String subject= "Ride Scheduled";
-		if(ride.getStatus().equals("processing")){
+		if(ride != null && ride.getStatus().equals("processing")){
 			subject = "Ride Processing";
 		}
 		return subject;

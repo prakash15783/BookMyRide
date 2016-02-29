@@ -1,7 +1,7 @@
 
 <html>
 	<head>
-		<title>jiffgo | History</title>
+		<title>jiffgo | RidRequestLog</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="../../js/ie/html5shiv.js"></script><![endif]-->
@@ -83,8 +83,8 @@
 							</div>
 						</form>
 									<div style="overflow-x:scroll">
-									<table><th>RequestId</th><th>UberRequestId</th> <th>StartTime</th> <th>EndTime</th> <th>Status</th>
-									<th>Details</th>
+									<table><th>RequestId</th><th>UberRequestId</th> <th>StartTime</th> <th>EndTime</th><th>Status</th>
+									<th>Requester</th><th>Details</th>
 									<g:each in="${requests}" var="rideRequest">
 										<tr>
 										<td>
@@ -116,14 +116,20 @@
 													<font color="blue">${rideRequest.getRequestStatus()}</font>
 												</g:if>
 												
-												<g:if test="${rideRequest.getRequestStatus().getName().equals('Completed')}">
+												<g:elseif test="${rideRequest.getRequestStatus().getName().equals('Completed')}">
 													<font color="green">${rideRequest.getRequestStatus()}</font>
-												</g:if>
-												<g:if test="${rideRequest.getRequestStatus().getName().equals('Cancelled')}">
+												</g:elseif>
+												<g:elseif test="${rideRequest.getRequestStatus().getName().equals('Cancelled')}">
 													<font color="red">${rideRequest.getRequestStatus()}</font>
-												</g:if>
+												</g:elseif>
+												<g:else>
+													${rideRequest.getRequestStatus()}
+												</g:else>
 												
 												 	
+											</td>
+											<td>
+												${rideRequest.getRideRequest().getRequester().getName()} 	
 											</td>
 											<td>
 												${rideRequest.getDetails()} 	

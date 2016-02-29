@@ -18,8 +18,7 @@ class AdminController {
 	private OAuth2Credentials oAuth2Credentials;
 	private Credential credential;
 	private UberRidesSyncService uberRidesService;
-
-
+	
 	def history(){
 
 		UserProfile userProfile;
@@ -45,22 +44,31 @@ class AdminController {
 			if(params != null && params['todate'] != null && params['todate'] != ""){
 				toDate = isoFormat.parse(params['todate']);
 			}
+			List<RideRequest> rideRequests = null;
 			
-			List<RideRequest> rideRequests = RideRequest.findAll("from RideRequest order by requestDate desc",[max:100]);
+			String uberRequestId = null;
+			if(params != null && params['id'] != "" && params['id'] != null ){
+				uberRequestId = params['id'];
+				rideRequests = RideRequest.findAllByUberRequestId(uberRequestId);
+			}
+			else{
+				if(fromDate != null && toDate != null){
+					rideRequests = RideRequest.withCriteria {
+						ge('requestDate',fromDate)
+						le('requestDate',toDate)
+					}
+				}
+				
+				else if(fromDate != null && toDate == null){
+					rideRequests = RideRequest.withCriteria {
+						ge('requestDate',fromDate)
+					}
+				}
+				else{
+					rideRequests = RideRequest.findAll("from RideRequest order by requestDate desc",[max:100]);
+				}
+			}
 						
-			if(fromDate != null && toDate != null){
-				rideRequests = RideRequest.withCriteria {
-					ge('requestDate',fromDate)
-					le('requestDate',toDate)
-				}
-			}
-			
-			if(fromDate != null && toDate == null){
-				rideRequests = RideRequest.withCriteria {
-					ge('requestDate',fromDate)
-				}
-			}
-			
 			[userProfile:userProfile, requests: rideRequests]
 		}
 		else{

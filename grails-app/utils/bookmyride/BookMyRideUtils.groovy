@@ -9,4 +9,5 @@ class BookMyRideUtils {
 		def text = ApplicationHolder.application.parentContext.getResource("classpath:$filePath").inputStream.text
 		return text;
 	}
+	
 }

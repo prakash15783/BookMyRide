@@ -4,6 +4,7 @@ import grails.converters.JSON
 import groovy.json.JsonSlurper
 
 import java.security.InvalidKeyException
+import java.sql.Timestamp
 
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
@@ -81,8 +82,18 @@ class CallbackController {
 			meta.setWebhookEvent(event);
 			meta.save(failOnError:true);
 			
-			
-			//If status of an event changes then send notification.
+			//Get RideRequest and update the status
+			RideRequest rideRequest = RideRequest.findByUberRequestId(event.getEventId());
+			if(rideRequest != null){
+				rideRequest.setRequestStatus(RequestStatus.valueOf(meta.getStatus()));
+				rideRequest.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+				rideRequest.save();		
+				
+				//Do reprocessing in case of failed response.
+				/*if(BookMyRideConstants.reprocessedFailedRequest){
+					BackOffUtil.reProcessRideRequest(rideRequest);
+				}*/
+			}
 			
 			/*
 			 

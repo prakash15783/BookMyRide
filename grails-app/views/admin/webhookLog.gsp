@@ -84,15 +84,21 @@
 									
 									--%>
 									<div style="overflow-x:scroll">
-									<table><th>ResourceId</th><th>EventTime</th> <th>EventType</th> <th>ResourceType</th> <th>Status</th> 
+									<table><th>RequestId</th>
+									<th>ResourceId</th><th>EventTime</th> <th>EventType</th> <th>ResourceType</th> <th>Status</th> 
 									<g:each in="${webhookEvents}" var="webhook">
 										<tr>
+										<td>
+											<g:link controller="Admin" action="history" params='[id:"${webhook.getEventId()}"]'>
+													${webhook.getEventId()}
+											</g:link>
+										</td>
 										<td>
 												${webhook.getMeta().getResourceId()} 	
 											</td>
 											<td>
 										
-												${webhook.getEventTime()} 	
+												${webhook.getEventDate()} 	
 											</td>
 											
 											<td>

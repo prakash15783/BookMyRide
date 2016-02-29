@@ -98,9 +98,6 @@
 										<input type="hidden" name="vehicle-select" id="vehicle-select" value="${params['vehicle-select']}">
 										<input type="hidden" name="datetime" id="datetime" value="${params['datetime']}">
 										<br/>
-										
-										
-										
 										<div id="vehicle"></div>
 										
 										
@@ -159,6 +156,7 @@
 				var product_id = $('#vehicle-select').val();
 					//Ajax call to send data to the server,
 					$.get("https://www.jiffgo.com/product",
+					//$.get("http//localhost/product",
 									{
 										product_id : product_id
 									},
