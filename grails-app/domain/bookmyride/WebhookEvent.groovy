@@ -7,8 +7,7 @@ class WebhookEvent {
 	int eventTime;
 	String eventType;
 	String resourceHref;
-	WebhookEventMeta meta;
-
+	
     static constraints = {
 		id()
 		eventId()
@@ -17,12 +16,6 @@ class WebhookEvent {
 		resourceHref()
     }
 
-	static hasOne = [meta : WebhookEventMeta]
-
-	static mapping = {
-		meta lazy: false
-	}
-	
 	public Date getEventDate(){
 		return new Date(eventTime);
 	}

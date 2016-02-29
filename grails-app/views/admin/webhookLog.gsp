@@ -35,9 +35,11 @@
 										<li><a href="/admin/rideRequestLog">Request Processing</a></li>
 										<li><a href="/admin/webhookLog">Webhooks</a></li>
 										<li><a href="/admin/messages">Messages</a></li>
+										<li><a href="/admin/users">Users</a></li>
 									</ul>
 								</li>
 							</g:if>
+							<li><a href="/contactus">Contact Us</a></li>
 							<li><a href="/logout" class="button">Sign Out</a></li>
 						</ul>
 					</nav>

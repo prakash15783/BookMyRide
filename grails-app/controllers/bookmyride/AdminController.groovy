@@ -195,6 +195,34 @@ class AdminController {
 				}
 		
 			}
+	
+	def users(){
+		
+				UserProfile userProfile;
+		
+				uberRidesService = getActiveUberLoginSession();
+				if(uberRidesService != null){
+					// Fetch the user's profile.
+					userProfile = uberRidesService.getUserProfile().getBody();
+					if(userProfile == null){
+						response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
+					}
+				
+					List<User> userList = User.findAll();
+					int rides = 0;
+					
+					for(User u in userList)
+					{
+					rides = rides + u.getRidesInYear();	
+					}
+					
+					[userProfile:userProfile, users: userList, totalRides: rides]
+				}
+				else{
+					response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
+				}
+		
+			}
 
 	private UberRidesSyncService getActiveUberLoginSession()
 	{
