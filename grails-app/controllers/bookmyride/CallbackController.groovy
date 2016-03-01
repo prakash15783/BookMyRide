@@ -68,32 +68,46 @@ class CallbackController {
 			
 			def jsonSlurper = new JsonSlurper()
 			def parsedData = jsonSlurper.parseText(body);
-			WebhookEvent event = new WebhookEvent();
-			event.setEventId(parsedData.event_id);
-			event.setEventTime(parsedData.event_time);
-			event.setEventType(parsedData.event_type);
-			event.setResourceHref(parsedData.resource_href);
-			event.save(failOnError:true);
+			//Get webhook with the eventId
+			WebhookEvent eventInDb = WebhookEvent.findByEventId(parsedData.event_id);
 			
-			WebhookEventMeta meta = new WebhookEventMeta();
-			meta.setResourceId(parsedData.meta.resource_id);
-			meta.setResourceType(parsedData.meta.resource_type);
-			meta.setStatus(parsedData.meta.status);
-			meta.setWebhookEvent(event);
-			meta.save(failOnError:true);
-			
-			//Get RideRequest and update the status
-			RideRequest rideRequest = RideRequest.findByUberRequestId(event.getEventId());
-			if(rideRequest != null){
-				rideRequest.setRequestStatus(RequestStatus.valueOf(meta.getStatus()));
-				rideRequest.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
-				rideRequest.save();		
+			if(eventInDb == null){
+				WebhookEvent event = new WebhookEvent();
+				event.setEventId(parsedData.event_id);
+				event.setEventTime(parsedData.event_time);
+				event.setEventType(parsedData.event_type);
+				event.setResourceHref(parsedData.resource_href);
+				event.save(failOnError:true);
 				
-				//Do reprocessing in case of failed response.
-				/*if(BookMyRideConstants.reprocessedFailedRequest){
-					BackOffUtil.reProcessRideRequest(rideRequest);
-				}*/
-			}
+				WebhookEventMeta meta = new WebhookEventMeta();
+				meta.setResourceId(parsedData.meta.resource_id);
+				meta.setResourceType(parsedData.meta.resource_type);
+				meta.setStatus(parsedData.meta.status);
+				meta.setWebhookEvent(event);
+				meta.save(failOnError:true);
+				
+				//Get RideRequest and update the status
+				RideRequest rideRequest = RideRequest.findByUberRequestId(event.getEventId());
+				if(rideRequest != null){
+					rideRequest.setRequestStatus(RequestStatus.valueOf(meta.getStatus()));
+					rideRequest.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+					rideRequest.save();
+					
+					//Do reprocessing in case of failed response.
+					/*if(BookMyRideConstants.reprocessedFailedRequest){
+						rideRequest.reprocessRideRequest();
+					}
+					else{
+						rideRequest.removeBackOffRequestHandler();
+					}
+					*/
+				}
+			}else{
+				System.out.println("##############################################");
+				System.out.println("          Event already available in database !!         ");
+				System.out.println("##############################################");
+		}
+			
 			
 			/*
 			 

@@ -61,52 +61,54 @@
 									<br/>
 									<h2>Request History</h2>
 									<div style="overflow-x:scroll">
-									<table><th>Detail</th> <th>Pickup Address</th> <th>Dropoff Address</th> <th>Date Time</th> <th>Status</th>
-									<g:each in="${requests}" var="request">
-										<tr>
-										<td>
-										
-											<g:link controller="RideRequest" action="show" params='[id:"${request.getId()}"]'>
-												Details
-											</g:link>
-											</td>
+									
+										<table >
+										<th>Detail</th> <th>Pickup Address</th> <th>Dropoff Address</th> <th>DateTime</th> <th>Status</th>
+										<g:each in="${requests}" var="request">
+											<tr>
+											<td>
 											
-											<td>
-										
-												${request.getStartAddress()} 	
-											</td>
-											
-											<td>
-										
-												${request.getEndAddress()} 	
-											</td>
-			
-											<td>
-												<g:formatDate format="yyyy/MM/dd HH:mm" date="${request.getRequestDate()}" timeZone="${TimeZone.getTimeZone("IST")}"/>	
-											</td>
-											
-											<td>
+												<g:link controller="RideRequest" action="show" params='[id:"${request.getId()}"]'>
+													Details
+												</g:link>
+												</td>
 												
-												<g:if test="${request.getRequestStatus().getName().equals('Scheduled')}">
-													<font color="blue">${request.getRequestStatus()}</font>
-												</g:if>
-												
-												<g:elseif test="${request.getRequestStatus().getName().equals('Completed')}">
-													<font color="green">${request.getRequestStatus()}</font>
-												</g:elseif>
-												
-												<g:elseif test="${request.getRequestStatus().getName().equals('Cancelled')}">
-													<font color="red">${request.getRequestStatus()}</font>
-												</g:elseif>
-												<g:else>
-													${request.getRequestStatus()}
-												</g:else>
-											 	
-											</td>
+												<td>
 											
-										</tr>
-									</g:each>
-									</table>
+													${request.getStartAddress()} 	
+												</td>
+												
+												<td>
+											
+													${request.getEndAddress()} 	
+												</td>
+				
+												<td>
+													<g:formatDate format="yyyy/MM/dd HH:mm" date="${request.getRequestDate()}" timeZone="${TimeZone.getTimeZone("IST")}"/>	
+												</td>
+												
+												<td>
+													
+													<g:if test="${request.getRequestStatus().getName().equalsIgnoreCase('Scheduled')}">
+														<font color="blue">${request.getRequestStatus()}</font>
+													</g:if>
+													
+													<g:elseif test="${request.getRequestStatus().getName().equalsIgnoreCase('Completed')}">
+														<font color="green">${request.getRequestStatus()}</font>
+													</g:elseif>
+													
+													<g:elseif test="${request.getRequestStatus().getName().equalsIgnoreCase('Cancelled')}">
+														<font color="red">${request.getRequestStatus()}</font>
+													</g:elseif>
+													<g:else>
+														${request.getRequestStatus()}
+													</g:else>
+												 	
+												</td>
+												
+											</tr>
+										</g:each>
+										</table>
 									</div>
 								</section>
 						</div> 

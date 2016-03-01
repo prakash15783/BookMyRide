@@ -65,7 +65,7 @@ class AdminController {
 					}
 				}
 				else{
-					rideRequests = RideRequest.findAll("from RideRequest order by requestDate desc",[max:100]);
+					rideRequests = RideRequest.findAll("from RideRequest order by updatedTimestamp desc",[max:100]);
 				}
 			}
 						

@@ -84,7 +84,8 @@
 									
 									--%>
 									<div style="overflow-x:scroll">
-									<table><th>RequestId</th>
+									<div class="table-wrapper">
+									<table class="alt"><th>RequestId</th>
 									<th>ResourceId</th><th>EventTime</th> <th>EventType</th> <th>ResourceType</th> <th>Status</th> 
 									<g:each in="${webhookEvents}" var="webhook">
 										<tr>
@@ -115,6 +116,7 @@
 										</tr>
 									</g:each>
 									</table>
+									</div>
 									</div>
 								</section>
 						</div> 
