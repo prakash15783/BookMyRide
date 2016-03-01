@@ -144,7 +144,7 @@ class AdminController {
 					
 					if(params != null && params['id'] != "" && params['id'] != null ){
 						String uberRequestId = params['id'];
-						List<WebhookEventMeta> webhookEventMetaList = WebhookEventMeta.findByResourceId(uberRequestId);
+						List<WebhookEventMeta> webhookEventMetaList = WebhookEventMeta.findAllByResourceId(uberRequestId);
 						
 						webhookEventMetaList.each { meta ->
 							webhookEvents.add(meta.getWebhookEvent());
