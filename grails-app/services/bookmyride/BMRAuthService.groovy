@@ -12,11 +12,11 @@ import com.uber.sdk.rides.client.UberRidesSyncService
 class BMRAuthService {
 	
 	public static final String USER_SESSION_ID = "userSessionId";
-//	private static final String clientSecret = "_diSmxvO3XAxzCvdSynp6k7h6Hp-yW0L_Cbr2rGu";
-//	private static final String clientId = "HHkH0421N9dMtPp4Rd7Tx6tEdriNLBRE";
+	private static final String clientSecret = "_diSmxvO3XAxzCvdSynp6k7h6Hp-yW0L_Cbr2rGu";
+	private static final String clientId = "HHkH0421N9dMtPp4Rd7Tx6tEdriNLBRE";
 	
-	private static final String clientSecret = "lCZFAlaPUJnD1hbx4Qm1yyyGgO0biLMte8UuwSsd";
-	private static final String clientId = "BoeUGsHWB3t5zFB_CEuUwMiad_Nawise";
+//	private static final String clientSecret = "lCZFAlaPUJnD1hbx4Qm1yyyGgO0biLMte8UuwSsd";
+//	private static final String clientId = "BoeUGsHWB3t5zFB_CEuUwMiad_Nawise";
 	
 	
 	
@@ -26,8 +26,8 @@ class BMRAuthService {
 	
 		// IMPORTANT: Before starting the server, make sure to add this redirect URI to your
 		// application at developers.uber.com.
-//		private static final String REDIRECT_URI = "https://www.jiffgo.com" + CALLBACK_URL;
-		private static final String REDIRECT_URI = "http://localhost" + CALLBACK_URL;
+		private static final String REDIRECT_URI = "https://www.jiffgo.com" + CALLBACK_URL;
+//		private static final String REDIRECT_URI = "http://localhost" + CALLBACK_URL;
 
 		/*static {
 			System.setProperty("https.proxyHost", "www-proxy.us.oracle.com");
