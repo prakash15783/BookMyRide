@@ -65,25 +65,25 @@
 									<form method="post" action="/admin/rideRequestLog" id="requestForm">
 
 							<div class="row uniform 50%">
-								<div class="6u 12u(mobilep)">
+								<div class="4u 12u(mobilep)">
 									From Date: <input name="fromdate" id="fromdate"
 										type="text" value="${params['fromdate']}">
 								</div>
-								<div class="6u 12u(mobilep)">
+								<div class="4u 12u(mobilep)">
 									To Date: <input name="todate" id="todate"
 										type="text" value="${params['todate']}">
 								</div>
-							</div>
-							<div class="row uniform 50%">
-								<div class="6u 12u(mobilep)">
-									<ul class="actions">
-										<li><input type="submit" value="Filter" /></li>
-									</ul>
+								<div class="4u 12u(mobilep)">
+									<br/>
+										<input type="submit" value="Filter" />
+									
 								</div>
 							</div>
+							
 						</form>
 									<div style="overflow-x:scroll">
-									<table><th>RequestId</th><th>UberRequestId</th> <th>StartTime</th> <th>EndTime</th><th>Status</th>
+									<div class="table-wrapper">
+									<table class="alt"><th>RequestId</th><th>UberRequestId</th> <th>StartTime</th> <th>EndTime</th><th>Status</th>
 									<th>Requester</th><th>Details</th>
 									<g:each in="${requests}" var="rideRequest">
 										<tr>
@@ -112,18 +112,18 @@
 									
 											<td>
 												
-												<g:if test="${rideRequest.getRequestStatus().getName().equals('Scheduled')}">
-													<font color="blue">${rideRequest.getRequestStatus()}</font>
+												<g:if test="${rideRequest.getRideRequest().getRequestStatus().getName().equalsIgnoreCase('Scheduled')}">
+													<font color="blue">${rideRequest.getRideRequest().getStatus()}</font>
 												</g:if>
 												
-												<g:elseif test="${rideRequest.getRequestStatus().getName().equals('Completed')}">
-													<font color="green">${rideRequest.getRequestStatus()}</font>
+												<g:elseif test="${rideRequest.getRideRequest().getRequestStatus().getName().equalsIgnoreCase('Completed')}">
+													<font color="green">${rideRequest.getRideRequest().getStatus()}</font>
 												</g:elseif>
-												<g:elseif test="${rideRequest.getRequestStatus().getName().equals('Cancelled')}">
-													<font color="red">${rideRequest.getRequestStatus()}</font>
+												<g:elseif test="${rideRequest.getRideRequest().getRequestStatus().getName().equalsIgnoreCase('Cancelled')}">
+													<font color="red">${rideRequest.getRideRequest().getStatus()}</font>
 												</g:elseif>
 												<g:else>
-													${rideRequest.getRequestStatus()}
+													${rideRequest.getRideRequest().getStatus()}
 												</g:else>
 												
 												 	
@@ -138,6 +138,7 @@
 										</tr>
 									</g:each>
 									</table>
+									</div>
 									</div>
 								</section>
 						</div> 

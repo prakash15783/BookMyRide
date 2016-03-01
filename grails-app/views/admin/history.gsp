@@ -63,26 +63,26 @@
 									<h2>Request History</h2>
 									<form method="post" action="/admin/history" id="requestForm">
 
-							<div class="row uniform 50%">
-								<div class="6u 12u(mobilep)">
+							<div class="row uniform 60%">
+								<div class="4u 12u(mobilep)">
 									From Date: <input name="fromdate" id="fromdate"
 										type="text" value="${params['fromdate']}">
 								</div>
-								<div class="6u 12u(mobilep)">
+								<div class="4u 12u(mobilep)">
 									To Date: <input name="todate" id="todate"
 										type="text" value="${params['todate']}">
 								</div>
-							</div>
-							<div class="row uniform 50%">
-								<div class="6u 12u(mobilep)">
-									<ul class="actions">
-										<li><input type="submit" value="Filter" /></li>
-									</ul>
+								<div class="4u 12u(mobilep)">
+									<br/>
+										<input type="submit" value="Filter" />
+									
 								</div>
 							</div>
 						</form>
 									<div style="overflow-x:scroll">
-									<table><th>RequestId</th><th>UberRequestId</th> <th>Pickup Address</th> <th>Dropoff Address</th> <th>Date Time</th> <th>Status</th>
+									<div class="table-wrapper">
+									<table class="alt"><th>RequestId</th><th>UberRequestId</th> <th>CreatedTimestamp</th> <th>UpdatedTimestamp</th> 
+									<th>RequestedDateTime</th> <th>Status</th>
 									<th>Requester</th>
 									<g:each in="${requests}" var="request">
 										<tr>
@@ -96,11 +96,16 @@
 											</td>
 											
 											<td>
-												${request.getStartAddress()} 	
+												
+												<g:formatDate format="dd-MM-yyyy HH:mm" date="${request.getCreatedTimestamp()}" timeZone="${TimeZone.getTimeZone("IST")}"/>	
+											
+											
 											</td>
 											
 											<td>
-												${request.getEndAddress()} 	
+											
+												<g:formatDate format="dd-MM-yyyy HH:mm" date="${request.getUpdatedTimestamp()}" timeZone="${TimeZone.getTimeZone("IST")}"/>	
+											
 											</td>
 			
 											<td>
@@ -109,19 +114,19 @@
 											
 											<td>
 												
-												<g:if test="${request.getRequestStatus().getName().equals('Scheduled')}">
-													<font color="blue">${request.getRequestStatus()}</font>
+												<g:if test="${request.getRequestStatus().getName().equalsIgnoreCase('Scheduled')}">
+													<font color="blue">${request.getStatus()}</font>
 												</g:if>
 												
-												<g:elseif test="${request.getRequestStatus().getName().equals('Completed')}">
-													<font color="green">${request.getRequestStatus()}</font>
+												<g:elseif test="${request.getRequestStatus().getName().equalsIgnoreCase('Completed')}">
+													<font color="green">${request.getStatus()}</font>
 												</g:elseif>
 												
-												<g:elseif test="${request.getRequestStatus().getName().equals('Cancelled')}">
-													<font color="red">${request.getRequestStatus()}</font>
+												<g:elseif test="${request.getRequestStatus().getName().equalsIgnoreCase('Cancelled')}">
+													<font color="red">${request.getStatus()}</font>
 												</g:elseif>
 												<g:else>
-													${request.getRequestStatus()}
+													${request.getStatus()}
 												</g:else>
 											 	
 												</td>
@@ -132,6 +137,7 @@
 										</tr>
 									</g:each>
 									</table>
+									</div> 
 									</div>
 								</section>
 						</div> 

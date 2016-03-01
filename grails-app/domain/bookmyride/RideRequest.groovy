@@ -4,6 +4,9 @@ import java.sql.Timestamp
 
 import org.codehaus.groovy.grails.orm.hibernate.cfg.IdentityEnumType
 
+import bookmyride.retry.BackOff;
+import bookmyride.retry.BackOffUtil;
+
 class RideRequest {
 
 	String requestId;
@@ -72,5 +75,33 @@ class RideRequest {
 				+ ", productId=" + productId + ", requestDate=" + requestDate
 				+ ", requestStatus=" + requestStatus + ", uberRequestId="
 				+ uberRequestId + "]";
+	}
+	
+	public void reprocessRideRequest(){
+		if(reprocessingRequired() && BookMyRideConstants.reprocessedFailedRequest){
+			BackOffUtil.reProcessRideRequest(this);
+		}else{
+			removeBackOffRequestHandler();
+		}
+	}
+	
+	public void removeBackOffRequestHandler(){
+		BackOffUtil.removeBackOffRequestHandler(this);
+	}
+	
+	public boolean reprocessingRequired(){
+		if(this.getRequestStatus() == RequestStatus.RequestFailed ||
+				this.getRequestStatus() == RequestStatus.RequestDriverCanceled ||
+				this.getRequestStatus() == RequestStatus.RequestNoDriver
+				){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public String getStatus(){
+		return requestStatus.getName();
 	}
 }

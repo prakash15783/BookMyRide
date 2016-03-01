@@ -62,7 +62,8 @@
 									<br/>
 									<h2>Users</h2>
 									<div style="overflow-x:scroll">									
-									<table><th>UUID</th><th>Name</th> <th>Email</th> <th>Photo</th> <th>Rides</th>  
+									<div class="table-wrapper">
+									<table class="alt"><th>UUID</th><th>Name</th> <th>Email</th> <th>Photo</th> <th>Rides</th>  
 									<g:each in="${users}" var="user">
 										<tr>
 											<td>
@@ -71,7 +72,7 @@
 											</td>
 											<td>
 										
-												${user.getFirstName()} &nbsp;	${user.getLastName()}
+												${user.getName()}
 											</td>
 									
 											<td>
@@ -89,6 +90,7 @@
 										</tr>
 									</g:each>
 									</table>
+									</div>
 									
 									<br/>
 									<br/>

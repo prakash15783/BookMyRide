@@ -135,30 +135,42 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 			RideRequest.withTransaction { tx ->
 				rideRequest.setUberRequestId(ride.getRideId())
 				rideRequest.setRequestStatus(RequestStatus.RequestCompleted);
+				rideRequest.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
 				rideRequest.save(failOnError:true,flush:true);
 				rideRequest.getRequester().setRidesInYear(rideRequest.getRequester().getRidesInYear() + 1);
 				rideRequest.getRequester().save(failOnError:true,flush:true);
 			}
 			
 			RideRequestLog.withTransaction { tx ->
-				rideReqLog.setDetails("Success");//TODO: save Details
-				rideRequest.setRequestStatus(RequestStatus.RequestCompleted);
+				rideReqLog.setDetails("Success");
 				rideReqLog.setRequestStatus(RequestStatus.RequestCompleted);
+				rideReqLog.setEndTime(new Timestamp(System.currentTimeMillis()));
 				rideReqLog.save(failOnError:true,flush:true);
 			}
 			//println "3-------++++++++++++------------"+rideRequest.getStartAddress() + rideRequest.getRequestStatus();
-			
+			if(BookMyRideConstants.reprocessedFailedRequest){
+				rideRequest.removeBackOffRequestHandler();
+			}	
 		}
 		
 		private void saveFailedRideRequest(String details){
-			rideReqLog.setDetails(details);
-			rideRequest.setRequestStatus(RequestStatus.RequestFailed);//TODO : put in queue for reprocessing?
-			rideReqLog.setRequestStatus(RequestStatus.RequestFailed);
-			rideReqLog.save(failOnError:true,flush:true);
-			
-			if(BookMyRideConstants.reprocessedFailedRequest){
-				BackOffUtil.reProcessRideRequest(rideRequest);
+		
+			RideRequestLog.withTransaction { tx ->
+				rideReqLog.setDetails(details);
+				rideReqLog.setRequestStatus(RequestStatus.RequestFailed);
+				rideReqLog.setEndTime(new Timestamp(System.currentTimeMillis()));
+				rideReqLog.save(failOnError:true,flush:true);
 			}
+			
+			RideRequest.withTransaction { tx ->
+				rideRequest.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+				rideRequest.setRequestStatus(RequestStatus.RequestFailed);
+				rideRequest.save(failOnError:true,flush:true);
+			}
+			
+			//reprocess Failed request
+			rideRequest.reprocessRideRequest();
+			
 		}
 	}
 }

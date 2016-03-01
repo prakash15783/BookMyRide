@@ -2,9 +2,9 @@ package bookmyride
 
 enum RequestStatus {
 	
-	RequestScheduled("Scheduled"),
-	RequestUserCancelled("Cancelled"),
-	RequestFailed("Failed"),
+	RequestScheduled("scheduled"),
+	RequestUserCancelled("cancelled"),
+	RequestFailed("failed"),
 	//ride status as per uber
 	RequestProcessing("processing"),
 	RequestNoDriver("no_drivers_available"),
