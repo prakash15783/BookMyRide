@@ -86,9 +86,6 @@
 											</td>
 			
 											<td>
-												${webhook.getMeta().getResourceType()} 	
-											</td>
-											<td>
 												${webhook.getMeta().getStatus()} 	
 											</td>
 										</tr>
