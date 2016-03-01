@@ -95,7 +95,7 @@
 											</td>
 											
 											<td>
-										<g:link controller="Admin" action="webhook" params='[id:"${rideRequest.getRideRequest().getId()}"]'>
+										<g:link controller="Admin" action="webhookLog" params='[id:"${rideRequest.getRideRequest().getUberRequestId()}"]'>
 												${rideRequest.getRideRequest().getUberRequestId()}  	
 											</g:link>
 													
