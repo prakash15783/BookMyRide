@@ -23,7 +23,7 @@
 	<body bgcolor="#fafafa">
 		<p>Hi ${rideRequest.requester.firstName}, </p>
 		<p>
-			Thanks for using jiffgo.com. We have processed your ride request. 
+			Thanks for using jiffgo.com. We have queued your ride request. 
 		</p>
 		
 		<p><b>Ride Details</b>
@@ -54,7 +54,7 @@
 				Your ride status is <strong>${rideResponse.status}</strong>. We will inform you as the status changes.
 			#end
 		#else
-			Your ride is <strong>scheduled</strong>. You will receive Uber notification when it is processed.
+			Your ride is <strong>scheduled</strong>. You will receive notification from Uber when ride request is processed.
 		#end	
 		<br/>	
 		<br/>
