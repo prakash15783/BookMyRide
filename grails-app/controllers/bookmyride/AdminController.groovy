@@ -149,6 +149,9 @@ class AdminController {
 						webhookEventMetaList.each { meta ->
 							webhookEvents.add(meta.getWebhookEvent());
 						}
+						
+						webhookEvents.sort([it.eventTime]);
+						webhookEvents = webhookEvents.reverse();
 					}
 					else{
 						webhookEvents = WebhookEvent.findAll([sort:'eventTime',order:'desc',max:100]);
