@@ -151,7 +151,6 @@ class AdminController {
 						}
 						
 						webhookEvents.sort{a,b-> b.eventTime<=>a.eventTime};
-//						webhookEvents = webhookEvents.reverse();
 					}
 					else{
 						webhookEvents = WebhookEvent.findAll([sort:'eventTime',order:'desc',max:100]);
