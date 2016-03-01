@@ -140,35 +140,19 @@ class AdminController {
 						response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
 					}
 					
+					List<WebhookEvent> webhookEvents = null;
 					
-				/*	SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy/MM/dd");
-					Date fromDate = null;
-					
-					if(params != null && params['fromdate'] != null && params['fromdate'] != ""){
-						fromDate = isoFormat.parse(params['fromdate']);
-					}
-					
-					Date toDate = null;
-					
-					if(params != null && params['todate'] != null && params['todate'] != ""){
-						toDate = isoFormat.parse(params['todate']);
-					}
-					*/
-					List<WebhookEvent> webhookEvents = WebhookEvent.findAll([sort:'eventTime',order:'desc',max:100]);
-					
-					
-					/*if(fromDate != null && toDate != null){
-						webhookEvents = RideRequest.withCriteria {
-							ge('requestDate',fromDate)
-							le('requestDate',toDate)
+					if(params != null && params['id'] != "" && params['id'] != null ){
+						String uberRequestId = params['id'];
+						List<WebhookEventMeta> webhookEventMetaList = WebhookEventMeta.findByResourceId(uberRequestId);
+						
+						webhookEventMetaList.each { meta ->
+							webhookEvents.add(meta.getWebhookEvent());
 						}
 					}
-					
-					if(fromDate != null && toDate == null){
-						webhookEvents = RideRequest.withCriteria {
-							ge('requestDate',fromDate)
-						}
-					}*/
+					else{
+						webhookEvents = WebhookEvent.findAll([sort:'eventTime',order:'desc',max:100]);
+					}
 					
 					[userProfile:userProfile, webhookEvents: webhookEvents]
 				}

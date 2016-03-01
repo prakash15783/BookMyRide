@@ -109,7 +109,7 @@
 											</div>
 										</div>
 										
-										<g:if test="${rideRequestInstance.getRequestStatus().getName().equals('Scheduled')}">		
+										<g:if test="${rideRequestInstance.getRequestStatus().getName().equalsIgnoreCase('Scheduled')}">		
 											<div class="row uniform">
 												<div class="12u">
 													<ul class="actions">

@@ -61,32 +61,10 @@
 									<br/>
 									<br/>
 									<h2>Webhooks</h2>
-									<%--<form method="post" action="/admin/webhookLog" id="requestForm">
-
-							<div class="row uniform 50%">
-								<div class="6u 12u(mobilep)">
-									From Date: <input name="fromdate" id="fromdate"
-										type="text" value="${params['fromdate']}">
-								</div>
-								<div class="6u 12u(mobilep)">
-									To Date: <input name="todate" id="todate"
-										type="text" value="${params['todate']}">
-								</div>
-							</div>
-							<div class="row uniform 50%">
-								<div class="6u 12u(mobilep)">
-									<ul class="actions">
-										<li><input type="submit" value="Filter" /></li>
-									</ul>
-								</div>
-							</div>
-						</form>
-									
-									--%>
 									<div style="overflow-x:scroll">
 									<div class="table-wrapper">
 									<table class="alt"><th>RequestId</th>
-									<th>ResourceId</th><th>EventTime</th> <th>EventType</th> <th>ResourceType</th> <th>Status</th> 
+									<th>ResourceId</th><th>EventTime</th> <th>EventType</th>  <th>Status</th> 
 									<g:each in="${webhookEvents}" var="webhook">
 										<tr>
 										<td>
