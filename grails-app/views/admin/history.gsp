@@ -92,7 +92,10 @@
 											</g:link>
 											</td>
 											<td>
-												${request.getUberRequestId()} 	
+											<g:link controller="Admin" action="webhook" params='[id:"${request.getId()}"]'>
+												${request.getUberRequestId()}
+											</g:link>
+												 	
 											</td>
 											
 											<td>
