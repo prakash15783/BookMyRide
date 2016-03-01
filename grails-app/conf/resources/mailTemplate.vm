@@ -22,9 +22,15 @@
 </head>
 	<body bgcolor="#fafafa">
 		<p>Hi ${rideRequest.requester.firstName}, </p>
-		<p>
-			Thanks for using jiffgo.com. We have queued your ride request. 
-		</p>
+		#if(${rideResponse})
+			<p>
+				Thanks for using jiffgo.com. We have processed your ride request. 
+			</p>
+		#else
+			<p>
+				Thanks for using jiffgo.com. We have queued your ride request. 
+			</p>
+		#end
 		
 		<p><b>Ride Details</b>
 			<table style="border: 1px solid black;width: 80%;">
