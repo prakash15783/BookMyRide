@@ -140,7 +140,7 @@ class AdminController {
 						response.sendRedirect(oAuth2Credentials.getAuthorizationUrl());
 					}
 					
-					List<WebhookEvent> webhookEvents = null;
+					List<WebhookEvent> webhookEvents = new ArrayList<WebhookEvent>();
 					
 					if(params != null && params['id'] != "" && params['id'] != null ){
 						String uberRequestId = params['id'];
