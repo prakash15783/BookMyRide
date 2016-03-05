@@ -7,7 +7,7 @@ import org.codehaus.groovy.grails.orm.hibernate.cfg.IdentityEnumType
 import bookmyride.retry.BackOff;
 import bookmyride.retry.BackOffUtil;
 
-class RideRequest {
+class RideRequest implements Mailable{
 
 	String requestId;
 	// User who is requesting for a ride

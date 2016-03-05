@@ -45,33 +45,7 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 				if(rideRequestParameters != null){
 					requestRide(uberRidesService,rideRequestParameters,rideRequest,rideReqLog)
 				}
-			} catch (ApiException ae) {
-			//check the error
-			SurgeError surgeError = null;
-			List<UberError> errors = ae.getErrors();
-				for(UberError error in errors){
-					if(error instanceof SurgeError){
-						surgeError = error;
-					}
-				}
-				
-				if(surgeError != null)
-				{
-					//We have surge pricing in place
-					//Need to invoke surge flow 
-					/*
-					 * Send an email to the user with surge details. Let the user accept the surge
-					 * Once user accepts, the request will come to the callback controller's surgecallback action.
-					 * There we will get the surge_confirmation_id from the query parameter.
-					 * 
-					 * 
-					 */
-					rideRequest.setSurgeConfirmationId(surgeError.getSurgeConfirmationId());
-					rideRequest.save();
-					
-			
-				}  
-			}
+			}   
 			catch (Exception e) {
 				System.out.println("Something went wrong !!");
 				e.printStackTrace(); 
@@ -113,9 +87,10 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 	private RideRequestParameters getRideRequestParameters(RideRequest rideRequest) {
 		return new RideRequestParameters.Builder()
 							.setProductId(rideRequest.getProductId())
-							.setStartLocation(new Location(rideRequest.getStartLatitude(), rideRequest.getStartLongitude()))
-							.setEndLocation(new Location(rideRequest.getEndLatitude(), rideRequest.getEndLongitude()))
-							.setSurgeConfirmationId(rideRequest.getSurgeConfirmationId()).build();
+							.setPickupCoordinates(rideRequest.getStartLatitude(), rideRequest.getStartLongitude())
+							.setDropoffCoordinates(rideRequest.getEndLatitude(), rideRequest.getEndLongitude())
+							.setSurgeConfirmationId(rideRequest.getSurgeConfirmationId())
+							.setPaymentMethodId(rideRequest.getPaymentMethodId()).build();
 		
 	}
 	
@@ -137,7 +112,46 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 
 		@Override
 		public void failure(ApiException exception) {
-			saveFailedRideRequest(exception.getMessage());
+			
+			//check the error
+			SurgeError surgeError = null;
+			List<UberError> errors = exception.getErrors();
+				for(UberError error in errors){
+					if(error instanceof SurgeError){
+						surgeError = error;
+					}
+				}
+				
+				if(surgeError != null)
+				{
+					//We have surge pricing in place
+					//Need to invoke surge flow
+					/*
+					 * Send an email to the user with surge details. Let the user accept the surge
+					 * Once user accepts, the request will come to the callback controller's surgecallback action.
+					 * There we will get the surge_confirmation_id from the query parameter.
+					 *
+					 *
+					 */
+					System.out.println("################ Surge #################");
+					System.out.println("Surge Confirmation Id = "+ surgeError.getSurgeConfirmationId());
+					System.out.println("########################################");
+					
+					RideRequest.withTransaction { tx ->
+					
+					rideRequest.setSurgeConfirmationId(surgeError.getSurgeConfirmationId());
+					// updating the status of the request to failed. So that it will not be picked up again..just in case...
+					// If user accepts the surge pricing then the rquest status is updated to Scheduled.
+					rideRequest.setRequestStatus(RequestStatus.RequestFailed);
+					rideRequest.save(failOnError:true,flush:true);
+					}
+					//Send mail about the ride status
+					mailQueue.enqueueMailMessage(rideRequest);
+				}
+				else{
+					saveFailedRideRequest(exception.getMessage());
+				}
+			
 		}
 
 		@Override

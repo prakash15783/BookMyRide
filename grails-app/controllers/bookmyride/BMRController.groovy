@@ -291,8 +291,7 @@ class BMRController {
 		//Enqueue for mailing
 		MailQueue mailQueue = (MailQueue)CommonDataStore.getDataStore(BookMyRideConstants.MAIL_QUEUE);
 		mailQueue.enqueueMailMessage(new RideResponse(rideRequest, null));
-		
-		
+				
 		redirect(action: "queue");
 
 		return;

@@ -21,6 +21,7 @@ import bookmyride.CommonDataStore;
 import bookmyride.ContactUs;
 import bookmyride.MailQueue;
 import bookmyride.Mailable;
+import bookmyride.RideRequest;
 import bookmyride.RideResponse;
 import bookmyride.User;
 
@@ -75,6 +76,12 @@ public class MailService implements IMailService {
 								else if(rideResponse instanceof ContactUs){
 									processContactUs((ContactUs)rideResponse);
 								}
+								else if(rideResponse instanceof RideRequest){
+									System.out.println("################ Surge EMAIL PREPROCESS #################");
+									System.out.println("Preparing for surge email");
+									System.out.println("########################################");
+									processSurgeEmail((RideRequest)rideResponse);
+								}
 								
 							}else{ //Try to get the mailQueue from store.
 								mailQueue = (MailQueue)(CommonDataStore.getDataStore(BookMyRideConstants.MAIL_QUEUE));
@@ -104,6 +111,26 @@ public class MailService implements IMailService {
 			e.printStackTrace();
 		}
 	}
+	
+	private void processSurgeEmail(RideRequest rideRequest) {
+		Map model = new HashMap();	          
+		model.put("rideRequest", rideRequest);
+		String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "resources/surgeEmailTemplate.vm", "UTF-8", model);
+		
+		String subject = "Surge Confirmation";
+		try {
+			System.out.println("################ Surge #################");
+			System.out.println("Sending surge email");
+			System.out.println(text);
+			System.out.println("########################################");
+			boolean status = sendMimeMail(JIFFGO_FROM,JIFFGO_FROM,subject,text);//mail to contact@jiffgo.com
+			status = sendMimeMail(JIFFGO_FROM,rideRequest.getRequester().getEmail(),subject,text);//mail to user.
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
     private boolean processRideResponse(RideResponse rideResponse){
 		User user = rideResponse.getRideRequest().getRequester();
 		if(sendRideResponseMail(rideResponse)){//Save mailSent field to 1 

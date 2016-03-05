@@ -161,6 +161,8 @@ class CallbackController {
 		rideRequest.save();
 		// Now the request is scheduled for booking.
 		
+		redirect(controller:"BMR", action: "queue");
+		
 	}
 
 	/**
