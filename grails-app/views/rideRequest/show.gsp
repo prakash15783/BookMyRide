@@ -63,32 +63,26 @@
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
-											Pickup Address: ${rideRequestInstance.getStartAddress()}	
+												<div>
+													Pickup Address: ${rideRequestInstance.getStartAddress()} <br/>	
+													Pickup Map: <div id="pickup_map" style="width: 99%; height: 300px;"></div>
+												</div>
+											</div>
+											
+											<div class="6u 12u(mobilep)">
+												<div>
+													Dropoff Address: ${rideRequestInstance.getEndAddress()} <br/>
+													Dropoff Map: <div id="drop_map" style="width: 99%; height: 300px;"></div>
+												</div>
 											</div>
 										</div>
 										
-										<div class="row uniform 50%">
-											<div class="6u 12u(mobilep)">
-												Pickup Map: <div id="pickup_map" style="width: 99%; height: 300px;"></div>
-											</div>
-										</div>
 														
 										<input type="hidden" name="pickup_latitude" id="pickup_latitude" value="${rideRequestInstance.getStartLatitude()}"/>
 										<input type="hidden" name="pickup_longitude" id="pickup_longitude" value="${rideRequestInstance.getStartLongitude()}"/>
 										<input type="hidden" name="pickup_address" id="pickup_address" value="${rideRequestInstance.getStartAddress()}"/>
 										<input type="hidden" name="request_id" id="request_id" value="${rideRequestInstance.getId()}"/>
 										
-										<div class="row uniform 50%">
-											<div class="6u 12u(mobilep)">
-												Dropoff Address: ${rideRequestInstance.getEndAddress()}
-											</div>
-										</div>
-										
-										<div class="row uniform 50%">
-											<div class="6u 12u(mobilep)">
-												Dropoff Map: <div id="drop_map" style="width: 99%; height: 300px;"></div>
-											</div>
-										</div>
 														
 										<input type="hidden" name="drop_latitude" id="drop_latitude" value="${rideRequestInstance.getEndLatitude()}"/>
 										<input type="hidden" name="drop_longitude" id="drop_longitude" value="${rideRequestInstance.getEndLongitude()}"/>

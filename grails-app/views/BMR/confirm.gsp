@@ -65,31 +65,25 @@
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
-											<b>Pickup Address:</b> ${params['pickup_address']}	
+												<div>
+													<b>Pickup Address:</b> ${params['pickup_address']} <br/>
+													<b>Pickup Map:</b> <div id="pickup_map" style="width: 99%; height: 300px;"></div>
+												</div>
+											</div>
+											
+											<div class="6u 12u(mobilep)">
+												<div>
+													<b>Dropoff Address:</b> ${params['drop_address']} <br/>
+													<b>Dropoff Map:</b> <div id="drop_map" style="width: 99%; height: 300px;"></div>
+												</div>
 											</div>
 										</div>
 										
-										<div class="row uniform 50%">
-											<div class="6u 12u(mobilep)">
-												<b>Pickup Map:</b> <div id="pickup_map" style="width: 99%; height: 300px;"></div>
-											</div>
-										</div>
 														
 										<input type="hidden" name="pickup_latitude" id="pickup_latitude" value="${params['pickup_latitude']}"/>
 										<input type="hidden" name="pickup_longitude" id="pickup_longitude" value="${params['pickup_longitude']}"/>
 										<input type="hidden" name="pickup_address" id="pickup_address" value="${params['pickup_address']}"/>
 
-										<div class="row uniform 50%">
-											<div class="6u 12u(mobilep)">
-												<b>Dropoff Address:</b> ${params['drop_address']}
-											</div>
-										</div>
-										
-										<div class="row uniform 50%">
-											<div class="6u 12u(mobilep)">
-												<b>Dropoff Map:</b> <div id="drop_map" style="width: 99%; height: 300px;"></div>
-											</div>
-										</div>
 														
 										<input type="hidden" name="drop_latitude" id="drop_latitude" value="${params['drop_latitude']}"/>
 										<input type="hidden" name="drop_longitude" id="drop_longitude" value="${params['drop_longitude']}"/>
