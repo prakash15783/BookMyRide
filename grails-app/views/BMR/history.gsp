@@ -59,6 +59,7 @@
 								<section class="box">
 									<br/>
 									<br/>
+									<g:if test="${requests.size()>0}">	
 									<h2>Request History</h2>
 									<div style="overflow-x:scroll">
 									
@@ -110,6 +111,10 @@
 										</g:each>
 										</table>
 									</div>
+									</g:if>
+									<g:else>
+										<h2>There are no requests in the history.</h2>
+									</g:else>
 								</section>
 						</div> 
 						</div>

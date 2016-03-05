@@ -25,7 +25,7 @@
 		</p>
 		
 		<p>
-			Please visit https://api.uber.com/v1/surge-confirmations/${rideRequest.surgeConfirmationId} to confirm surge pricing.
+			Please visit <a href="https://api.uber.com/v1/surge-confirmations/${rideRequest.surgeConfirmationId}">Surge Confirmation Page</a> to confirm surge pricing.
 		<p>
 		<br/>
 		Happy Riding!!!

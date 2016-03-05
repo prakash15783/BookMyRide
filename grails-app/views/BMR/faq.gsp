@@ -98,7 +98,7 @@ To get started, simply login using your Uber account.</td>
 							</tr>
 							<tr>
 
-								<td>There's a simple process to schedule your Uber ride. Simply login to your dashboard and start by selecting your pickup and destination locations. You can search for addresses or click and drag the red pin on the map. Next, choose the Uber vehicle that you'd like to request and the date and time of the request.</td>
+								<td>There's a simple process to schedule your Uber ride. Simply login to your dashboard and start by selecting your pickup and destination locations. You can search for addresses or click and drag the red pin on the map. Next, choose the Uber vehicle that you'd like to request, choose the mode of payment you'd like to use and select the date and time of the request.</td>
 
 							</tr>
 							
@@ -148,6 +148,21 @@ To get started, simply login using your Uber account.</td>
 								<td>Your ride is requested to UBER as per the time set in the request.
 
 When the request is made, you will receive notification from Uber and the Uber app on your mobile device will show the status of your ride.</td>
+
+							</tr>
+							
+							<tr>
+
+								<td>How surge pricing is handled?</td>
+
+							</tr>
+							<tr>
+
+								<td>Your ride is requested to UBER as per the time set in the request.
+When the request is made, jiffgo will check if surge pricing is in place. If surge is active, then jiffgo will send an email to your email id registered with UBER.
+This email will have a url, which a user can visit to confirm surge pricing. Once surge pricing is confirmed then jiffgo will add the same request again in the queue and it will be processed in a couple of minutes.
+We are working on a way to send notifications either on the UBER app or a SMS on your phone. This will make this feature more prompt and useful.<br/><br/>
+If you DO NOT confirm surge pricing then NOTHING will be done with the request and it will stay in Failed state and you can see it in the history page.</td>
 
 							</tr>
 							
