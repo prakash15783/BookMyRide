@@ -61,10 +61,10 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 			((UberRidesAsyncService)uberRidesService).requestRide(rideRequestParameters,  new RideCallback(rideRequest,rideReqLog));
 		}else if(uberRidesService instanceof UberRidesSyncService){
 			Response<Ride> rideResponse = ((UberRidesSyncService)uberRidesService).requestRide(rideRequestParameters);
-			//TODO: Use rideResponse for mailing logging.
+			
 			RideCallback rideCallback = new RideCallback(rideRequest,rideReqLog);
 			Ride ride = rideResponse.getBody();
-			//System.out.println("Ride ID: " + ride.getRideId());
+			
 			rideCallback.success(ride, rideResponse);
 		}
 	}

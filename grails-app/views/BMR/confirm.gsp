@@ -90,10 +90,11 @@
 										<input type="hidden" name="drop_address" id="drop_address" value="${params['drop_address']}"/>
 										
 										<input type="hidden" name="vehicle-select" id="vehicle-select" value="${params['vehicle-select']}">
+										<input type="hidden" name="payment-select" id="payment-select" value="${params['payment-select']}">
 										<input type="hidden" name="datetime" id="datetime" value="${params['datetime']}">
 										<br/>
 										<div id="vehicle"></div>
-										
+										<div id="payment_method"></div>
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
@@ -150,15 +151,27 @@
 				var product_id = $('#vehicle-select').val();
 					//Ajax call to send data to the server,
 					$.get("https://www.jiffgo.com/product",
-					//$.get("http//localhost/product",
+					//$.get("http://localhost/product",
 									{
 										product_id : product_id
 									},
 									function(data) {
 										document.getElementById("vehicle").innerHTML = data;
 									});
+					populatePaymentMethods();
 				
 				}
+	function populatePaymentMethods(){
+		var payment_id = $('#payment-select').val();
+		$.get("https://www.jiffgo.com/paymentMethod",
+	//	$.get("http://localhost/paymentMethod",
+					{
+						payment_id : payment_id
+					},
+					function(data) {
+						document.getElementById("payment_method").innerHTML = data;
+					});
+	}
 
 				populateVehicleDetail();
 

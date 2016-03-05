@@ -100,14 +100,14 @@
 											
 											<td>
 												
-												<g:formatDate format="dd-MM-yyyy HH:mm" date="${request.getCreatedTimestamp()}" timeZone="${TimeZone.getTimeZone("IST")}"/>	
+												<g:formatDate format="dd-MM-yyyy HH:mm:ss" date="${request.getCreatedTimestamp()}" timeZone="${TimeZone.getTimeZone("IST")}"/>	
 											
 											
 											</td>
 											
 											<td>
 											
-												<g:formatDate format="dd-MM-yyyy HH:mm" date="${request.getUpdatedTimestamp()}" timeZone="${TimeZone.getTimeZone("IST")}"/>	
+												<g:formatDate format="dd-MM-yyyy HH:mm:ss" date="${request.getUpdatedTimestamp()}" timeZone="${TimeZone.getTimeZone("IST")}"/>	
 											
 											</td>
 			
