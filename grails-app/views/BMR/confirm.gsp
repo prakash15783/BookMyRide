@@ -66,14 +66,14 @@
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
 												<div>
-													<b>Pickup Address:</b> ${params['pickup_address']} <br/>
+													<b>Pickup Address:</b> ${params['pickup_address']} <br/> <br/>
 													<b>Pickup Map:</b> <div id="pickup_map" style="width: 99%; height: 300px;"></div>
 												</div>
 											</div>
 											
 											<div class="6u 12u(mobilep)">
 												<div>
-													<b>Dropoff Address:</b> ${params['drop_address']} <br/>
+													<b>Dropoff Address:</b> ${params['drop_address']} <br/> <br/>
 													<b>Dropoff Map:</b> <div id="drop_map" style="width: 99%; height: 300px;"></div>
 												</div>
 											</div>

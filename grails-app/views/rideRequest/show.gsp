@@ -64,15 +64,15 @@
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
 												<div>
-													Pickup Address: ${rideRequestInstance.getStartAddress()} <br/>	
-													Pickup Map: <div id="pickup_map" style="width: 99%; height: 300px;"></div>
+													<b>Pickup Address:</b> ${rideRequestInstance.getStartAddress()} <br/> <br/>	
+													<b>Pickup Map:</b><div id="pickup_map" style="width: 99%; height: 300px;"></div>
 												</div>
 											</div>
 											
 											<div class="6u 12u(mobilep)">
 												<div>
-													Dropoff Address: ${rideRequestInstance.getEndAddress()} <br/>
-													Dropoff Map: <div id="drop_map" style="width: 99%; height: 300px;"></div>
+													<b>Dropoff Address:</b> ${rideRequestInstance.getEndAddress()} <br/> <br/>
+													<b>Dropoff Map:</b> <div id="drop_map" style="width: 99%; height: 300px;"></div>
 												</div>
 											</div>
 										</div>
