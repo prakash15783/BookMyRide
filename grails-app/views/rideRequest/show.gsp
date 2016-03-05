@@ -89,6 +89,7 @@
 										<input type="hidden" name="drop_address" id="drop_address" value="${rideRequestInstance.getEndAddress()}"/>
 										
 										<input type="hidden" name="vehicle-select" id="vehicle-select" value="${rideRequestInstance.getProductId()}">
+										<input type="hidden" name="payment-select" id="payment-select" value="${rideRequestInstance.getPaymentMethodId()}">
 										<input type="hidden" name="datetime" id="datetime" value="${rideRequestInstance.getRequestDate()}">
 										<br/>
 										
@@ -158,7 +159,6 @@
 
 			
 	function populateVehicleDetail(){
-		
 				var product_id = $('#vehicle-select').val();
 					//Ajax call to send data to the server,
 					$.get("https://www.jiffgo.com/product",
@@ -168,8 +168,23 @@
 									function(data) {
 										document.getElementById("vehicle").innerHTML = data;
 									});
+
+					populatePaymentMethods();
 				
 				}
+
+	
+	function populatePaymentMethods(){
+		var payment_id = $('#payment-select').val();
+		$.get("https://www.jiffgo.com/paymentMethod",
+	//	$.get("http://localhost/paymentMethod",
+					{
+						payment_id : payment_id
+					},
+					function(data) {
+						document.getElementById("payment_method").innerHTML = data;
+					});
+	}
 
 	populateVehicleDetail();
 
