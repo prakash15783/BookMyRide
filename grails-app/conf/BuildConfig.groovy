@@ -42,7 +42,7 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
 
         // runtime 'mysql:mysql-connector-java:5.1.20'
-		runtime 'com.uber.sdk:rides:0.1.0'
+		runtime 'com.uber.sdk:rides:0.2.0'
 		runtime 'com.google.oauth-client:google-oauth-client-servlet:1.21.0'
 		runtime 'com.google.http-client:google-http-client:1.21.0'
 		runtime 'com.google.guava:guava:18.0'

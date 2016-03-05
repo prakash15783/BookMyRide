@@ -1,27 +1,25 @@
 package bookmyride
 
-import com.google.api.client.auth.oauth2.Credential;
-import com.uber.sdk.rides.auth.OAuth2Credentials;
-import com.uber.sdk.rides.client.Session;
-import com.uber.sdk.rides.client.UberRidesServices;
-import com.uber.sdk.rides.client.UberRidesSyncService;
-import com.uber.sdk.rides.client.model.Product
-import com.uber.sdk.rides.client.model.ProductsResponse
-import com.uber.sdk.rides.client.model.UserProfile;
-
-import java.io.IOException;
-import java.sql.Timestamp;
+import java.sql.Timestamp
 import java.text.SimpleDateFormat
-import java.util.Random;
 
 import javax.net.ssl.HttpsURLConnection
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession
 
-import org.apache.commons.id.uuid.*;
+import org.apache.commons.id.uuid.*
+
+import com.google.api.client.auth.oauth2.Credential
+import com.uber.sdk.rides.auth.OAuth2Credentials
+import com.uber.sdk.rides.client.Response
+import com.uber.sdk.rides.client.Session
+import com.uber.sdk.rides.client.UberRidesServices
+import com.uber.sdk.rides.client.UberRidesSyncService
+import com.uber.sdk.rides.client.UberRidesServices.LogLevel
+import com.uber.sdk.rides.client.model.PaymentMethod
+import com.uber.sdk.rides.client.model.PaymentMethodsResponse
+import com.uber.sdk.rides.client.model.Product
+import com.uber.sdk.rides.client.model.ProductsResponse
+import com.uber.sdk.rides.client.model.UserProfile
 
 class BMRController {
 
@@ -264,7 +262,8 @@ class BMRController {
 		String endAddress = params['drop_address'];
 
 		String productId = params['vehicle-select'];
-
+		String paymentMethodId = params['payment-select'];
+		
 		SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		isoFormat.setTimeZone(TimeZone.getTimeZone("IST"));
 		Date requestDate = isoFormat.parse(params['datetime']);
@@ -285,6 +284,7 @@ class BMRController {
 		rideRequest.setRequestId(requestId);
 		rideRequest.setCreatedTimestamp(new Timestamp(System.currentTimeMillis()));
 		rideRequest.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+		rideRequest.setPaymentMethodId(paymentMethodId);
 		
 		rideRequest.save();
 
@@ -437,17 +437,19 @@ class BMRController {
 						.build();
 
 				// Set up the Uber API Service once the user is authenticated.
-				uberRidesService = UberRidesServices.createSync(session);
-			}
-			return uberRidesService;
+//				uberRidesService = UberRidesServices.createSync(session);
+//				uberRidesService =	(UberRidesSyncService)new UberRidesServices.Builder().setLogLevel(LogLevel.FULL).setSession(session).build();
+				uberRidesService =	(UberRidesSyncService)new UberRidesServices.Builder().setSession(session).build();
 
-		} else {
+				return uberRidesService;
+
+			} else {
+				return null;
+			}
+
 			return null;
 		}
-
-		return null;
 	}
-	
 	
 	private boolean validateCaptcha(String captcha) throws Exception {
 
@@ -484,7 +486,44 @@ class BMRController {
 		
 		return false;
 	}
+
+	def getPaymentMethods()
+	{
+		uberRidesService = getActiveUberLoginSession();
+
+		PaymentMethodsResponse paymentMethodResponse = uberRidesService.getPaymentMethods().getBody();
+		List<PaymentMethod> paymentMethods = paymentMethodResponse.getPaymentMethods();
+
+		String payment_method_table = "";
+		for(PaymentMethod p in paymentMethods)
+		{
+			payment_method_table = payment_method_table + "<div class='3u 12u(medium)'><input type='radio' id='"+p.getPaymentMethodId()+"' name='payment-select' value='"+p.getPaymentMethodId()+"'>"+
+			"<label for='"+p.getPaymentMethodId()+"'>"+ p.getType() + "</label></div>";
+		}
+									
+		payment_method_table = "Payment Method for you : <br/>" + payment_method_table
+
+		render payment_method_table;
+	}
 	
+	def getPaymentMethod()
+	{
+		String payment_id = params['payment_id'];
+		uberRidesService = getActiveUberLoginSession();
+
+		PaymentMethodsResponse paymentMethodResponse = uberRidesService.getPaymentMethods().getBody();
+		List<PaymentMethod> paymentMethods = paymentMethodResponse.getPaymentMethods();
+
+		String payment_method_table = "<b>Selected Payment Method :</b> ";
+		for(PaymentMethod p in paymentMethods)
+		{
+			if(p.getPaymentMethodId().equalsIgnoreCase(payment_id)){
+				payment_method_table = payment_method_table + p.getType();
+				break;
+			}
+		}
+		render payment_method_table;
+	}
 
 
 }

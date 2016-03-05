@@ -2,6 +2,9 @@ package bookmyride.scheduler.uber.mock;
 
 import com.uber.sdk.rides.client.Callback;
 import com.uber.sdk.rides.client.UberRidesAsyncService;
+import com.uber.sdk.rides.client.model.PaymentMethodsResponse;
+import com.uber.sdk.rides.client.model.Place;
+import com.uber.sdk.rides.client.model.Place.Places;
 import com.uber.sdk.rides.client.model.PriceEstimatesResponse;
 import com.uber.sdk.rides.client.model.Product;
 import com.uber.sdk.rides.client.model.ProductsResponse;
@@ -10,6 +13,7 @@ import com.uber.sdk.rides.client.model.Ride;
 import com.uber.sdk.rides.client.model.RideEstimate;
 import com.uber.sdk.rides.client.model.RideMap;
 import com.uber.sdk.rides.client.model.RideRequestParameters;
+import com.uber.sdk.rides.client.model.RideUpdateParameters;
 import com.uber.sdk.rides.client.model.SandboxProductRequestParameters;
 import com.uber.sdk.rides.client.model.SandboxRideRequestParameters;
 import com.uber.sdk.rides.client.model.TimeEstimatesResponse;
@@ -117,6 +121,59 @@ class MockService implements UberRidesAsyncService{
 		@Override
 		public void updateSandboxRide(String paramString,
 				SandboxRideRequestParameters paramSandboxRideRequestParameters,
+				Callback<Void> paramCallback) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void cancelCurrentRide(Callback<Void> paramCallback) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void getCurrentRide(Callback<Ride> paramCallback) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void getPaymentMethods(
+				Callback<PaymentMethodsResponse> paramCallback) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void getPlace(String paramString, Callback<Place> paramCallback) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void getPlace(Places paramPlaces, Callback<Place> paramCallback) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void setPlace(String paramString1, String paramString2,
+				Callback<Place> paramCallback) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void setPlace(Places paramPlaces, String paramString,
+				Callback<Place> paramCallback) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void updateRide(String paramString,
+				RideUpdateParameters paramRideUpdateParameters,
 				Callback<Void> paramCallback) {
 			// TODO Auto-generated method stub
 			

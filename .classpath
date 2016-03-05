@@ -13,8 +13,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="GROOVY_DSL_SUPPORT"/>
 	<classpathentry kind="lib" path="lib/google-oauth-client-1.21.0.jar"/>
-	<classpathentry kind="lib" path="lib/rides-0.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/google-http-client-1.21.0.jar"/>
+	<classpathentry kind="lib" path="lib/rides-0.2.0.jar"/>
 	<classpathentry exported="true" kind="con" path="GROOVY_SUPPORT"/>
 	<classpathentry kind="lib" path="lib/commons-id-0.4.jar"/>
 	<classpathentry kind="lib" path="lib/velocity-1.5.jar"/>

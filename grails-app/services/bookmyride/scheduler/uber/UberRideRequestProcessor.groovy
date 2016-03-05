@@ -87,10 +87,10 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 			((UberRidesAsyncService)uberRidesService).requestRide(rideRequestParameters,  new RideCallback(rideRequest,rideReqLog));
 		}else if(uberRidesService instanceof UberRidesSyncService){
 			Response<Ride> rideResponse = ((UberRidesSyncService)uberRidesService).requestRide(rideRequestParameters);
-			//TODO: Use rideResponse for mailing logging.
+			
 			RideCallback rideCallback = new RideCallback(rideRequest,rideReqLog);
 			Ride ride = rideResponse.getBody();
-			//System.out.println("Ride ID: " + ride.getRideId());
+			
 			rideCallback.success(ride, rideResponse);
 		}
 	}
@@ -113,9 +113,10 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 	private RideRequestParameters getRideRequestParameters(RideRequest rideRequest) {
 		return new RideRequestParameters.Builder()
 							.setProductId(rideRequest.getProductId())
-							.setStartLocation(new Location(rideRequest.getStartLatitude(), rideRequest.getStartLongitude()))
-							.setEndLocation(new Location(rideRequest.getEndLatitude(), rideRequest.getEndLongitude()))
-							.setSurgeConfirmationId(rideRequest.getSurgeConfirmationId()).build();
+							.setPickupCoordinates(rideRequest.getStartLatitude(), rideRequest.getStartLongitude())
+							.setDropoffCoordinates(rideRequest.getEndLatitude(), rideRequest.getEndLongitude())
+							.setSurgeConfirmationId(rideRequest.getSurgeConfirmationId())
+							.setPaymentMethodId(rideRequest.getPaymentMethodId()).build();
 		
 	}
 	

@@ -105,7 +105,10 @@
 							</div>
 							<br />
 							<div id="vehicles"></div>
-
+						
+							<div  class="row uniform 50%" id="payment_methods">
+							</div>
+						
 
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep)">
@@ -154,6 +157,7 @@
 
 			findCurrentLocationOnMap();
 			
+			
 			$('#drop_map').locationpicker({
 				location: {latitude: 13.2044921, longitude: 77.70769070000006},	
 				radius: 30,
@@ -181,7 +185,7 @@
 				
 					//Ajax call to send data to the server,
 					$.get("https://www.jiffgo.com/products",
-						//$.get("http://localhost/products",
+					//$.get("http://localhost/products",
 									{
 										pickup_latitude : pickup_latitude,
 										pickup_longitude : pickup_longitude,
@@ -190,22 +194,29 @@
 									function(data) {
 										document.getElementById("vehicles").innerHTML = data;
 									});
+						populatePaymentMethods();
 				
 				}
+			function populatePaymentMethods(){
+				$.get("https://www.jiffgo.com/paymentMethods",
+				//$.get("http://localhost/paymentMethods",
+							function(data) {
+								document.getElementById("payment_methods").innerHTML = data;
+							});
+			}
 
 			$(document).ready(function(){
 			    $('#requestForm').on('submit', function(e){
 			        e.preventDefault();
 			        
 				    var vehicle_select = $("[name='vehicle-select']");
-				    var num = $( "input:checked" ).length;
+				    var num = $( 'input[name = "vehicle-select"]:checked' ).length;
 					    if(vehicle_select.length == 0 || num == 0)
 				        {
 					        alert("Please tell us the vehicle you want to use for your ride.");
 					        return;
 				        }
-
-					    
+    
 					var datetime = $('#datetime').val();
 			        	if(datetime == '')
 				        {
@@ -213,6 +224,13 @@
 					        return;
 				        } 
 
+		        	 var payment_select = $("[name='payment-select']");
+					    var num = $( 'input[name = "payment-select"]:checked' ).length;
+						    if(payment_select.length == 0 || num == 0)
+					        {
+						        alert("Please tell us the payment method you want to use for your ride.");
+						        return;
+					        }
 				        this.submit();
 			    });
 			});

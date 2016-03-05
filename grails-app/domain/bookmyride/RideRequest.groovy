@@ -38,6 +38,8 @@ class RideRequest {
 	Timestamp createdTimestamp;
 	Timestamp updatedTimestamp;
 	
+	String paymentMethodId;
+	
 	static constraints = {
 		id()
 		requester(nullable: false)
@@ -55,6 +57,7 @@ class RideRequest {
 		uberRequestId(nullable:true) 
 		createdTimestamp(nullable:true)
 		updatedTimestamp(nullable:true) 
+		paymentMethodId(nullable:true)
 	}
 
 	// A RideRequest belongs to a User
@@ -63,7 +66,7 @@ class RideRequest {
 	static mapping = {
 		requester lazy: false
 	}
-
+	
 	@Override
 	public String toString() {
 		return "RideRequest [requestId=" + requestId + ", requester="
