@@ -96,6 +96,7 @@
 										
 										
 										<div id="vehicle"></div>
+										<div id="payment_method"></div>
 										
 										
 										<div class="row uniform 50%">
