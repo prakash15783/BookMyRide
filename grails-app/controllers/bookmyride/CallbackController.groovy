@@ -89,7 +89,7 @@ class CallbackController {
 				//Get RideRequest and update the status
 				RideRequest rideRequest = RideRequest.findByUberRequestId(meta.getResourceId());
 				if(rideRequest != null){
-					rideRequest.setRequestStatus(RequestStatus.valueOf(meta.getStatus()));
+					rideRequest.setRequestStatus(RequestStatus.getRequestStatus(meta.getStatus()));
 					rideRequest.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
 					rideRequest.save();
 					

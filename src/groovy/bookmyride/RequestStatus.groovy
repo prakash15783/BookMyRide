@@ -20,6 +20,40 @@ enum RequestStatus {
 	RequestStatus(String name) { this.name = name }
 	
 	RequestStatus getRequestStatus(String req){
+		if(req.equals("scheduled")){
+			return RequestScheduled;
+		}
+		if(req.equals("cancelled")){
+			return RequestUserCancelled;
+		}
+		if(req.equals("failed")){
+			return RequestFailed;
+		}
+		if(req.equals("processing")){
+			return RequestProcessing;
+		}
+		if(req.equals("no_drivers_available")){
+			return RequestNoDriver;
+		}
+		if(req.equals("accepted")){
+			return RequestAccepted;
+		}
+		if(req.equals("in_progress")){
+			return RequestInProgress;
+		}
+		if(req.equals("driver_canceled")){
+			return RequestDriverCanceled;
+		}
+		if(req.equals("rider_canceled")){
+			return RequestRiderCanceled;
+		}
+		if(req.equals("completed")){
+			return RequestCompleted;
+		}
+		if(req.equals("arriving")){
+			return RequestArriving;
+		}
+		
 		
 	}
 
