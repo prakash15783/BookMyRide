@@ -33,5 +33,6 @@ class UrlMappings {
 		"/admin/messages"(controller:"Admin", action:"messages")
 		"/admin/users"(controller:"Admin", action:"users")
 		"/webhook"(controller:"Callback", action:"webhook")
+		"/surgecallback"(controller:"Callback", action:"surgecallback")
 	}
 }

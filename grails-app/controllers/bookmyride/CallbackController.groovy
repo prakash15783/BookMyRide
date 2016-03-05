@@ -131,6 +131,37 @@ class CallbackController {
 		}
 
 	}
+	
+	
+	def surgecallback(){
+		
+		// if control comes here..it means that user has accepted the surge confirmation and proceed with the ride request
+		String surge_confirmation_id = params?.surge_confirmation_id;
+		
+		System.out.println("############################################");
+		System.out.println(" Surge Confirmation Id = "+ surge_confirmation_id);
+		System.out.println("############################################");
+		
+		// We saved earlier request in db using the confirmation id found in error message.
+		// Find the earlier request and set surge_confirmation_id in it.
+		// Schedule the request for 2 minutes from now.
+		RideRequest rideRequest = RideRequest.findBySurgeConfirmationId(surge_confirmation_id);
+		
+		/*
+		 * Find the current time and add two minutes to it
+		 */
+		Calendar date = Calendar.getInstance();
+		long current= date.getTimeInMillis();
+		Date afterAddingTwoMins=new Date(current + (2 * 60000));
+		
+		rideRequest.setRequestDate(afterAddingTwoMins);
+		rideRequest.setRequestStatus(RequestStatus.RequestScheduled);
+		rideRequest.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+		
+		rideRequest.save();
+		// Now the request is scheduled for booking.
+		
+	}
 
 	/**
 	 * @param secretKey

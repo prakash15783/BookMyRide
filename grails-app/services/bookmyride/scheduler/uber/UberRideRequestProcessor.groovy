@@ -21,6 +21,8 @@ import com.uber.sdk.rides.client.UberRidesService
 import com.uber.sdk.rides.client.UberRidesSyncService
 import com.uber.sdk.rides.client.error.ApiException
 import com.uber.sdk.rides.client.error.NetworkException
+import com.uber.sdk.rides.client.error.SurgeError
+import com.uber.sdk.rides.client.error.UberError
 import com.uber.sdk.rides.client.model.Location
 import com.uber.sdk.rides.client.model.Ride
 import com.uber.sdk.rides.client.model.RideRequestParameters
@@ -36,19 +38,45 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 			try {
 				//create log object
 				RideRequestLog rideReqLog = createRequestLog(rideRequest);
-				//System.out.println("Processing Request : " +rideRequest.getProductId());
-
+				
 				//User uber sdk to process ride
 				UberRidesService uberRidesService = getUberSyncService(rideRequest.getRequester());//getUberRidesService(rideRequest.getRequester(),"sync");
 				RideRequestParameters rideRequestParameters = getRideRequestParameters(rideRequest);
 				if(rideRequestParameters != null){
 					requestRide(uberRidesService,rideRequestParameters,rideRequest,rideReqLog)
 				}
-			} catch (Throwable e) {
+			} catch (ApiException ae) {
+			//check the error
+			SurgeError surgeError = null;
+			List<UberError> errors = ae.getErrors();
+				for(UberError error in errors){
+					if(error instanceof SurgeError){
+						surgeError = error;
+					}
+				}
+				
+				if(surgeError != null)
+				{
+					//We have surge pricing in place
+					//Need to invoke surge flow 
+					/*
+					 * Send an email to the user with surge details. Let the user accept the surge
+					 * Once user accepts, the request will come to the callback controller's surgecallback action.
+					 * There we will get the surge_confirmation_id from the query parameter.
+					 * 
+					 * 
+					 */
+					rideRequest.setSurgeConfirmationId(surgeError.getSurgeConfirmationId());
+					rideRequest.save();
+					
 			
-				System.out.println("Something went wrong: "+e.detailMessage);
-				e.printStackTrace()
-			}  		
+				}  
+			}
+			catch (Exception e) {
+				System.out.println("Something went wrong !!");
+				e.printStackTrace(); 
+			}
+					
     	}
         return true;
     }
@@ -122,15 +150,6 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 			//save returned id in RideRequest
 			//Send mail about the ride status
 			mailQueue.enqueueMailMessage(new RideResponse(rideRequest,ride));
-			//println"*************************************";
-			//println "1-------++++++++++++------------"+rideRequest.getStartAddress() + rideRequest.getRequestStatus();
-			//print "<<<Uber Request Id "+ride.getRideId()+">>>"
-			
-			/*System.out.println("RideRequest [requestId=" + rideRequest.getRequestId() + ", requester="
-				+ rideRequest.getRequester() + ", startLatitude=" + rideRequest.getStartLatitude()
-				+ ", startLongitude=" + rideRequest.getStartLongitude() + ", startAddress="
-				);
-				*/
 			
 			RideRequest.withTransaction { tx ->
 				rideRequest.setUberRequestId(ride.getRideId())
@@ -147,7 +166,6 @@ public class UberRideRequestProcessor extends AbstractRideRequestProcessor {
 				rideReqLog.setEndTime(new Timestamp(System.currentTimeMillis()));
 				rideReqLog.save(failOnError:true,flush:true);
 			}
-			//println "3-------++++++++++++------------"+rideRequest.getStartAddress() + rideRequest.getRequestStatus();
 			if(BookMyRideConstants.reprocessedFailedRequest){
 				rideRequest.removeBackOffRequestHandler();
 			}	
