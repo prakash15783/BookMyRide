@@ -1,0 +1,42 @@
+
+<html>
+<head>
+<style>
+	table {
+	    border-collapse: collapse;
+	    width: 100%;
+	}
+	
+	th, td {
+	    text-align: left;
+	    padding: 8px;
+	}
+	
+	th {
+	    background-color: #4CAF50;
+	    color: white;
+	}
+	</style>
+</head>
+	<body>
+		<p>Hi ${rideRequest.requester.firstName}, </p>
+		<p>
+			Currently surge pricing is active for the pickup address ${rideRequest.startAddress}
+		</p>
+		
+		<p>
+			Please visit https://api.uber.com/v1/surge-confirmations/${rideRequest.surgeConfirmationId} to confirm surge pricing.
+		<p>
+		<br/>
+		Happy Riding!!!
+		<br/>
+		<br/>
+		<p>
+			Thanks & Regards, <br/><br/>
+			jiffGo Team
+			<br/>
+			<a href="https://www.jiffgo.com">jiffGo</a>
+		</p>
+	</body>
+ 
+</html>
