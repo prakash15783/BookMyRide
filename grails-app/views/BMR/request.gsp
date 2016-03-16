@@ -182,6 +182,39 @@
 				var pickup_latitude = $('#pickup_latitude').val();
 				var pickup_longitude = $('#pickup_longitude').val();
 				var pickup_address = $('#pickup_address').val();
+
+				var drop_address = $('#drop_address').val();
+
+			    if(pickup_address.trim() == "")
+			    {
+			        alert("Pickup address can not be empty.");
+			        $('#pickup_address').focus()
+			        return;    
+			    }
+			    if(drop_address.trim() == "")
+			    {
+			        alert("Drop address can not be empty.");
+			        $('#drop_address').focus();
+			        return;    
+			    }
+			    if(pickup_address == drop_address)
+				    {
+				        alert("Pickup address and Dropoff address can not be same.");
+				        return;    
+				    }
+
+			    var pickup_address_entities = pickup_address.split(",");
+				var drop_address_entities = drop_address.split(",");
+			    var pickup_city = pickup_address_entities[pickup_address_entities.length - 3];
+			    var drop_city = drop_address_entities[drop_address_entities.length - 3];
+
+			    if(pickup_city != drop_city)
+				    {
+				    alert("Pickup and Drop cities are not same.");
+				    return;
+				    }
+
+				
 				
 					//Ajax call to send data to the server,
 					$.get("https://www.jiffgo.com/products",
@@ -224,38 +257,7 @@
 					        return;
 				        }
 
-					var pickup_address = $('#pickup_address').val();
-				    var drop_address = $('#drop_address').val();
-
-				    if(pickup_address.trim() == "")
-				    {
-				        alert("Pickup address can not be empty.");
-				        $('#pickup_address').focus()
-				        return;    
-				    }
-				    if(drop_address.trim() == "")
-				    {
-				        alert("Drop address can not be empty.");
-				        $('#drop_address').focus();
-				        return;    
-				    }
-				    if(pickup_address == drop_address)
-					    {
-					        alert("Pickup address and Dropoff address can not be same.");
-					        return;    
-					    }
-
-				    var pickup_address_entities = pickup_address.split(",");
-					var drop_address_entities = drop_address.split(",");
-				    var pickup_city = pickup_address_entities[pickup_address_entities.length - 3];
-				    var drop_city = drop_address_entities[drop_address_entities.length - 3];
-
-				    if(pickup_city != drop_city)
-					    {
-					    alert("Pickup and Drop cities are not same.");
-					    return;
-					    }
-
+					
 		        	 var payment_select = $("[name='payment-select']");
 					    var num = $( 'input[name = "payment-select"]:checked' ).length;
 						    if(payment_select.length == 0 || num == 0)
