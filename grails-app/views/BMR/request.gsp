@@ -106,7 +106,7 @@
 							<br />
 							<div id="vehicles"></div>
 						
-							<div  class="row uniform 50%" id="payment_methods">
+							<div id="payment_methods">
 							</div>
 						
 
@@ -222,7 +222,39 @@
 				        {
 					        alert("Please tell us the pickup date and time.");
 					        return;
-				        } 
+				        }
+
+					var pickup_address = $('#pickup_address').val();
+				    var drop_address = $('#drop_address').val();
+
+				    if(pickup_address.trim() == "")
+				    {
+				        alert("Pickup address can not be empty.");
+				        $('#pickup_address').focus()
+				        return;    
+				    }
+				    if(drop_address.trim() == "")
+				    {
+				        alert("Drop address can not be empty.");
+				        $('#drop_address').focus();
+				        return;    
+				    }
+				    if(pickup_address == drop_address)
+					    {
+					        alert("Pickup address and Dropoff address can not be same.");
+					        return;    
+					    }
+
+				    var pickup_address_entities = pickup_address.split(",");
+					var drop_address_entities = drop_address.split(",");
+				    var pickup_city = pickup_address_entities[pickup_address_entities.length - 3];
+				    var drop_city = drop_address_entities[drop_address_entities.length - 3];
+
+				    if(pickup_city != drop_city)
+					    {
+					    alert("Pickup and Drop cities are not same.");
+					    return;
+					    }
 
 		        	 var payment_select = $("[name='payment-select']");
 					    var num = $( 'input[name = "payment-select"]:checked' ).length;
