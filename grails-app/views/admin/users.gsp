@@ -61,6 +61,12 @@
 									<br/>
 									<br/>
 									<h2>Users</h2>
+									<br/>
+									Total Number of Users = ${users.size()}
+									<br/>
+									Total Number of Rides = ${totalRides}
+									<br/>
+									<br/>
 									<div style="overflow-x:scroll">									
 									<div class="table-wrapper">
 									<table class="alt"><th>UUID</th><th>Name</th> <th>Email</th> <th>Photo</th> <th>Rides</th>  
@@ -91,12 +97,6 @@
 									</g:each>
 									</table>
 									</div>
-									
-									<br/>
-									<br/>
-									Total Number of Users = ${users.size()}
-									<br/>
-									Total Number of Rides = ${totalRides}
 									</div>
 								</section>
 						</div> 
