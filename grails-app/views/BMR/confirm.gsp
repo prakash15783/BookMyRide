@@ -96,6 +96,7 @@
 										<br/>
 										<div id="vehicle"></div>
 										<div id="payment_method"></div>
+										<div id="timezone_id"></div>
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
@@ -198,6 +199,7 @@
 											var result = jQuery.parseJSON( data );
 											var timeZoneId = result["timeZoneId"];
 											$('#timezone').val(timeZoneId);
+											document.getElementById("timezone_id").innerHTML = "<b>Time Zone: </b>" + timeZoneId;
 										});
 					
 					}
