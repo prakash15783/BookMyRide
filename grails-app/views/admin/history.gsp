@@ -82,7 +82,7 @@
 									<div style="overflow-x:scroll">
 									<div class="table-wrapper">
 									<table class="alt"><th>RequestId</th><th>UberRequestId</th> <th>CreatedTimestamp</th> <th>UpdatedTimestamp</th> 
-									<th>RequestedDateTime</th> <th>Status</th>
+									<th>RequestedDateTime</th> <th>Time Zone</th> <th>Status</th>
 									<th>Requester</th>
 									<g:each in="${requests}" var="request">
 										<tr>
@@ -100,20 +100,49 @@
 											
 											<td>
 												
-												<g:formatDate format="dd-MM-yyyy HH:mm:ss" date="${request.getCreatedTimestamp()}" timeZone="${TimeZone.getTimeZone("IST")}"/>	
-											
+													
+											<g:if test="${request.getTimeZoneId()!=null}">
+													<g:formatDate format="dd-MM-yyyy HH:mm:ss" date="${request.getCreatedTimestamp()}" timeZone="${TimeZone.getTimeZone(request.getTimeZoneId())}"/>	
+												</g:if>
+												<g:else>
+														<g:formatDate format="dd-MM-yyyy HH:mm:ss" date="${request.getCreatedTimestamp()}" timeZone="${TimeZone.getTimeZone('IST')}"/>
+												</g:else>
 											
 											</td>
 											
 											<td>
 											
-												<g:formatDate format="dd-MM-yyyy HH:mm:ss" date="${request.getUpdatedTimestamp()}" timeZone="${TimeZone.getTimeZone("IST")}"/>	
+											<g:if test="${request.getTimeZoneId()!=null}">
+													<g:formatDate format="dd-MM-yyyy HH:mm:ss" date="${request.getUpdatedTimestamp()}" timeZone="${TimeZone.getTimeZone(request.getTimeZoneId())}"/>	
+												</g:if>
+												<g:else>
+														<g:formatDate format="dd-MM-yyyy HH:mm:ss" date="${request.getUpdatedTimestamp()}" timeZone="${TimeZone.getTimeZone('IST')}"/>
+												</g:else>
+											
+													
 											
 											</td>
 			
 											<td>
-												<g:formatDate format="dd-MM-yyyy HH:mm" date="${request.getRequestDate()}" timeZone="${TimeZone.getTimeZone("IST")}"/>	
+											<g:if test="${request.getTimeZoneId()!=null}">
+													<g:formatDate format="dd-MM-yyyy HH:mm" date="${request.getRequestDate()}" timeZone="${TimeZone.getTimeZone(request.getTimeZoneId())}"/>	
+												</g:if>
+												<g:else>
+														<g:formatDate format="dd-MM-yyyy HH:mm" date="${request.getRequestDate()}" timeZone="${TimeZone.getTimeZone('IST')}"/>
+												</g:else>
+													
 											</td>
+											
+											<td>
+												
+												<g:if test="${request.getTimeZoneId()!=null}">
+													${request.getTimeZoneId()}	
+												</g:if>
+												<g:else>
+												    IST
+												</g:else> 
+											
+												</td>
 											
 											<td>
 												

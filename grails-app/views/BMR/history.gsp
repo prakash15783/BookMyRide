@@ -64,7 +64,7 @@
 									<div style="overflow-x:scroll">
 									
 										<table >
-										<th>Detail</th> <th>Pickup Address</th> <th>Dropoff Address</th> <th>DateTime</th> <th>Status</th>
+										<th>Detail</th> <th>Pickup Address</th> <th>Dropoff Address</th> <th>DateTime</th> <th>Time Zone</th> <th>Status</th>
 										<g:each in="${requests}" var="request">
 											<tr>
 											<td>
@@ -85,7 +85,24 @@
 												</td>
 				
 												<td>
-													<g:formatDate format="yyyy/MM/dd HH:mm" date="${request.getRequestDate()}" timeZone="${TimeZone.getTimeZone("IST")}"/>	
+												<g:if test="${request.getTimeZoneId()!=null}">
+													<g:formatDate format="yyyy/MM/dd HH:mm" date="${request.getRequestDate()}" timeZone="${TimeZone.getTimeZone(request.getTimeZoneId())}"/>	
+												</g:if>
+												<g:else>
+														<g:formatDate format="yyyy/MM/dd HH:mm" date="${request.getRequestDate()}" timeZone="${TimeZone.getTimeZone("IST")}"/>
+												</g:else>
+												
+												</td>
+												
+												<td>
+												
+												<g:if test="${request.getTimeZoneId()!=null}">
+													${request.getTimeZoneId()}	
+												</g:if>
+												<g:else>
+												    IST
+												</g:else> 
+											
 												</td>
 												
 												<td>

@@ -86,7 +86,7 @@ To get started, simply login using your Uber account.</td>
 							</tr>
 							<tr>
 
-								<td>Currently, jiffgo is only available in INDIA during the preview release.</td>
+								<td>jiffgo is available in all the places where Uber provides services.</td>
 
 							</tr>
 							
@@ -110,7 +110,7 @@ To get started, simply login using your Uber account.</td>
 							</tr>
 							<tr>
 
-								<td>Request time is the date and time when the ride will be requested. This is not the time when the ride will pickup you up (although for high-demand areas this might be true). The timezone of the date is Indian Standard Time (IST).</td>
+								<td>Request time is the date and time when the ride will be requested. This is not the time when the ride will pickup you up (although for high-demand areas this might be true). The timezone of the date is calculated based on the pickup location.</td>
 
 							</tr>
 							

@@ -58,7 +58,7 @@
 								<section class="box">
 									<br/>
 									<br/>
-									<h2>RideRequest Details</h2>
+									<h2>Ride Request Details</h2>
 									<form id="cancelRide" method="post" action="/cancelrequest">
 										
 										<div class="row uniform 50%">
@@ -101,7 +101,27 @@
 										
 										<div class="row uniform 50%">
 											<div class="6u 12u(mobilep)">
-												Request Time: ${rideRequestInstance.getRequestDate()}
+											Request Time:
+											<g:if test="${rideRequestInstance.getTimeZoneId()!=null}">
+													<g:formatDate format="yyyy/MM/dd HH:mm" date="${rideRequestInstance.getRequestDate()}" timeZone="${TimeZone.getTimeZone(rideRequestInstance.getTimeZoneId())}"/>	
+												</g:if>
+												<g:else>
+														<g:formatDate format="yyyy/MM/dd HH:mm" date="${rideRequestInstance.getRequestDate()}" timeZone="${TimeZone.getTimeZone("IST")}"/>
+												</g:else>
+												 
+											</div>
+										</div>
+										
+										<div class="row uniform 50%">
+											<div class="6u 12u(mobilep)">
+										    Time Zone:
+											<g:if test="${rideRequestInstance.getTimeZoneId()!=null}">
+													${rideRequestInstance.getTimeZoneId()}	
+												</g:if>
+												<g:else>
+												    IST
+												</g:else>
+												 
 											</div>
 										</div>
 										

@@ -39,6 +39,7 @@ class RideRequest implements Mailable{
 	Timestamp updatedTimestamp;
 	
 	String paymentMethodId;
+	String timeZoneId;
 	
 	static constraints = {
 		id()
@@ -58,6 +59,7 @@ class RideRequest implements Mailable{
 		createdTimestamp(nullable:true)
 		updatedTimestamp(nullable:true) 
 		paymentMethodId(nullable:true)
+		timeZoneId(nullable:true)
 	}
 
 	// A RideRequest belongs to a User
@@ -77,7 +79,9 @@ class RideRequest implements Mailable{
 				+ endAddress + ", surgeConfirmationId=" + surgeConfirmationId
 				+ ", productId=" + productId + ", requestDate=" + requestDate
 				+ ", requestStatus=" + requestStatus + ", uberRequestId="
-				+ uberRequestId + "]";
+				+ uberRequestId + ", createdTimestamp="+ createdTimestamp 
+				+ ", updatedTimestamp="+ updatedTimestamp + ", paymentMethodId="
+				+ paymentMethodId + ", timeZoneId="+ timeZoneId + "]";
 	}
 	
 	public void reprocessRideRequest(){
@@ -107,4 +111,5 @@ class RideRequest implements Mailable{
 	public String getStatus(){
 		return requestStatus.getName();
 	}
+	
 }

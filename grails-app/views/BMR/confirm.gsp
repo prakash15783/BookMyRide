@@ -92,6 +92,7 @@
 										<input type="hidden" name="vehicle-select" id="vehicle-select" value="${params['vehicle-select']}">
 										<input type="hidden" name="payment-select" id="payment-select" value="${params['payment-select']}">
 										<input type="hidden" name="datetime" id="datetime" value="${params['datetime']}">
+										<input type="hidden" name="timezone" id="timezone">
 										<br/>
 										<div id="vehicle"></div>
 										<div id="payment_method"></div>
@@ -158,6 +159,7 @@
 									function(data) {
 										document.getElementById("vehicle").innerHTML = data;
 									});
+					getTimeZoneAtPickupLocation();
 					populatePaymentMethods();
 				
 				}
@@ -174,6 +176,32 @@
 	}
 
 				populateVehicleDetail();
+
+
+				function getTimeZoneAtPickupLocation(){
+					var pickup_latitude = $('#pickup_latitude').val();
+					var pickup_longitude = $('#pickup_longitude').val();
+					var datetime = $('#datetime').val();
+				    
+
+
+						//Ajax call to send data to the server,
+						$.get("https://www.jiffgo.com/timezone",
+						//$.get("http://localhost/products",
+										{
+											pickup_latitude : pickup_latitude,
+											pickup_longitude : pickup_longitude,
+											datetime : datetime
+										},
+										function(data) {
+											
+											var result = jQuery.parseJSON( data );
+											var timeZoneId = result["timeZoneId"];
+											$('#timezone').val(timeZoneId);
+										});
+					
+					}
+	
 
 			
 </script>

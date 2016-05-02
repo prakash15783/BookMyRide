@@ -213,10 +213,10 @@ class BMRController {
 		String startAddress = params['pickup_address'];
 		String endAddress = params['drop_address'];
 		
-		if((!startAddress.endsWith("India")) || (!endAddress.endsWith("India")))
-		{
-			redirect(action: "notice");
-		}
+//		if((!startAddress.endsWith("India")) || (!endAddress.endsWith("India")))
+//		{
+//			redirect(action: "notice");
+//		}
 		String captcha = params['g-recaptcha-response'];
 		
 		if(captcha?.empty)
@@ -264,9 +264,15 @@ class BMRController {
 		String productId = params['vehicle-select'];
 		String paymentMethodId = params['payment-select'];
 		
+		String timeZoneId = params['timezone'];
+		
 		SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-		isoFormat.setTimeZone(TimeZone.getTimeZone("IST"));
+		isoFormat.setTimeZone(TimeZone.getTimeZone(timeZoneId));
 		Date requestDate = isoFormat.parse(params['datetime']);
+		String formattedDate = isoFormat.format(requestDate);
+		System.out.println(formattedDate);
+		requestDate = isoFormat.parse(formattedDate);
+		System.out.println("requestDate ="+ requestDate);
 
 
 		RideRequest rideRequest = new RideRequest();
@@ -285,6 +291,8 @@ class BMRController {
 		rideRequest.setCreatedTimestamp(new Timestamp(System.currentTimeMillis()));
 		rideRequest.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
 		rideRequest.setPaymentMethodId(paymentMethodId);
+		rideRequest.setTimeZoneId(timeZoneId);
+		
 		
 		rideRequest.save();
 
@@ -522,6 +530,47 @@ class BMRController {
 			}
 		}
 		render payment_method_table;
+	}
+	
+	def getTimeZoneIdForPickupLocation(){
+		
+		// Get the pickup location
+		String latitude = params['pickup_latitude'];
+		String longitude = params['pickup_longitude'];
+		
+		String location = latitude+","+longitude;
+		
+		// Get the timestamp of the pickup Date and time
+		SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		Date requestDate = isoFormat.parse(params['datetime']);
+		long output=requestDate.getTime()/1000L;
+		String timestamp=Long.toString(output);
+		
+		// Url for accessing the google timezone api
+		String url = "https://maps.googleapis.com/maps/api/timezone/json?location="+location+"&timestamp="+timestamp+"&key=AIzaSyA1YzA0JUgVsHyX2VP6mM3-7HoYwcymVvQ";
+		
+		URL obj = new URL(url);
+		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+
+		// optional default is GET
+		con.setRequestMethod("GET");
+
+		//add request header
+		con.setRequestProperty("User-Agent", "Mozilla/5.0");
+
+		int responseCode = con.getResponseCode();
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		StringBuffer res = new StringBuffer();
+
+		while ((inputLine = br.readLine()) != null) {
+			res.append(inputLine);
+		}
+		br.close();
+		
+		render res.toString();
+		
 	}
 
 

@@ -28,6 +28,7 @@ class UrlMappings {
 		"/contactus"(controller:"BMR", action:"contactus")
 		"/submitcontactus"(controller:"BMR", action:"submitcontactus")
 		"/thankyou"(controller:"BMR",action:"thankyou")
+		"/timezone"(controller:"BMR",action:"getTimeZoneIdForPickupLocation")
 		
 		"/admin/history"(controller:"Admin", action:"history")
 		"/admin/rideRequestLog"(controller:"Admin", action:"rideRequestLog")
