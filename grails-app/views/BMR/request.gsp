@@ -208,11 +208,11 @@
 			    var pickup_city = pickup_address_entities[pickup_address_entities.length - 3];
 			    var drop_city = drop_address_entities[drop_address_entities.length - 3];
 
-			    if(pickup_city != drop_city)
-				    {
-				    alert("Pickup and Drop cities are not same.");
-				    return;
-				    }
+			    //if(pickup_city != drop_city)
+				//    {
+				//    alert("Pickup and Drop cities are not same.");
+				//    return;
+				//    }
 
 				
 				
