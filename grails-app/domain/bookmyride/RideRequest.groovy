@@ -1,6 +1,7 @@
 package bookmyride
 
 import java.sql.Timestamp
+import java.text.SimpleDateFormat
 
 import org.codehaus.groovy.grails.orm.hibernate.cfg.IdentityEnumType
 
@@ -106,6 +107,14 @@ class RideRequest implements Mailable{
 		else{
 			return false;
 		}
+	}
+	
+	public String getRequestDateWithTimeZone(){
+		SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		isoFormat.setTimeZone(TimeZone.getTimeZone(timeZoneId));
+		String formattedDate = isoFormat.format(requestDate);
+		formattedDate = formattedDate + " " + timeZoneId;
+		return formattedDate;
 	}
 	
 	public String getStatus(){

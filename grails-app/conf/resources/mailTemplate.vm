@@ -36,7 +36,7 @@
 			<table style="border: 1px solid black;width: 80%;">
 				<tr ><td style="background-color: #f2f2f2;">Pick up</td><td>${rideRequest.startAddress}</td></tr>
 				<tr ><td style="background-color: #f2f2f2;">Drop Off</td><td>${rideRequest.endAddress}</td></tr>
-				<tr ><td style="background-color: #f2f2f2;">Travel Date</td><td>${rideRequest.requestDate}</td></tr>
+				<tr ><td style="background-color: #f2f2f2;">Travel Date</td><td>${rideRequest.getRequestDateWithTimeZone()}</td></tr>
 			</table>
 		<p>
 		#if(${rideResponse})
